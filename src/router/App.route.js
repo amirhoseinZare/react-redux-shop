@@ -8,6 +8,7 @@ import
         PaymentSuccessPage,
         ProductDetailPage,
         ProductsListPage,
+        ProductsGroupPage,
         NotFoundPage,
         PanelLoginPage,
         PanelOrdersPage,
@@ -27,6 +28,7 @@ function AppRouter(){
             <Route exact path="/checkout" component={CheckoutPage}/>
             <Route exact path="/payment/failed" component={PaymentFailedPage}/>
             <Route exact path="/payment/success" component={PaymentSuccessPage}/>
+            <Route exact path="/product/group/:groupId" component={ProductsGroupPage}/>
             <Route
                 path="/panel"
                 render={({ match: { url } }) => (
