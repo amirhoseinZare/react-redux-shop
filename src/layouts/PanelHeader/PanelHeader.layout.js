@@ -1,4 +1,4 @@
-function Header(){
+function PanelHeader(){
     return (
         <header>
             <h1>پنل مدیریت فروشگاه</h1>
@@ -13,5 +13,5 @@ function Header(){
 }
 
 export {
-    Header
+    PanelHeader
 }

@@ -27,9 +27,6 @@ function AppRouter(){
             <Route exact path="/checkout" component={CheckoutPage}/>
             <Route exact path="/payment/failed" component={PaymentFailedPage}/>
             <Route exact path="/payment/success" component={PaymentSuccessPage}/>
-
-            PanelLoginPage
-
             <Route
                 path="/panel"
                 render={({ match: { url } }) => (
