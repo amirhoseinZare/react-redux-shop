@@ -23,6 +23,12 @@ const useStyles = makeStyles((theme) => ({
       display: 'block',
     },
   },
+  name: {
+    display: 'none',
+    [theme.breakpoints.up('xs')]: {
+      display: 'block',
+    },
+  },
   sectionDesktop: {
     display: 'none',
     [theme.breakpoints.up('md')]: {
@@ -44,10 +50,6 @@ export default function Header() {
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
-  const handleProfileMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
 
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
@@ -87,14 +89,13 @@ export default function Header() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-
         <MenuItem  >
-        <IconButton aria-label="show 4 new mails" color="inherit">
-            <Badge badgeContent={4} color="secondary">
-                <MailIcon />
-            </Badge>
-            </IconButton>
-            <p>سبد خرید</p>
+          <IconButton aria-label="show 4 new mails" color="inherit">
+              <Badge badgeContent={4} color="secondary">
+                  <MailIcon />
+              </Badge>
+              </IconButton>
+              <p>سبد خرید</p>
         </MenuItem>
         <MenuItem>
             <IconButton aria-label="show 4 new mails" color="inherit">
@@ -124,7 +125,7 @@ export default function Header() {
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <MenuItem>
-                <Typography className={classes.title} variant="h6" noWrap>
+                <Typography className={classes.name} variant="h6" >
                     فروشگاه فلان
                 </Typography>
             </MenuItem>
@@ -135,6 +136,11 @@ export default function Header() {
             </MenuItem>
           </div>
           <div className={classes.sectionMobile}>
+            <MenuItem>
+                  <Typography className={classes.name} variant="h6" >
+                      فروشگاه فلان
+                  </Typography>
+            </MenuItem>
             <IconButton
               aria-label="show more"
               aria-controls={mobileMenuId}
