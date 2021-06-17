@@ -1,3 +1,38 @@
 .panel-header {
-    background-color: red;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: space-between;
+    background-color:rgb(216, 216, 216);
+    
+    .header-logo {
+        display: flex;
+        align-items: center;
+        padding-right:20px;
+        .logo {
+            margin-left:20px;
+            width: 32px;
+        }
+    } //TODO: writing mixin for display flex and align-items center direct-row
+
+    .header-navigation {
+        width: 50%;
+        justify-content:space-between;
+        display: flex;
+        align-items: center;
+
+        ul {
+            display: flex;
+            align-items: center;
+
+            li {
+                margin-left:20px;
+            }
+        }
+
+        & > div {
+            margin-left:20px;
+        }
+
+    }
 }
