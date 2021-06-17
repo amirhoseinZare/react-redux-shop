@@ -1,0 +1,20 @@
+{
+  "products": [
+    {
+      "name": "asus laptop",
+      "brand": "asus",
+      "image": "/files/3d545729eb7cdb3f85407805ec160740",
+      "price": "1000",
+      "createdAt": 1622901942857,
+      "id": 1
+    },
+    {
+      "name": "apple laptop",
+      "brand": "apple",
+      "image": "/files/65ddd8b1bbce4d8396b62611147fa1d6",
+      "price": "2000",
+      "createdAt": 1622901942857,
+      "id": 2
+    }
+  ]
+}
