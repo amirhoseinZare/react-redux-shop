@@ -2,7 +2,7 @@ import {Header} from "../../../layouts/index"
 
 function ProductDetailPage(){
     return (
-        <div>Product detail page</div>
+        <div><Header/>Product detail page</div>
     )
 }
 

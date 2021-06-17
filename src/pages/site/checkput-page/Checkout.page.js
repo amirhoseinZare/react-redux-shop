@@ -2,7 +2,7 @@ import {Header} from "../../../layouts/index"
 
 function CheckoutPage (){
     return (
-        <div>Checkout page</div>
+        <div><Header/>Checkout page</div>
     )
 }
 

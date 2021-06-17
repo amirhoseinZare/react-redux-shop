@@ -2,7 +2,7 @@ import {Header} from "../../../layouts/index"
 
 function PaymentFailedPage(){
     return (
-        <div>payment failed page</div>
+        <div><Header/>payment failed page</div>
     )
 }
 

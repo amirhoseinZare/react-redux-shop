@@ -1,5 +1,6 @@
 import styles from "./PanelHeader.module.scss"
-import {ReactComponent as Logo} from "../../assets/icons/logo.svg"
+import {ReactComponent as Logo} from "../../assets/icons/shop-logo.svg"
+import {Link} from "react-router-dom"
 
 function PanelHeader(){
     return (
@@ -9,7 +10,7 @@ function PanelHeader(){
                 <div>{<Logo className={styles['logo']}/>}</div>
             </div>
             <nav className={styles['header-navigation']}>
-                <div><a href="#">بازگشت به سایت</a></div>   
+                <div><Link to="/">بازگشت به سایت</Link></div>   
                 <ul>
                     <li>کالا ها</li>
                     <li>موجودی</li>

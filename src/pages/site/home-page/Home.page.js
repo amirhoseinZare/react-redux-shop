@@ -1,6 +1,6 @@
 import {Header} from "../../../layouts/index"
 function HomePage(){
-    return (<Header/>)
+    return (<div><Header/>homepage</div>)
 }
 
 export {

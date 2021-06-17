@@ -2,7 +2,7 @@ import {PanelHeader} from "../../../layouts/index"
 
 function PanelQuantityPage (){
     return (
-        <div>panel quantity page</div>
+        <div><PanelHeader/>panel quantity page</div>
     )
 }
 

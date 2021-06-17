@@ -2,7 +2,7 @@ import {PanelHeader} from "../../../layouts/index"
 
 function PanelOrdersPage (){
     return (
-        <div>panel orders page</div>
+        <div><PanelHeader/>panel orders page</div>
     )
 }
 
