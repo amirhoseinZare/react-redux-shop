@@ -1,6 +1,8 @@
+import styles from "./PanelHeader.module.scss"
+
 function PanelHeader(){
     return (
-        <header>
+        <header className={styles['panel-header']}>
             <h1>پنل مدیریت فروشگاه</h1>
             <ul>
                 <li>کالا ها</li>
