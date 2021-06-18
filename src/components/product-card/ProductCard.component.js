@@ -1,4 +1,5 @@
 import { Paper, Grid, makeStyles, Card, CardMedia, CardContent, Typography  } from "@material-ui/core"
+import img from "../../assets/images/live-from-space.jpg"
 
 const useStyles = makeStyles((theme) => ({
     card: {
@@ -36,15 +37,15 @@ function ProductCard(){
             <Card className={classes.card}>
                 <CardContent className={classes.content}>
                     <Typography variant="h4" component="h2">
-                        سوسیس
+                        پنیر
                     </Typography>
                     <Typography className={classes.subtitle} variant="subtitle2" component="p">
-                        سوسیس بسیار خوشمزه برای تمام سلیقه ها
+                    پنیر بسیار خوشمزه برای تمام سلیقه ها
                     </Typography>
                 </CardContent>
                 <CardMedia 
                     className={classes.cover}
-                    image="https://material-ui.com/static/images/cards/live-from-space.jpg"
+                    image={img}
                     title="Live from space album cover"/>
             </Card>
         </Grid>

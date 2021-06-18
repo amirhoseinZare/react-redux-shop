@@ -1,14 +1,9 @@
-import React from 'react';
-import { fade, makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import Badge from '@material-ui/core/Badge';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
+import { useState } from 'react';
+import { makeStyles, AppBar, Toolbar, IconButton, Typography ,MenuItem, Menu } from '@material-ui/core';
 import MailIcon from '@material-ui/icons/Mail';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import { ReactComponent as ShopLogo } from "../../assets/icons/shop-logo.svg"
+import { Link } from "react-router-dom"
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -20,7 +15,9 @@ const useStyles = makeStyles((theme) => ({
   title: {
     display: 'none',
     [theme.breakpoints.up('sm')]: {
-      display: 'block',
+      display: 'flex',
+      alignItems:'center',
+      justifyContent:'space-between'
     },
   },
   name: {
@@ -31,22 +28,33 @@ const useStyles = makeStyles((theme) => ({
   },
   sectionDesktop: {
     display: 'none',
-    [theme.breakpoints.up('md')]: {
+    [theme.breakpoints.up('sm')]: {
       display: 'flex',
+      alignItems: 'center',
     },
   },
   sectionMobile: {
     display: 'flex',
-    [theme.breakpoints.up('md')]: {
+    alignItems: 'center',
+    width: '100%',
+    justifyContent: 'space-between',
+    [theme.breakpoints.up('sm')]: {
       display: 'none',
     },
   },
+  shopLogo:{
+    width:40,
+    fill:'#fff'
+  },
+  icon:{
+    marginLeft:'10px',
+  }
 }));
 
 export default function Header() {
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -89,21 +97,21 @@ export default function Header() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-        <MenuItem  >
-          <IconButton aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                  <MailIcon />
-              </Badge>
-              </IconButton>
+        <MenuItem >
+          <Link to="/cart">
+            <IconButton aria-label="show 4 new mails" >
+              <MailIcon />
+            </IconButton>
               <p>سبد خرید</p>
+          </Link>
         </MenuItem>
-        <MenuItem>
-            <IconButton aria-label="show 4 new mails" color="inherit">
-            <Badge badgeContent={4} color="secondary">
-                <MailIcon />
-            </Badge>
+        <MenuItem >
+          <Link to="/cart">
+            <IconButton aria-label="show 4 new mails">
+              <MailIcon />
             </IconButton>
             <p>مدیریت</p>
+          </Link>
         </MenuItem>
     </Menu>
   );
@@ -112,15 +120,21 @@ export default function Header() {
     <div className={classes.grow}>
       <AppBar position="static">
         <Toolbar>
-            <MenuItem>
-                <Typography className={classes.title} variant="p" noWrap>
-                    سبد خرید<MailIcon/>
+            <MenuItem className={classes.title} >
+              <Link to="/cart">
+                <Typography variant="p" noWrap>
+                سبد خرید  
                 </Typography>
+                <MailIcon className={classes.icon}/>
+              </Link>
             </MenuItem>
-            <MenuItem>
-                <Typography className={classes.title} variant="p" noWrap>
+            <MenuItem  className={classes.title}>
+              <Link to="/cart">
+                <Typography variant="p" noWrap>
                     مدیریت
                 </Typography>
+                <MailIcon className={classes.icon}/>
+              </Link>
             </MenuItem>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
@@ -131,16 +145,11 @@ export default function Header() {
             </MenuItem>
             <MenuItem>
                 <Typography className={classes.title} variant="h6" noWrap>
-                    <MailIcon/>
+                    <ShopLogo className={classes.shopLogo}/>
                 </Typography>
             </MenuItem>
           </div>
           <div className={classes.sectionMobile}>
-            <MenuItem>
-                  <Typography className={classes.name} variant="h6" >
-                      فروشگاه فلان
-                  </Typography>
-            </MenuItem>
             <IconButton
               aria-label="show more"
               aria-controls={mobileMenuId}
@@ -150,6 +159,14 @@ export default function Header() {
             >
               <MoreIcon />
             </IconButton>
+              <MenuItem>
+                  <Typography className={classes.name} style={{marginRight:'30px'}} variant="h6" >
+                      فروشگاه فلان
+                  </Typography>
+                  <Typography className={classes.name} variant="h6" noWrap>
+                      <ShopLogo className={classes.shopLogo}/>
+                  </Typography>
+              </MenuItem>
           </div>
         </Toolbar>
       </AppBar>
