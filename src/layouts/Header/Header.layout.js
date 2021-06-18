@@ -3,7 +3,7 @@ import { makeStyles, AppBar, Toolbar, IconButton, Typography ,MenuItem, Menu } f
 import MailIcon from '@material-ui/icons/Mail';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import { ReactComponent as ShopLogo } from "../../assets/icons/shop-logo.svg"
-import { Link } from "react-router-dom"
+import { Link, withRouter } from "react-router-dom"
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function Header() {
+export default function HeaderLayout(props) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
@@ -97,21 +97,21 @@ export default function Header() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-        <MenuItem >
-          <Link to="/cart">
+        <MenuItem onClick={()=>props.history.push('/cart')}>
             <IconButton aria-label="show 4 new mails" >
               <MailIcon />
             </IconButton>
-              <p>سبد خرید</p>
-          </Link>
+            <Link to="/panel/login">
+              سبد خرید
+            </Link>
         </MenuItem>
-        <MenuItem >
-          <Link to="/cart">
+        <MenuItem onClick={()=>props.history.push('/panel/login')}>
             <IconButton aria-label="show 4 new mails">
               <MailIcon />
             </IconButton>
-            <p>مدیریت</p>
-          </Link>
+            <Link to="/panel/login">
+              مدیریت
+            </Link>
         </MenuItem>
     </Menu>
   );
@@ -120,32 +120,36 @@ export default function Header() {
     <div className={classes.grow}>
       <AppBar position="static">
         <Toolbar>
-            <MenuItem className={classes.title} >
-              <Link to="/cart">
-                <Typography variant="p" noWrap>
-                سبد خرید  
+            <MenuItem className={classes.title} onClick={()=>props.history.push('/cart')}>
+            <Typography variant="p" noWrap>
+                  <Link to="/cart">
+                    سبد خرید
+                  </Link>
                 </Typography>
                 <MailIcon className={classes.icon}/>
-              </Link>
             </MenuItem>
-            <MenuItem  className={classes.title}>
-              <Link to="/cart">
+            <MenuItem className={classes.title} onClick={()=>props.history.push('/panel/login')}>
                 <Typography variant="p" noWrap>
+                  <Link to="/panel/login">
                     مدیریت
+                  </Link>
                 </Typography>
                 <MailIcon className={classes.icon}/>
-              </Link>
             </MenuItem>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <MenuItem>
-                <Typography className={classes.name} variant="h6" >
+                <Typography className={classes.name} variant="h6" onClick={()=>props.history.push('/')}>
+                  <Link to="/">
                     فروشگاه فلان
+                  </Link>
                 </Typography>
             </MenuItem>
             <MenuItem>
-                <Typography className={classes.title} variant="h6" noWrap>
+                <Typography className={classes.title} variant="h6" noWrap onClick={()=>props.history.push('/')}>
+                  <Link to="/">
                     <ShopLogo className={classes.shopLogo}/>
+                  </Link>
                 </Typography>
             </MenuItem>
           </div>
@@ -160,11 +164,15 @@ export default function Header() {
               <MoreIcon />
             </IconButton>
               <MenuItem>
-                  <Typography className={classes.name} style={{marginRight:'30px'}} variant="h6" >
+                  <Typography className={classes.name} style={{marginRight:'30px'}} variant="h6" onClick={()=>props.history.push('/')}>
+                    <Link to="/">
                       فروشگاه فلان
+                    </Link>
                   </Typography>
-                  <Typography className={classes.name} variant="h6" noWrap>
+                  <Typography className={classes.name} variant="h6" noWrap onClick={()=>props.history.push('/')}>
+                    <Link to="/">
                       <ShopLogo className={classes.shopLogo}/>
+                    </Link>
                   </Typography>
               </MenuItem>
           </div>
@@ -176,4 +184,6 @@ export default function Header() {
   );
 }
 
+
+const Header = withRouter(HeaderLayout)
 export {Header}
