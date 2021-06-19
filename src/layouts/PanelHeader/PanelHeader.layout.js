@@ -106,6 +106,14 @@ export default function HeaderLayout(props) {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
+        <MenuItem onClick={()=>props.history.push('/')}>
+            <IconButton aria-label="show 4 new mails">
+              <MailIcon />
+            </IconButton>
+            <Link to="/">
+              بازگشت به سایت
+            </Link>
+        </MenuItem>
         <MenuItem onClick={()=>props.history.push('/panel/login')}>
             <IconButton aria-label="show 4 new mails">
               <MailIcon />
@@ -145,15 +153,24 @@ export default function HeaderLayout(props) {
     <div className={classes.grow}>
       <AppBar position="static">
         <Toolbar className={classes.container}>
-            <MenuItem className={classes.title} onClick={()=>props.history.push('/panel/login')}>
-                <Typography variant="p" noWrap>
-                    <Link to="/panel/login">
-                    مدیریت
-                    </Link>
-                </Typography>
-                <MailIcon className={classes.icon}/>
+          <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', width: '30%'}}>
+            <MenuItem onClick={()=>props.history.push('/')}>
+              <Link to="/">
+                بازگشت به سایت
+              </Link>
+              <MailIcon />
             </MenuItem>
-            <MenuItem className={classes.title}>
+            <MenuItem className={classes.title} onClick={()=>props.history.push('/panel/login')}>
+              <Typography variant="p" noWrap>
+                  <Link to="/panel/login">
+                  مدیریت
+                  </Link>
+              </Typography>
+              <MailIcon className={classes.icon}/>
+            </MenuItem>
+          </div>
+
+            <MenuItem className={classes.title} style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', width: '40%'}}>
                 <BottomNavigation
                     value={anchorEl}
                     onChange={(event, newValue) => {
@@ -167,7 +184,7 @@ export default function HeaderLayout(props) {
                     <BottomNavigationAction onClick={()=>props.history.push('/panel/products')} label="کالا ها" icon={<Link to="/panel/products"><LocationOnIcon /></Link>} />
                 </BottomNavigation>
             </MenuItem>
-            <div className={classes.sectionDesktop}>
+            <div className={classes.sectionDesktop} style={{display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', width: '30%'}}>
                 <MenuItem>
                     <Typography className={classes.name} variant="h6" onClick={()=>props.history.push('/')}>
                         <Link to="/">
