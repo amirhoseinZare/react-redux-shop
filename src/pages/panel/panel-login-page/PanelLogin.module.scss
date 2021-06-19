@@ -1,0 +1,37 @@
+.loginFormContainer {
+    margin: 200px auto !important;
+    text-align: center !important;
+    height: 400px;
+    align-items: center !important;
+    border: 1px solid rgb(148, 148, 148);
+    border-radius: 13px;
+    -webkit-border-radius: 13px;
+    -moz-border-radius: 13px;
+    -ms-border-radius: 13px;
+    -o-border-radius: 13px;
+    
+    .loginFormHeader{
+        margin: 30px 0;
+    }
+
+    .loginInput {
+        height:80px;
+        margin:20px 10px;
+
+        .loginLabel {
+            width: 195px;
+            margin:0 auto 10px;
+            text-align: right;
+        }
+
+    }
+
+    .login‌Button {
+        margin: 20px 0 10px;
+    }
+
+    .backHome {
+        text-align: left;
+        margin-left: 10px;
+    }
+}
