@@ -9,6 +9,24 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 
 const useStyles = makeStyles((theme) => ({
+  header:{
+    backgroundColor:'var(--dark-blue)'
+  },
+  headerLinks:{
+    color:'var(--light-face)',
+    textDecoration:'none'
+  },
+  icon:{
+    fill:'var(--light-face)',
+    marginLeft:'10px',
+  },
+  headerNavigations:{
+    backgroundColor:'var(--dark-blue)',
+    width:500,
+  },
+  headerNavigationItem:{
+    color:'var(--light-face)',
+  },
   menuButton: {
     marginRight: theme.spacing(2),
   },
@@ -46,9 +64,6 @@ const useStyles = makeStyles((theme) => ({
     width:40,
     fill:'#fff'
   },
-  icon:{
-    marginLeft:'10px',
-  },
   root:{
       width:500,
   },
@@ -57,7 +72,8 @@ const useStyles = makeStyles((theme) => ({
       justifyContent:'space-between',
       width: '100%',
       padding:0
-  }
+  },
+
 }));
 
 export default function HeaderLayout(props) {
@@ -143,34 +159,35 @@ export default function HeaderLayout(props) {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="static">
+      <AppBar position="static" className={classes.header}>
         <Toolbar className={classes.container}>
             <MenuItem className={classes.title} onClick={()=>props.history.push('/panel/login')}>
                 <Typography variant="p" noWrap>
-                    <Link to="/panel/login">
+                    <Link to="/panel/login" className={classes.headerLinks}>
                     مدیریت
                     </Link>
                 </Typography>
                 <MailIcon className={classes.icon}/>
             </MenuItem>
-            <MenuItem className={classes.title}>
+            <MenuItem>
                 <BottomNavigation
+
                     value={anchorEl}
                     onChange={(event, newValue) => {
                         setAnchorEl(newValue);
                     }}
                     showLabels
-                    className={classes.root}
+                    className={classes.headerNavigations}
                     >
-                    <BottomNavigationAction onClick={()=>props.history.push('/panel/orders')} label="سفارش ها" icon={<Link to="/panel/orders"><RestoreIcon /></Link>} />
-                    <BottomNavigationAction onClick={()=>props.history.push('/panel/quantity')} label="موجودی و قیمت ها" icon={<Link to="/panel/quantity"><FavoriteIcon /></Link>} />
-                    <BottomNavigationAction onClick={()=>props.history.push('/panel/products')} label="کالا ها" icon={<Link to="/panel/products"><LocationOnIcon /></Link>} />
+                    <BottomNavigationAction className={classes.headerNavigationItem} onClick={()=>props.history.push('/panel/orders')} label="سفارش ها" icon={<Link to="/panel/orders"><RestoreIcon className={classes.headerNavigationItem}/></Link>} />
+                    <BottomNavigationAction className={classes.headerNavigationItem} onClick={()=>props.history.push('/panel/quantity')} label="موجودی و قیمت ها" icon={<Link to="/panel/quantity"><FavoriteIcon className={classes.headerNavigationItem}/></Link>} />
+                    <BottomNavigationAction className={classes.headerNavigationItem} onClick={()=>props.history.push('/panel/products')} label="کالا ها" icon={<Link to="/panel/products"><LocationOnIcon className={classes.headerNavigationItem}/></Link>} />
                 </BottomNavigation>
             </MenuItem>
             <div className={classes.sectionDesktop}>
                 <MenuItem>
                     <Typography className={classes.name} variant="h6" onClick={()=>props.history.push('/')}>
-                        <Link to="/">
+                        <Link to="/" className={classes.headerLinks}>
                             فروشگاه فلان
                         </Link>
                     </Typography>
@@ -188,7 +205,7 @@ export default function HeaderLayout(props) {
                 </IconButton>
               <MenuItem>
                   <Typography className={classes.name} style={{marginRight:'30px'}} variant="h6" onClick={()=>props.history.push('/')}>
-                    <Link to="/">
+                    <Link to="/" className={classes.headerLinks}>
                       فروشگاه فلان
                     </Link>
                   </Typography>
