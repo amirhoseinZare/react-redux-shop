@@ -1,8 +1,12 @@
 import {PanelHeader} from "../../../layouts/index"
+import {OrdersTable} from "./components/index"
 
 function PanelOrdersPage (){
     return (
-        <div><PanelHeader/>panel orders page</div>
+        <div>
+            <PanelHeader/>
+            <OrdersTable/>
+        </div>
     )
 }
 
