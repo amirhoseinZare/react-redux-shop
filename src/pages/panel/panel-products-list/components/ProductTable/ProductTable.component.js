@@ -1,6 +1,5 @@
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import { Grid, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@material-ui/core"
-import { DataGrid } from '@material-ui/data-grid';
 import styles from './ProducsTable.module.scss'
 
 const StyledTableCell = withStyles((theme) => ({
@@ -77,7 +76,7 @@ export default function ProductsTable() {
   const classes = useStyles();
     console.log(rows)
   return (
-    <Grid lg={10}  className={styles.productsContainer}>
+    <Grid lg={8} xl={10} md={8} sm={8} xs={11} className={styles.productsContainer}>
         <TableContainer component={Paper} className={styles.productsTable}>
         <Table className={classes.table} aria-label="customized table">
             <TableHead>
