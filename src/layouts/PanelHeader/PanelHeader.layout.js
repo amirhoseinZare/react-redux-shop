@@ -186,10 +186,8 @@ export default function HeaderLayout(props) {
                     <BottomNavigationAction className={classes.headerNavigationItem} onClick={()=>props.history.push('/panel/products')} label="کالا ها" icon={<Link to="/panel/products"><LocationOnIcon className={classes.headerNavigationItem}/></Link>} />
                 </BottomNavigation>
                 <MenuItem >
-                    <Typography className={classes.name} variant="h6" onClick={()=>props.history.push('/')}>
-                        <Link to="/" className={classes.headerLinks}>
-                            پنل فروشگاه 
-                        </Link>
+                    <Typography className={classes.name} variant="h6">
+                        پنل مدیریت فروشگاه 
                     </Typography>
                 </MenuItem>
 
@@ -205,10 +203,8 @@ export default function HeaderLayout(props) {
                 <MoreIcon />
                 </IconButton>
               <MenuItem>
-                  <Typography className={classes.name} style={{marginRight:'30px'}} variant="h6" onClick={()=>props.history.push('/')}>
-                    <Link to="/" className={classes.headerLinks}>
-                      پنل فروشگاه 
-                    </Link>
+                  <Typography className={classes.name} style={{marginRight:'30px'}} variant="h6">
+                      پنل مدیریت فروشگاه 
                   </Typography>
               </MenuItem>
             </div>
