@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Table,TableBody,TableCell,TableContainer,TableHead,TableRow,Paper} from '@material-ui/core';
 import { Link } from "react-router-dom"
 import axios from "axios"
-import Pagination from '@material-ui/lab/Pagination';
+import {Pagination, PaginationItem} from '@material-ui/lab';
 
 const useStyles = makeStyles({
     container:{
@@ -92,7 +92,21 @@ export default function ProductsTable() {
                 </TableBody>
             </Table>
         </TableContainer>
-        <Pagination hidePrevButton hideNextButton showFirstButton showLastButton count={pagesCountState} page={pageState.page} onChange={handleChange}
+        <Pagination 
+            hidePrevButton 
+            hideNextButton 
+            showFirstButton 
+            showLastButton 
+            count={pagesCountState} 
+            page={pageState.page} 
+            onChange={handleChange}
+            renderItem={(item) => (
+                <PaginationItem
+                  component={Link}
+                  to={`?page${item.page}`}
+                  {...item}
+                />
+            )}
         />
     </Grid>
     
