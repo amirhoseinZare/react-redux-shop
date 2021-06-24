@@ -1,8 +1,12 @@
 import {PanelHeader} from "../../../layouts/index"
+import {QuantityTable} from "../../../components/index"
 
 function PanelQuantityPage (){
     return (
-        <div><PanelHeader/>panel quantity page</div>
+        <div>
+            <PanelHeader/>
+            <QuantityTable/>
+        </div>
     )
 }
 
