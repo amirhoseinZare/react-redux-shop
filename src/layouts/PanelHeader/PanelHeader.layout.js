@@ -32,10 +32,11 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     display: 'none',
+    width:'40%',
     [theme.breakpoints.up('sm')]: {
       display: 'flex',
       alignItems:'center',
-      justifyContent:'space-between'
+      justifyContent:'flex-start'
     },
   },
   name: {
@@ -49,6 +50,8 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('sm')]: {
       display: 'flex',
       alignItems: 'center',
+      width:'80%',
+      justifyContent:'space-between'
     },
   },
   sectionMobile: {
@@ -169,9 +172,8 @@ export default function HeaderLayout(props) {
                 </Typography>
                 <MailIcon className={classes.icon}/>
             </MenuItem>
-            <MenuItem>
-                <BottomNavigation
-
+            <div className={classes.sectionDesktop}>
+                 <BottomNavigation
                     value={anchorEl}
                     onChange={(event, newValue) => {
                         setAnchorEl(newValue);
@@ -183,15 +185,14 @@ export default function HeaderLayout(props) {
                     <BottomNavigationAction className={classes.headerNavigationItem} onClick={()=>props.history.push('/panel/quantity')} label="موجودی و قیمت ها" icon={<Link to="/panel/quantity"><FavoriteIcon className={classes.headerNavigationItem}/></Link>} />
                     <BottomNavigationAction className={classes.headerNavigationItem} onClick={()=>props.history.push('/panel/products')} label="کالا ها" icon={<Link to="/panel/products"><LocationOnIcon className={classes.headerNavigationItem}/></Link>} />
                 </BottomNavigation>
-            </MenuItem>
-            <div className={classes.sectionDesktop}>
-                <MenuItem>
+                <MenuItem >
                     <Typography className={classes.name} variant="h6" onClick={()=>props.history.push('/')}>
                         <Link to="/" className={classes.headerLinks}>
-                            فروشگاه فلان
+                            پنل فروشگاه 
                         </Link>
                     </Typography>
                 </MenuItem>
+
             </div>
             <div className={classes.sectionMobile}>
                 <IconButton
@@ -206,7 +207,7 @@ export default function HeaderLayout(props) {
               <MenuItem>
                   <Typography className={classes.name} style={{marginRight:'30px'}} variant="h6" onClick={()=>props.history.push('/')}>
                     <Link to="/" className={classes.headerLinks}>
-                      فروشگاه فلان
+                      پنل فروشگاه 
                     </Link>
                   </Typography>
               </MenuItem>
