@@ -30,7 +30,7 @@ const useStyles = makeStyles({
 
 export default function OrdersTable() {
     const classes = useStyles();
-    const [productsState, setProductsState] = useState([])
+    const [ordersState, setOrdersState] = useState([])
     const [pageState, setPageState] = useState({perpage:5,page:1})
     const [pagesCountState, setPagesCount] = useState(null)
 
@@ -43,7 +43,7 @@ export default function OrdersTable() {
             const { page, perpage } = pageState
             const response = await axios.get('http://localhost:3001/orders', {params:{_page:page, _limit:5}})
 
-            await setProductsState(response.data)
+            await setOrdersState(response.data)
 
             const productsCount = response.headers['x-total-count']
             const pagesCount = Math.ceil( productsCount / perpage )
@@ -58,7 +58,7 @@ export default function OrdersTable() {
     useEffect( async ()=>{
         const { page } = pageState
         const response = await axios.get('http://localhost:3001/orders', {params:{_page:page, _limit:5}})
-        setProductsState(response.data)
+        setOrdersState(response.data)
     }, [pageState])
 
     return (
@@ -74,7 +74,7 @@ export default function OrdersTable() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {productsState.map((row, index) => {
+                    {ordersState.map((row, index) => {
                         const { id, username, cost, createdAt } = row
                         return (
                             <TableRow className={index%2===0? classes.tableRow1 : classes.tableRow2} key={id}>
