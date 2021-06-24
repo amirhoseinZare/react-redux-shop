@@ -12,7 +12,8 @@ const useStyles = makeStyles({
         alignItems: 'center'
     },
     radioContainer:{
-        
+        display: 'flex',
+        flexDirection:'row'
     }
 });
 
@@ -27,11 +28,14 @@ function PanelOrdersPage (){
         <div>
             <PanelHeader/>
             <Grid item lg={8} md={10} sm ={10} xs={10} className={classes.container}>
-                <FormControl component="fieldset">
-                    <RadioGroup aria-label="gender" name="gender1" value='' onChange={handleChange}>
-                        <FormControlLabel value="female" control={<Radio />} label="Female" />
-                        <FormControlLabel value="male" control={<Radio />} label="Male" />
-                    </RadioGroup>
+
+                <FormControl component="div">
+                    <form>
+                        <RadioGroup name="status" className={classes.radioContainer}>
+                            <FormControlLabel value="false" control={<Radio color="primary" name="status"/>} label="سفارش های در انتظار" />
+                            <FormControlLabel value="true" control={<Radio color="primary" name="status"/>} label="سفارش های تحویل شده" />
+                        </RadioGroup>
+                    </form>
                 </FormControl>
                 <Typography variant="h5" component="p">مدیریت سفارش ها</Typography>
             </Grid>
