@@ -40,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   name: {
+    color:'var(--light-face)',
     display: 'none',
     [theme.breakpoints.up('xs')]: {
       display: 'block',
