@@ -126,33 +126,41 @@ export default function HeaderLayout(props) {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-        <MenuItem onClick={()=>props.history.push('/panel/login')}>
-            <IconButton aria-label="show 4 new mails">
-              <MailIcon />
+        <MenuItem>
+            <IconButton aria-label="show 4 new mails" >
+              <Link to="/">
+                <MailIcon/>
+              </Link> 
             </IconButton>
-            <Link to="/panel/login">
-              مدیریت
+            <Link to="/">
+              بازگشت به سایت  
             </Link>
         </MenuItem>
-        <MenuItem onClick={()=>props.history.push('/panel/orders')}>
+        <MenuItem>
             <IconButton aria-label="show 4 new mails">
-              <RestoreIcon />
+              <Link to="/panel/orders">
+                <RestoreIcon />
+              </Link> 
             </IconButton>
             <Link to="/panel/orders">
                 سفارش ها    
             </Link>
         </MenuItem>
-        <MenuItem onClick={()=>props.history.push('/panel/quantity')}>
+        <MenuItem >
             <IconButton aria-label="show 4 new mails">
-              <FavoriteIcon />
+              <Link to="panel/quantity">
+                <FavoriteIcon />
+              </Link> 
             </IconButton>
             <Link to="/panel/quantity">
             موجودی و قیمت ها
             </Link>
         </MenuItem>
-        <MenuItem onClick={()=>props.history.push('/panel/products')}>
+        <MenuItem >
             <IconButton aria-label="show 4 new mails">
-              <LocationOnIcon />
+              <Link to="panel/quantity">
+                <LocationOnIcon />
+              </Link> 
             </IconButton>
             <Link to="/panel/products">
             کالا ها 
@@ -165,13 +173,12 @@ export default function HeaderLayout(props) {
     <div className={classes.grow}>
       <AppBar position="static" className={classes.header}>
         <Toolbar className={classes.container}>
-            <MenuItem className={classes.title} onClick={()=>props.history.push('/panel/login')}>
+            <MenuItem className={classes.title} onClick={()=>props.history.push('/')}>
                 <Typography variant="p" noWrap>
-                    <Link to="/panel/login" className={classes.headerLinks}>
-                    مدیریت
+                    <Link to="/" className={classes.headerLinks}>
+                    بازگشت به سایت
                     </Link>
                 </Typography>
-                <MailIcon className={classes.icon}/>
             </MenuItem>
             <div className={classes.sectionDesktop}>
                  <BottomNavigation
