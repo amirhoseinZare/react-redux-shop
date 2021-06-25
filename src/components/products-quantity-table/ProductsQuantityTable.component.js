@@ -4,6 +4,7 @@ import { Grid, Table,TableBody,TableCell,TableContainer,TableHead,TableRow,Paper
 import { Link } from "react-router-dom"
 import axios from "axios"
 import {Pagination, PaginationItem} from '@material-ui/lab';
+import {ProductInput} from "../../components/index"
 
 const useStyles = makeStyles({
     container:{
@@ -78,7 +79,7 @@ export default function QuantityTable() {
                             return (
                                 <TableRow className={index%2===0? classes.tableRow1 : classes.tableRow2} key={id}>
                                     <TableCell align="right">{quantity}</TableCell>
-                                    <TableCell align="right" component="th" scope="row">{price}</TableCell>
+                                    <TableCell align="right" component="th" scope="row"><ProductInput value={price}/></TableCell>
                                     <TableCell align="right">{name}</TableCell>
                                 </TableRow>
                             )
