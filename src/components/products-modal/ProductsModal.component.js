@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { IconButton ,Button, Modal, Typography, MenuItem, Select, FormControl, TextField, Input } from '@material-ui/core';
 import { Cancel } from '@material-ui/icons';
+import modules from "./ProductsModal.module.scss"
 
 function getModalStyle() {
   return {
@@ -26,12 +27,14 @@ const useStyles = makeStyles((theme) => ({
   modalHeader:{
     width: 400,
     display: 'flex',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    marginBottom: '20px'
   },
-  modalBody:{
+  productGroup:{
     width: 400,
     display: 'flex',
-    direction:'rtl'
+    direction:'rtl',
+    marginBottom: '20px'
   },
   modalCloseButton:{
       display: 'flex', 
@@ -47,11 +50,15 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexDirection:'column',
         justifyContent:'space-between',
-        direction:'rtl'
+        direction:'rtl',
+        marginBottom: '20px'
     },
     modalFooter:{
         width:400,
         textAlign:'center'
+    },
+    productInoutLabel:{
+        margin:'0 0 5px 0'
     }
 }));
 
@@ -80,18 +87,25 @@ export default function ProductModal(props) {
                 <Typography>افزودن / ویرایش کالا</Typography>
             </header>
             <form>
+                <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-end'}}>
+                    <span className={classes.productInoutLabel}>:تصویر کالا</span>
+                    <label className={modules.input_file_label}>
+                        <span className={modules.upload_button}>Browse</span>
+                        <input id='input' type="file" className={modules.input_file} accept='image/*' />
+                        <span className={modules.file_name} >file</span>
+                    </label>
+                </div>  
                 <div className={classes.productInputContainer}>
-                    <div>
-                        <label>نام کالا</label>
-                    </div>
-                    <TextField dir="rtl" placeholder="مثال : بیسکوییت" type="text"/>
+                    <label className={classes.productInoutLabel}>نام کالا:</label>
+                    <TextField dir="rtl" placeholder="مثال : بیسکوییت" type="text" variant="outlined"/>
                 </div>
                 
-                <FormControl className={`${classes.formControl}  ${classes.modalBody}`}>
-                    <label>دسته بندی</label>
+                <FormControl className={classes.productGroup}>
+                    <label  className={classes.productInoutLabel}>دسته بندی:</label>
                     <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
+                        variant="outlined"
                     >
                         <MenuItem value={10}>Ten</MenuItem>
                         <MenuItem value={20}>Twenty</MenuItem>
@@ -100,10 +114,8 @@ export default function ProductModal(props) {
                 </FormControl>
 
                 <div className={classes.productInputContainer}>
-                    <div>
-                        <label>توضیحات کالا</label>
-                    </div>
-                    <TextField dir="rtl" type="text"/>
+                    <label className={classes.productInoutLabel}>توضیحات کالا:</label>
+                    <TextField dir="rtl" type="text" variant="outlined"/>
                 </div>
 
                 <footer className={classes.modalFooter}>
