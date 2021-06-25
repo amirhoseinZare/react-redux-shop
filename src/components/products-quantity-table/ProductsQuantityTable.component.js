@@ -29,7 +29,7 @@ const useStyles = makeStyles({
     },
 });
 
-export default function QuantityTable() {
+export default function QuantityTable(props) {
     const classes = useStyles();
     const [productsState, setProductsState] = useState([])
     const [pageState, setPageState] = useState({perpage:5,page:1})
@@ -42,6 +42,7 @@ export default function QuantityTable() {
 
     useEffect( async ()=>{
         console.log(editModeProducts)
+        await props.setEditingProductsState([...editModeProducts])
     }, [editModeProducts])
 
     useEffect( async ()=>{

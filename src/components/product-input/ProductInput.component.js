@@ -2,7 +2,7 @@ import {useState, useEffect} from "react"
 import classes from "./ProductInput.module.scss"
 
 function ProductInput(props){
-    const {editModeProducts, product, field, value} = props
+    const {editModeProducts, product, field, value, setEditModeProducts } = props
     const {id:productId} = product
     const [productState, setProductsState] = useState({value:props.value, mode:'default'})
 
@@ -15,12 +15,21 @@ function ProductInput(props){
         setProductsState({...productState, mode:'edit'})
     }
 
-    useEffect( ()=>{
+    useEffect( async()=>{
         const {value, mode} = productState
         const foundProdIndex = editModeProducts.findIndex((prod)=>prod.id === productId )
-        if(foundProdIndex===-1 && mode==='edit'){
-            editModeProducts.push({id:productId, [field]:+value})
+        let editModeProductsValue = []
+        if(mode==='edit'){
+            if(foundProdIndex===-1){
+                editModeProducts.push({id:productId, [field]:+value})
+                editModeProductsValue = [...editModeProducts]
+            }
+            else {
+                editModeProductsValue = [...editModeProducts]
+                editModeProductsValue[foundProdIndex][field] = +value
+            }
         }
+        await setEditModeProducts([...editModeProductsValue])
         console.log(editModeProducts)
     },[productState] )
 

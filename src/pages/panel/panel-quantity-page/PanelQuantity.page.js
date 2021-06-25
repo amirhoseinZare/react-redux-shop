@@ -1,8 +1,8 @@
 import {PanelHeader} from "../../../layouts/index"
 import {QuantityTable} from "../../../components/index"
-
 import {Typography, Button, Grid} from "@material-ui/core"
 import { makeStyles } from '@material-ui/core/styles';
+import { useState, useEffect } from "react";
 
 const useStyles = makeStyles({
     container:{
@@ -18,6 +18,12 @@ const useStyles = makeStyles({
 function PanelQuantityPage (){
     const classes = useStyles();
 
+    const [ editingProductsState ,setEditingProductsState ] = useState([]);
+
+    useEffect(async () =>{
+        console.log(editingProductsState)
+    }, [editingProductsState])
+
     return (
         <div>
             <PanelHeader/>
@@ -25,7 +31,7 @@ function PanelQuantityPage (){
                 <Button variant="contained" color="primary">ذخیره</Button>
                 <Typography variant="h4" component="p">مدیریت موجودی و قیمت ها</Typography>
             </Grid>
-            <QuantityTable/>
+            <QuantityTable setEditingProductsState={setEditingProductsState} editingProductsState={editingProductsState}/>
         </div>
     )
 }
