@@ -1,5 +1,5 @@
 import {PanelHeader} from "../../../layouts/index"
-import {ProductsTable} from "../../../components/index"
+import {ProductsTable, ProductModal} from "../../../components/index"
 import {Typography, Button, Grid} from "@material-ui/core"
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -24,6 +24,7 @@ function PanelProductsList (){
                 <Typography variant="h4" component="p">مدیریت کالا ها</Typography>
             </Grid>
             <ProductsTable/>
+            <ProductModal/>
         </div>
     )
 }
