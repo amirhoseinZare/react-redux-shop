@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import {Modal} from '@material-ui/core';
+import { Button, Modal, Typography, MenuItem, Select, FormControl, TextField} from '@material-ui/core';
+import CancelIcon from '@material-ui/icons/Cancel';
 
 function rand() {
   return Math.round(Math.random() * 20) - 10;
@@ -18,11 +19,44 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     position: 'absolute',
     width: 400,
+    display: 'flex',
+    justifyContent:'space-between',
+    flexDirection: 'column',
     backgroundColor: theme.palette.background.paper,
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
+  modalHeader:{
+    width: 400,
+    display: 'flex',
+    justifyContent: 'space-between'
+  },
+  modalBody:{
+    width: 400,
+    display: 'flex',
+    direction:'rtl'
+  },
+  modalCloseButton:{
+      display: 'flex', 
+      justifyContent: 'center', 
+      alignItems: 'center', 
+      backgroundColor:'transparent', 
+      color:'red', 
+      width:'25px', 
+      height:'25px',
+      border:'none'
+    },
+    productName:{
+        display: 'flex',
+        flexDirection:'column',
+        justifyContent:'space-between',
+        direction:'rtl'
+    },
+    modalFooter:{
+        width:400,
+        textAlign:'center'
+    }
 }));
 
 export default function ProductModal(props) {
@@ -42,15 +76,37 @@ export default function ProductModal(props) {
     },[])
 
     const body = (
-        <div style={modalStyle} className={classes.paper}>
-            <button type="button" onClick={handleClose}>
-                close
-            </button>
-            <h2 id="simple-modal-title">Text in a modal</h2>
-            <p id="simple-modal-description">
-                Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-            </p>
+        <div className={classes.paper} style={modalStyle}>
+            <header className={classes.modalHeader}>
+                <button type="button" onClick={handleClose} className={classes.modalCloseButton}>
+                    <CancelIcon />
+                </button>
+                <Typography>افزودن / ویرایش کالا</Typography>
+            </header>
+            <form>
+                <div className={classes.productName}>
+                    <div className={classes.productNameLabel}>
+                        <label>نام کالا</label>
+                    </div>
+                    <TextField dir="rtl" placeholder="مثال : بیسکوییت" type="text"/>
+                </div>
+                <FormControl className={`${classes.formControl}  ${classes.modalBody}`}>
+                    <label>دسته بندی</label>
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                    >
+                        <MenuItem value={10}>Ten</MenuItem>
+                        <MenuItem value={20}>Twenty</MenuItem>
+                        <MenuItem value={30}>Thirty</MenuItem>
+                    </Select>
+                </FormControl>
+                <footer className={classes.modalFooter}>
+                    <Button  type="submit" color="primary" background="primary">ذخیره</Button>
+                </footer>
+            </form>
         </div>
+        
     );
 
     return (
