@@ -3,6 +3,7 @@ import {PanelHeader} from "../../../layouts/index"
 import {ProductsTable, ProductModal} from "../../../components/index"
 import {Typography, Button, Grid} from "@material-ui/core"
 import { makeStyles } from '@material-ui/core/styles';
+import axios from "axios"
 
 const useStyles = makeStyles({
     container:{
@@ -17,9 +18,25 @@ const useStyles = makeStyles({
 function PanelProductsList (){
     const classes = useStyles();
     const [modalOpenHandler, setModalOpenHandler] = useState({modalHandler:null})
+    const [modalMode, setModalMode] = useState({mode:null, data:null})
 
-    const openModalButtonHandler = ()=>{
+    const openModalButtonHandler = async ()=>{
+        await setModalMode({...modalMode,mode:'add'})
         modalOpenHandler.modalHandler()
+    }
+
+    const openModalEditButtonHandler = async (row)=>{
+        await setModalMode({...modalMode,mode:'edit'})
+        modalOpenHandler.modalHandler()
+        //set product state and pass it to modal
+        //after ajax request 
+        console.log(row)
+    }
+
+    const openModalDeleteButtonHandler = async (row)=>{
+        await setModalMode({...modalMode,mode:'delete'})
+        await axios.delete(`http://localhost:3001/products/${row.id}`)
+        setModalMode({...modalMode,mode:'default'})
     }
 
     return (
@@ -29,8 +46,12 @@ function PanelProductsList (){
                 <Button variant="contained" color="primary" onClick={()=>console.log('hi')}>افزودن کالا</Button>
                 <Typography variant="h4" component="p">مدیریت کالا ها</Typography>
             </Grid>
-            <ProductsTable/>
-            <ProductModal setModalOpenHandler={setModalOpenHandler}/>
+            <ProductsTable 
+                openModalEditButtonHandler={openModalEditButtonHandler} 
+                openModalDeleteButtonHandler={openModalDeleteButtonHandler} 
+                mode={modalMode.mode} 
+            />
+            <ProductModal setModalOpenHandler={setModalOpenHandler} mode={modalMode.mode}/>
         </div>
     )
 }

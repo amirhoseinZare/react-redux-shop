@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Table,TableBody,TableCell,TableContainer,TableHead,TableRow,Paper} from '@material-ui/core';
+import { Button, Grid, Table,TableBody,TableCell,TableContainer,TableHead,TableRow,Paper} from '@material-ui/core';
 import { Link } from "react-router-dom"
 import axios from "axios"
 import {Pagination, PaginationItem} from '@material-ui/lab';
@@ -26,9 +26,15 @@ const useStyles = makeStyles({
     table: {
         minWidth: 650,
     },
+    editDeleteButton:{
+        backgroundColor:'transparent',
+        border:'none',
+        color:'#463197',
+        textDecoration:'underline'
+    }
 });
 
-export default function ProductsTable() {
+export default function ProductsTable(props) {
     const classes = useStyles();
     const [productsState, setProductsState] = useState([])
     const [pageState, setPageState] = useState({perpage:5,page:1})
@@ -54,13 +60,21 @@ export default function ProductsTable() {
         }
     }, [])
 
-    
     useEffect( async ()=>{
         const { page } = pageState
         const response = await axios.get('http://localhost:3001/products', {params:{_page:page, _limit:5}})
         setProductsState(response.data)
     }, [pageState])
 
+    useEffect( async ()=>{
+       if(props.mode === 'default'){
+        const { page } = pageState
+        const response = await axios.get('http://localhost:3001/products', {params:{_page:page, _limit:5}})
+        setProductsState(response.data)
+       }
+    }, [props.mode])
+
+    const {openModalEditButtonHandler,openModalDeleteButtonHandler} = props
     return (
     <Grid item lg={8} md={10} sm ={10} xs={10} className={classes.container}>
         <TableContainer component={Paper}>
@@ -79,7 +93,8 @@ export default function ProductsTable() {
                         return (
                             <TableRow className={index%2===0? classes.tableRow1 : classes.tableRow2} key={id}>
                                 <TableCell align="right" component="th" scope="row">
-                                    <Link>ویرایش</Link> <Link>حذف</Link>
+                                    <button className={classes.editDeleteButton} onClick={(row)=>openModalEditButtonHandler({ id, headgroup, group, name, image })}>ویرایش</button>
+                                    <button className={classes.editDeleteButton} onClick={(row)=>openModalDeleteButtonHandler({ id, headgroup, group, name, image })}>حذف</button>
                                 </TableCell>
                                 <TableCell align="right">{`${headgroup}/${group}`}</TableCell>
                                 <TableCell align="right">{name}</TableCell>

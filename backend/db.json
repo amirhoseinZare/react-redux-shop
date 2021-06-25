@@ -1,38 +1,6 @@
 {
   "products": [
     {
-      "id": 1,
-      "image": "/files/ec660cdadf76a920e336e07d6822f006",
-      "name": "iphone10",
-      "group": "mobile",
-      "headgroup": "eletronic",
-      "description": "<h1>very good</h1>",
-      "quantity": 12,
-      "price": 12000000
-    },
-    {
-      "name": "کفش اسپورت فلان",
-      "group": "کفش مردانه",
-      "headgroup": "کفش و کتانی",
-      "description": "خیلی عالی",
-      "price": "12000000",
-      "image": "/files/ec660cdadf76a920e336e07d6822f006",
-      "quantity": 34,
-      "createdAt": 1624539284894,
-      "id": 2
-    },
-    {
-      "name": "شیر پرچرب",
-      "group": "شیر",
-      "headgroup": "لبنیات",
-      "description": "خیلی عالی",
-      "price": "1200",
-      "image": "/files/45db5460a7568f2733d6eca939880a19",
-      "quantity": 19,
-      "createdAt": 1624544781132,
-      "id": 3
-    },
-    {
       "name": "کتونی",
       "group": "کفش مردانه",
       "headgroup": "کفش و کتانی",
