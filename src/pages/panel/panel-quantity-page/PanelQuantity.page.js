@@ -3,6 +3,7 @@ import {QuantityTable} from "../../../components/index"
 import {Typography, Button, Grid} from "@material-ui/core"
 import { makeStyles } from '@material-ui/core/styles';
 import { useState, useEffect } from "react";
+import axios from "axios"
 
 const useStyles = makeStyles({
     container:{
@@ -24,11 +25,30 @@ function PanelQuantityPage (){
         console.log(editingProductsState)
     }, [editingProductsState])
 
+    const saveButtonClickHandler = async (event) => {
+        console.log(editingProductsState)
+        editingProductsState.forEach(async({id, quantity, price}, index)=>{
+            const obj = {}
+            if(quantity)
+                obj.quantity = quantity 
+            if(price)
+                obj.price = price
+            console.log(id, obj)
+            if(index===editingProductsState.length-1){
+                await axios.patch(`http://localhost:3001/products/${id}`, {...obj})
+                console.log('last request')
+            }
+            else {
+                axios.patch(`http://localhost:3001/products/${id}`, {...obj})
+            }
+        })
+    }
+
     return (
         <div>
             <PanelHeader/>
             <Grid item lg={8} md={10} sm ={10} xs={10} className={classes.container}>
-                <Button variant="contained" color="primary">ذخیره</Button>
+                <Button variant="contained" color="primary" onClick={(event)=>saveButtonClickHandler(event, editingProductsState)}>ذخیره</Button>
                 <Typography variant="h4" component="p">مدیریت موجودی و قیمت ها</Typography>
             </Grid>
             <QuantityTable setEditingProductsState={setEditingProductsState} editingProductsState={editingProductsState}/>

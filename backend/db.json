@@ -5,7 +5,7 @@
       "group": "کفش مردانه",
       "headgroup": "کفش و کتانی",
       "description": "خیلی عالی",
-      "price": "560000",
+      "price": 560000,
       "image": "/files/9ad10d1f075d2f4c5d216f3ad48e9b26",
       "quantity": 76,
       "createdAt": 1624544952514,
@@ -18,7 +18,7 @@
       "description": "خیلی عالی",
       "price": "240000",
       "image": "/files/e3719e60d972e80dece49fcab1aa10ad",
-      "quantity": 5,
+      "quantity": 8,
       "createdAt": 1624544994390,
       "id": 5
     },
