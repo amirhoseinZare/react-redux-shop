@@ -34,10 +34,15 @@ export default function QuantityTable() {
     const [productsState, setProductsState] = useState([])
     const [pageState, setPageState] = useState({perpage:5,page:1})
     const [pagesCountState, setPagesCount] = useState(null)
+    const [editModeProducts, setEditModeProducts] = useState([])
 
     const handleChange = async (event, newPage) => {
         setPageState({...pageState,page:newPage})
     };
+
+    useEffect( async ()=>{
+        console.log(editModeProducts)
+    }, [editModeProducts])
 
     useEffect( async ()=>{
         try {
@@ -78,8 +83,25 @@ export default function QuantityTable() {
                             const { id, name, price, quantity } = row
                             return (
                                 <TableRow className={index%2===0? classes.tableRow1 : classes.tableRow2} key={id}>
-                                    <TableCell align="right"><ProductInput value={quantity}/></TableCell>
-                                    <TableCell align="right" component="th" scope="row"><ProductInput value={price}/></TableCell>
+                                    
+                                    <TableCell align="right">
+                                        <ProductInput 
+                                        field="quantity" 
+                                        value={quantity} 
+                                        product={row} 
+                                        setEditModeProducts={setEditModeProducts} 
+                                        editModeProducts={editModeProducts}/>
+                                    </TableCell>
+
+                                    <TableCell align="right" component="th" scope="row">
+                                        <ProductInput 
+                                        field="price" 
+                                        value={price} 
+                                        product={row} 
+                                        setEditModeProducts={setEditModeProducts} 
+                                        editModeProducts={editModeProducts}/>
+                                    </TableCell>
+
                                     <TableCell align="right">{name}</TableCell>
                                 </TableRow>
                             )
