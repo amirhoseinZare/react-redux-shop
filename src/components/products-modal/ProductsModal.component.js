@@ -1,11 +1,7 @@
 import { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Button, Modal, Typography, MenuItem, Select, FormControl, TextField} from '@material-ui/core';
-import CancelIcon from '@material-ui/icons/Cancel';
-
-function rand() {
-  return Math.round(Math.random() * 20) - 10;
-}
+import { IconButton ,Button, Modal, Typography, MenuItem, Select, FormControl, TextField, Input } from '@material-ui/core';
+import { Cancel } from '@material-ui/icons';
 
 function getModalStyle() {
   return {
@@ -47,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
       height:'25px',
       border:'none'
     },
-    productName:{
+    productInputContainer:{
         display: 'flex',
         flexDirection:'column',
         justifyContent:'space-between',
@@ -79,17 +75,18 @@ export default function ProductModal(props) {
         <div className={classes.paper} style={modalStyle}>
             <header className={classes.modalHeader}>
                 <button type="button" onClick={handleClose} className={classes.modalCloseButton}>
-                    <CancelIcon />
+                    <Cancel />
                 </button>
                 <Typography>افزودن / ویرایش کالا</Typography>
             </header>
             <form>
-                <div className={classes.productName}>
-                    <div className={classes.productNameLabel}>
+                <div className={classes.productInputContainer}>
+                    <div>
                         <label>نام کالا</label>
                     </div>
                     <TextField dir="rtl" placeholder="مثال : بیسکوییت" type="text"/>
                 </div>
+                
                 <FormControl className={`${classes.formControl}  ${classes.modalBody}`}>
                     <label>دسته بندی</label>
                     <Select
@@ -101,6 +98,14 @@ export default function ProductModal(props) {
                         <MenuItem value={30}>Thirty</MenuItem>
                     </Select>
                 </FormControl>
+
+                <div className={classes.productInputContainer}>
+                    <div>
+                        <label>توضیحات کالا</label>
+                    </div>
+                    <TextField dir="rtl" type="text"/>
+                </div>
+
                 <footer className={classes.modalFooter}>
                     <Button  type="submit" color="primary" background="primary">ذخیره</Button>
                 </footer>
