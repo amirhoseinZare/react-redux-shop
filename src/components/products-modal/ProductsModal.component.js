@@ -77,8 +77,12 @@ export default function ProductModal(props) {
         id:'', name:'', group:'', headgroup:'', image:''
     }})
 
-    const handleOpen = () => {
+    const [groupsState, setGroupsState] = useState([])
+
+    const handleOpen = async () => {
         setOpen(true);
+        const groups = await axios.get('http://localhost:3001/groups')
+        await setGroupsState(groups.data)
     };
 
     const handleClose = () => {
@@ -90,8 +94,14 @@ export default function ProductModal(props) {
         setProductState({product:{...productState.product, [name]:event.target.value}})
     }
 
-    useEffect(()=>{
-        props.setModalOpenHandler({modalHandler:handleOpen})
+    useEffect(async ()=>{
+        console.log(groupsState)
+    },[groupsState])
+
+    useEffect(async ()=>{
+        const groups = await axios.get('http://localhost:3001/groups')
+        await setGroupsState(groups.data)
+        await props.setModalOpenHandler({modalHandler:handleOpen})
     },[])
 
     useEffect(async()=>{
@@ -105,7 +115,6 @@ export default function ProductModal(props) {
                 id:'', name:'', group:'', headgroup:'', image:''
             }})
         }
-        console.log(props.mode)
     }
     ,[props.mode])
 
@@ -130,8 +139,7 @@ export default function ProductModal(props) {
         handleClose()
     }
 
-    const {id, name, group, headgroup, image, description} = productState.product
-
+    const {id, name, description, group} = productState.product
     const body = (
         <div className={classes.paper} style={modalStyle}>
             <header className={classes.modalHeader}>
@@ -161,11 +169,12 @@ export default function ProductModal(props) {
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
                         variant="outlined"
-                        value="sth"
+                        value={group}
+                        onChange={(event)=>inputChangeHandler(event , 'group')}
                     >
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
+                        {
+                            groupsState.length>0 ? groupsState.map(group =><MenuItem key={id} value={group.name}>{group.name}</MenuItem>) : null
+                        }
                     </Select>
                 </FormControl>
 

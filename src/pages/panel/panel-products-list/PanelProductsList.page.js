@@ -1,4 +1,4 @@
-import {useState} from "react"
+import {useState, useEffect} from "react"
 import {PanelHeader} from "../../../layouts/index"
 import {ProductsTable, ProductModal} from "../../../components/index"
 import {Typography, Button, Grid} from "@material-ui/core"
