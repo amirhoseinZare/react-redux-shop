@@ -26,17 +26,14 @@ function PanelProductsList (){
     }
 
     const openModalEditButtonHandler = async (row)=>{
-        await setModalMode({...modalMode,mode:'edit'})
+        await setModalMode({data:row,mode:'edit'})
         modalOpenHandler.modalHandler()
-        //set product state and pass it to modal
-        //after ajax request 
-        console.log(row)
     }
 
     const openModalDeleteButtonHandler = async (row)=>{
         await setModalMode({...modalMode,mode:'delete'})
         await axios.delete(`http://localhost:3001/products/${row.id}`)
-        setModalMode({...modalMode,mode:'default'})
+        setModalMode({...modalMode, mode:'default'})
     }
 
     return (
@@ -51,7 +48,7 @@ function PanelProductsList (){
                 openModalDeleteButtonHandler={openModalDeleteButtonHandler} 
                 mode={modalMode.mode} 
             />
-            <ProductModal setModalOpenHandler={setModalOpenHandler} mode={modalMode.mode}/>
+            <ProductModal setModalOpenHandler={setModalOpenHandler} mode={modalMode.mode} product={modalMode.data} setMode={setModalMode}/>
         </div>
     )
 }

@@ -89,12 +89,12 @@ export default function ProductsTable(props) {
                 </TableHead>
                 <TableBody>
                     {productsState.map((row, index) => {
-                        const { id, headgroup, group, name, image } = row
+                        const { id, headgroup, group, name, image, description } = row
                         return (
                             <TableRow className={index%2===0? classes.tableRow1 : classes.tableRow2} key={id}>
                                 <TableCell align="right" component="th" scope="row">
-                                    <button className={classes.editDeleteButton} onClick={(row)=>openModalEditButtonHandler({ id, headgroup, group, name, image })}>ویرایش</button>
-                                    <button className={classes.editDeleteButton} onClick={(row)=>openModalDeleteButtonHandler({ id, headgroup, group, name, image })}>حذف</button>
+                                    <button className={classes.editDeleteButton} onClick={(row)=>openModalEditButtonHandler({ id, headgroup, group, name, image, description })}>ویرایش</button>
+                                    <button className={classes.editDeleteButton} onClick={(row)=>openModalDeleteButtonHandler({ id, headgroup, group, name, image, description })}>حذف</button>
                                 </TableCell>
                                 <TableCell align="right">{`${headgroup}/${group}`}</TableCell>
                                 <TableCell align="right">{name}</TableCell>

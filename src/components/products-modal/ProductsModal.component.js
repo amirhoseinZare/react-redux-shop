@@ -66,6 +66,9 @@ export default function ProductModal(props) {
     const classes = useStyles();
     const [modalStyle] = useState(getModalStyle);
     const [open, setOpen] = useState(false);
+    const [productState, setProductState] = useState({product:{
+        id:'', name:'', group:'', headgroup:'', image:''
+    }})
     const handleOpen = () => {
         setOpen(true);
     };
@@ -78,6 +81,19 @@ export default function ProductModal(props) {
         props.setModalOpenHandler({modalHandler:handleOpen})
     },[])
 
+    useEffect(async()=>{
+        if(props.mode==='edit'){
+            console.log('bale')
+            const {id, name, group, headgroup, image, description} = props.product
+            await setProductState({product:{id, name, group, headgroup, image, description}})
+        }
+        props.setMode('default')
+    }
+    ,[props.mode])
+
+    const {id, name, group, headgroup, image, description} = productState.product
+
+    console.log(description, productState.product)
     const body = (
         <div className={classes.paper} style={modalStyle}>
             <header className={classes.modalHeader}>
@@ -97,7 +113,7 @@ export default function ProductModal(props) {
                 </div>  
                 <div className={classes.productInputContainer}>
                     <label className={classes.productInoutLabel}>نام کالا:</label>
-                    <TextField dir="rtl" placeholder="مثال : بیسکوییت" type="text" variant="outlined"/>
+                    <TextField dir="rtl" placeholder="مثال : بیسکوییت" type="text" variant="outlined" value={name}/>
                 </div>
                 
                 <FormControl className={classes.productGroup}>
@@ -106,6 +122,7 @@ export default function ProductModal(props) {
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
                         variant="outlined"
+                        value="sth"
                     >
                         <MenuItem value={10}>Ten</MenuItem>
                         <MenuItem value={20}>Twenty</MenuItem>
@@ -115,7 +132,7 @@ export default function ProductModal(props) {
 
                 <div className={classes.productInputContainer}>
                     <label className={classes.productInoutLabel}>توضیحات کالا:</label>
-                    <TextField dir="rtl" type="text" variant="outlined"/>
+                    <TextField dir="rtl" type="text" variant="outlined" value={description}/>
                 </div>
 
                 <footer className={classes.modalFooter}>
