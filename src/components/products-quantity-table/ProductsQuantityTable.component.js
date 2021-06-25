@@ -78,7 +78,7 @@ export default function QuantityTable() {
                             const { id, name, price, quantity } = row
                             return (
                                 <TableRow className={index%2===0? classes.tableRow1 : classes.tableRow2} key={id}>
-                                    <TableCell align="right">{quantity}</TableCell>
+                                    <TableCell align="right"><ProductInput value={quantity}/></TableCell>
                                     <TableCell align="right" component="th" scope="row"><ProductInput value={price}/></TableCell>
                                     <TableCell align="right">{name}</TableCell>
                                 </TableRow>
