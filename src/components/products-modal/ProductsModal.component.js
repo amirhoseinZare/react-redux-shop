@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {Modal} from '@material-ui/core';
 
@@ -25,44 +25,46 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ProductModal() {
-  const classes = useStyles();
-  // getModalStyle is not a pure function, we roll the style only on the first render
-  const [modalStyle] = useState(getModalStyle);
-  const [open, setOpen] = useState(false);
+export default function ProductModal(props) {
+    const classes = useStyles();
+    const [modalStyle] = useState(getModalStyle);
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => {
+        setOpen(true);
+    };
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
+    const handleClose = () => {
+        setOpen(false);
+    };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+    useEffect(()=>{
+        props.setModalOpenHandler({modalHandler:handleOpen})
+    },[])
 
-  const body = (
-    <div style={modalStyle} className={classes.paper}>
-        <button type="button" onClick={handleClose}>
-            close
-        </button>
-        <h2 id="simple-modal-title">Text in a modal</h2>
-        <p id="simple-modal-description">
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-        </p>
-    </div>
-  );
+    const body = (
+        <div style={modalStyle} className={classes.paper}>
+            <button type="button" onClick={handleClose}>
+                close
+            </button>
+            <h2 id="simple-modal-title">Text in a modal</h2>
+            <p id="simple-modal-description">
+                Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+            </p>
+        </div>
+    );
 
-  return (
-    <div>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
-      >
-        {body}
-      </Modal>
-    </div>
-  );
+    return (
+        <div>
+        <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="simple-modal-title"
+            aria-describedby="simple-modal-description"
+        >
+            {body}
+        </Modal>
+        </div>
+    );
 }
 
 export {

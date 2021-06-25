@@ -1,3 +1,4 @@
+import {useState} from "react"
 import {PanelHeader} from "../../../layouts/index"
 import {ProductsTable, ProductModal} from "../../../components/index"
 import {Typography, Button, Grid} from "@material-ui/core"
@@ -15,16 +16,21 @@ const useStyles = makeStyles({
 
 function PanelProductsList (){
     const classes = useStyles();
+    const [modalOpenHandler, setModalOpenHandler] = useState({modalHandler:null})
+
+    const openModalButtonHandler = ()=>{
+        modalOpenHandler.modalHandler()
+    }
 
     return (
         <div>
             <PanelHeader/>
-            <Grid item lg={8} md={10} sm ={10} xs={10} className={classes.container}>
-                <Button variant="contained" color="primary">افزودن کالا</Button>
+            <Grid item lg={8} md={10} sm ={10} xs={10} className={classes.container}  onClick={openModalButtonHandler}>
+                <Button variant="contained" color="primary" onClick={()=>console.log('hi')}>افزودن کالا</Button>
                 <Typography variant="h4" component="p">مدیریت کالا ها</Typography>
             </Grid>
             <ProductsTable/>
-            <ProductModal/>
+            <ProductModal setModalOpenHandler={setModalOpenHandler}/>
         </div>
     )
 }
