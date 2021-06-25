@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { IconButton ,Button, Modal, Typography, MenuItem, Select, FormControl, TextField, Input } from '@material-ui/core';
 import { Cancel } from '@material-ui/icons';
 import modules from "./ProductsModal.module.scss"
+import axios from "axios"
 
 function getModalStyle() {
   return {
@@ -59,6 +60,11 @@ const useStyles = makeStyles((theme) => ({
     },
     productInoutLabel:{
         margin:'0 0 5px 0'
+    },
+    productImageContainer:{
+        width:'50px',
+        height:'50px',
+        overflow:'hidden',
     }
 }));
 
@@ -66,16 +72,23 @@ export default function ProductModal(props) {
     const classes = useStyles();
     const [modalStyle] = useState(getModalStyle);
     const [open, setOpen] = useState(false);
+
     const [productState, setProductState] = useState({product:{
         id:'', name:'', group:'', headgroup:'', image:''
     }})
+
     const handleOpen = () => {
         setOpen(true);
     };
 
     const handleClose = () => {
         setOpen(false);
+        setMode('default')
     };
+
+    const inputChangeHandler = (event, name) => {
+        setProductState({product:{...productState.product, [name]:event.target.value}})
+    }
 
     useEffect(()=>{
         props.setModalOpenHandler({modalHandler:handleOpen})
@@ -87,13 +100,38 @@ export default function ProductModal(props) {
             const {id, name, group, headgroup, image, description} = props.product
             await setProductState({product:{id, name, group, headgroup, image, description}})
         }
-        props.setMode('default')
+        if(props.mode==='add'){
+            await setProductState({product:{
+                id:'', name:'', group:'', headgroup:'', image:''
+            }})
+        }
+        console.log(props.mode)
     }
     ,[props.mode])
 
+    const submitButtonHandler = (event, product) => {
+        event.preventDefault()
+        const {mode} = props
+        console.log(mode)
+        const {name , description, group, headgroup, image, id} = product
+        if(mode==='edit'){
+            axios.patch(`http://localhost:3001/products/${id}`, {
+                    name , description, group, headgroup, image
+            })
+        }
+        else if (mode==='add'){
+            console.log('in add')
+            axios.post(`http://localhost:3001/products`, {
+                body:{
+                    name , description, group, headgroup, image
+                }
+            })
+        }
+        handleClose()
+    }
+
     const {id, name, group, headgroup, image, description} = productState.product
 
-    console.log(description, productState.product)
     const body = (
         <div className={classes.paper} style={modalStyle}>
             <header className={classes.modalHeader}>
@@ -107,13 +145,14 @@ export default function ProductModal(props) {
                     <span className={classes.productInoutLabel}>:تصویر کالا</span>
                     <label className={modules.input_file_label}>
                         <span className={modules.upload_button}>Browse</span>
-                        <input id='input' type="file" className={modules.input_file} accept='image/*' />
+                        <input id='input' type="file" className={modules.input_file} accept='image/*'  onChange={(event)=>inputChangeHandler(event, '')}/>
                         <span className={modules.file_name} >file</span>
                     </label>
-                </div>  
+                </div>
+
                 <div className={classes.productInputContainer}>
                     <label className={classes.productInoutLabel}>نام کالا:</label>
-                    <TextField dir="rtl" placeholder="مثال : بیسکوییت" type="text" variant="outlined" value={name}/>
+                    <TextField dir="rtl" placeholder="مثال : بیسکوییت" type="text" variant="outlined" value={name} onChange={(event)=>inputChangeHandler(event, 'name')}/>
                 </div>
                 
                 <FormControl className={classes.productGroup}>
@@ -132,24 +171,25 @@ export default function ProductModal(props) {
 
                 <div className={classes.productInputContainer}>
                     <label className={classes.productInoutLabel}>توضیحات کالا:</label>
-                    <TextField dir="rtl" type="text" variant="outlined" value={description}/>
+                    <TextField dir="rtl" type="text" variant="outlined" value={description} onChange={(event)=>inputChangeHandler(event, 'description')}/>
                 </div>
 
                 <footer className={classes.modalFooter}>
-                    <Button  type="submit" color="primary" background="primary">ذخیره</Button>
+                    <Button  type="submit" color="primary" background="primary" onClick={(event)=>submitButtonHandler(event,  productState.product)}>ذخیره</Button>
                 </footer>
             </form>
         </div>
         
     );
 
+    const {setMode} = props;
     return (
         <div>
         <Modal
             open={open}
-            onClose={handleClose}
             aria-labelledby="simple-modal-title"
             aria-describedby="simple-modal-description"
+            onClose={handleClose}
         >
             {body}
         </Modal>
