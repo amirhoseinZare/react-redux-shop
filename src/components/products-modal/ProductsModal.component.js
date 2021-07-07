@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { IconButton ,Button, Modal, Typography, MenuItem, Select, FormControl, TextField, Input } from '@material-ui/core';
 import { Cancel } from '@material-ui/icons';
@@ -118,11 +118,13 @@ export default function ProductModal(props) {
     }
     ,[props.mode])
 
+    const inputEl = useRef(null)
+
     const submitButtonHandler = (event, product) => {
         event.preventDefault()
         const {mode} = props
         console.log(mode)
-        const {name , description, group, headgroup, image, id} = product
+        const {name , description, group, headgroup, image, id, price} = product
         if(mode==='edit'){
             axios.patch(`http://localhost:3001/products/${id}`, {
                     name , description, group, headgroup, image
@@ -130,14 +132,22 @@ export default function ProductModal(props) {
         }
         else if (mode==='add'){
             console.log('in add')
-            axios.post(`http://localhost:3001/products`, {
-                body:{
-                    name , description, group, headgroup, image
-                }
-            })
+            const formdata = new FormData();
+            console.log(inputEl)
+            formdata.append("image", inputEl.current.files[0]);
+            formdata.append("name", name);
+            formdata.append("group", group);
+            formdata.append("headgroup", headgroup);
+            formdata.append("description", description);
+            formdata.append("price", price);
+            axios.post(`http://localhost:3001/products`,formdata)
         }
         handleClose()
     }
+
+    useEffect( async ()=>{
+        console.log(inputEl)
+    }, [inputEl])
 
     const {id, name, description, group} = productState.product
     const body = (
@@ -153,7 +163,7 @@ export default function ProductModal(props) {
                     <span className={classes.productInoutLabel}>:تصویر کالا</span>
                     <label className={modules.input_file_label}>
                         <span className={modules.upload_button}>Browse</span>
-                        <input id='input' type="file" className={modules.input_file} accept='image/*'  onChange={(event)=>inputChangeHandler(event, '')}/>
+                        <input onChange={()=>console.log(inputEl)} ref={inputEl} id='input' type="file" className={modules.input_file} accept='image/*'  onChange={(event)=>inputChangeHandler(event, '')}/>
                         <span className={modules.file_name} >file</span>
                     </label>
                 </div>
