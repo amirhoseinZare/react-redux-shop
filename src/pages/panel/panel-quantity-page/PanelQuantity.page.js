@@ -20,12 +20,14 @@ function PanelQuantityPage (){
     const classes = useStyles();
 
     const [ editingProductsState ,setEditingProductsState ] = useState([]);
+    const [editmode, setEditMode ] = useState({edit:'end'});
 
     useEffect(async () =>{
         console.log(editingProductsState)
     }, [editingProductsState])
 
     const saveButtonClickHandler = async (event) => {
+        setEditMode({edit:'start'})
         console.log(editingProductsState)
         editingProductsState.forEach(async({id, quantity, price}, index)=>{
             const obj = {}
@@ -36,7 +38,7 @@ function PanelQuantityPage (){
             console.log(id, obj)
             if(index===editingProductsState.length-1){
                 await axios.patch(`http://localhost:3001/products/${id}`, {...obj})
-                console.log('last request')
+                await setEditMode({edit:'done'})
             }
             else {
                 axios.patch(`http://localhost:3001/products/${id}`, {...obj})
@@ -51,7 +53,7 @@ function PanelQuantityPage (){
                 <Button variant="contained" color="primary" onClick={(event)=>saveButtonClickHandler(event, editingProductsState)}>ذخیره</Button>
                 <Typography variant="h4" component="p">مدیریت موجودی و قیمت ها</Typography>
             </Grid>
-            <QuantityTable setEditingProductsState={setEditingProductsState} editingProductsState={editingProductsState}/>
+            <QuantityTable setEditingProductsState={setEditingProductsState} editingProductsState={editingProductsState} editmode={editmode}/>
         </div>
     )
 }

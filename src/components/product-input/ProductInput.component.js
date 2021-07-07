@@ -33,6 +33,14 @@ function ProductInput(props){
         console.log(editModeProducts)
     },[productState] )
 
+
+    useEffect( async ()=>{
+        if(props.editmode.edit==='done'){
+            await setProductsState({...productState, mode:'default'})
+        }
+        console.log(props.editmode, props.editmode==='done')
+    }, [props.editmode])
+
     return (
         productState.mode === 'default' 
             ? <button onClick={inoutButtonClickHandler} className={classes.productInputRead}>{productState.value}</button> 

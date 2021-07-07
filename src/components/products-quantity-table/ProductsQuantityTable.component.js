@@ -68,6 +68,13 @@ export default function QuantityTable(props) {
         setProductsState(response.data)
     }, [pageState])
 
+    useEffect( async ()=>{
+        const { page } = pageState
+        const response = await axios.get('http://localhost:3001/products', {params:{_page:page, _limit:5}})
+        console.log(response)
+        setProductsState(response.data)
+    }, [props.editmode])
+
     return (
         <Grid item lg={8} md={10} sm ={10} xs={10} className={classes.container}>
             <TableContainer component={Paper}>
@@ -87,6 +94,7 @@ export default function QuantityTable(props) {
                                     
                                     <TableCell align="right">
                                         <ProductInput 
+                                        editmode={props.editmode}
                                         field="quantity" 
                                         value={quantity} 
                                         product={row} 
@@ -96,6 +104,7 @@ export default function QuantityTable(props) {
 
                                     <TableCell align="right" component="th" scope="row">
                                         <ProductInput 
+                                        editmode={props.editmode}
                                         field="price" 
                                         value={price} 
                                         product={row} 
