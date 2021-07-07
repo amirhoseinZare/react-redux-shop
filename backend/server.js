@@ -48,6 +48,14 @@ server.use((req, res, next) => {
     next()
   }
 })
+server.use((req, res, next) => {
+  if (req.method === 'PATCH' && req.headers['content-type'] != 'application/json') {
+    imageFieldUploadMiddleware(req, res, next)
+  } else {
+    next()
+  }
+})
+
 
 // If previous middle-ware worked, continue to next step
 // 1- (previous middle-ware already did first step)

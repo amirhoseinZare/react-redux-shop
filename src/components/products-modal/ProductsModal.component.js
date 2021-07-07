@@ -124,11 +124,16 @@ export default function ProductModal(props) {
         event.preventDefault()
         const {mode} = props
         console.log(mode)
-        const {name , description, group, headgroup, image, id, price} = product
+        const {name , description, group, headgroup, id, price} = product
         if(mode==='edit'){
-            axios.patch(`http://localhost:3001/products/${id}`, {
-                    name , description, group, headgroup, image
-            })
+            const formdata = new FormData();
+            formdata.append("image", inputEl.current.files[0]);
+            formdata.append("name", name);
+            formdata.append("group", group);
+            formdata.append("headgroup", headgroup);
+            formdata.append("description", description);
+            formdata.append("price", price);
+            axios.patch(`http://localhost:3001/products/${id}`, formdata)
         }
         else if (mode==='add'){
             console.log('in add')
