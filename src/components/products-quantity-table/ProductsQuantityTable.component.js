@@ -35,6 +35,7 @@ export default function QuantityTable(props) {
     const [pageState, setPageState] = useState({perpage:5,page:1})
     const [pagesCountState, setPagesCount] = useState(null)
     const [editModeProducts, setEditModeProducts] = useState([])
+    const [escapeState, setEscapeState] = useState({press:false})
 
     const handleChange = async (event, newPage) => {
         setPageState({...pageState,page:newPage})
@@ -75,6 +76,10 @@ export default function QuantityTable(props) {
         setProductsState(response.data)
     }, [props.editmode])
 
+    document.addEventListener('keydown', (event) => {
+        setEscapeState({press:true})
+    })
+
     return (
         <Grid item lg={8} md={10} sm ={10} xs={10} className={classes.container}>
             <TableContainer component={Paper}>
@@ -94,6 +99,8 @@ export default function QuantityTable(props) {
                                     
                                     <TableCell align="right">
                                         <ProductInput 
+                                        escapeState={escapeState}
+                                        setEscapeState={setEscapeState}
                                         editmode={props.editmode}
                                         field="quantity" 
                                         value={quantity} 
@@ -104,6 +111,8 @@ export default function QuantityTable(props) {
 
                                     <TableCell align="right" component="th" scope="row">
                                         <ProductInput 
+                                        escapeState={escapeState}
+                                        setEscapeState={setEscapeState}
                                         editmode={props.editmode}
                                         field="price" 
                                         value={price} 
