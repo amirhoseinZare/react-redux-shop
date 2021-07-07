@@ -43,7 +43,8 @@ function ProductInput(props){
 
     useEffect(async() =>{ 
         if(props.escapeState){
-            await setProductsState({...productState, mode:'default'})
+            await setProductsState({value:props.value, mode:'default'})
+            // await props.setEscapeState({press:false})
         }
     }, [props.escapeState])
 

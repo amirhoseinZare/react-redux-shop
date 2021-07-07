@@ -77,7 +77,9 @@ export default function QuantityTable(props) {
     }, [props.editmode])
 
     document.addEventListener('keydown', (event) => {
-        setEscapeState({press:true})
+        if(event.code==='Escape' && !escapeState.press){
+            setEscapeState({press:true})
+        }
     })
 
     return (
