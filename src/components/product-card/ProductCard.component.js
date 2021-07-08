@@ -26,6 +26,9 @@ const useStyles = makeStyles((theme) => ({
     },
     subtitle:{
         marginBottom:theme.spacing(7)
+    },
+    title:{
+        direction:'rtl'
     }
   }));
 
@@ -37,7 +40,7 @@ function ProductCard(psops){
         <Grid item lg={4} md={6} sm={6} xs={12} xl={3}>
             <Card className={classes.card}>
                 <CardContent className={classes.content}>
-                    <Typography variant="h4" component="h2">{name}</Typography>
+                    <Typography variant="h4" component="h2" className={classes.title}>{name}</Typography>
                     <Typography className={classes.subtitle} variant="subtitle2" component="p">{description}</Typography>
                 </CardContent>
                 <CardMedia 

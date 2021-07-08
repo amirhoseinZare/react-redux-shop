@@ -59,7 +59,7 @@ function HomePage(){
     return (
         <Fragment>
             <Header/>
-            <Grid container>
+            <Grid container className={classes.productsContainer}>
                 {
                     productsState.products.map(product=>{
                         return (
@@ -70,15 +70,12 @@ function HomePage(){
                                         <ArrowLeftIcon className={classes.groupArrow}/>
                                     </h1>
                                 </Grid>
-                                <div className={classes.productsContainer}>
                                     {product.products.map(prod=>{
                                         const {name, description, image} = prod
                                         return (
                                             <ProductCard key={prod.id} name={name} description={description} image={image}/>
                                         )
                                     })}
-                                </div>
-                                    
                             </Fragment>
                             
                         )
