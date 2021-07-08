@@ -2,10 +2,13 @@ import {Header} from "../../../layouts/index"
 import {useEffect, useState} from "react"
 import {Grid} from "@material-ui/core"
 import axios from "axios"
+import {withRouter} from "react-router-dom"
 
-function ProductsGroupPage(){
+function ProductsGroupPageComponent(props){
 
     const [groupsState, setGroupsState] = useState({ groups: [] })
+    const [productsState, setProductsState] = useState({ products: [] })
+
     useEffect(async ()=>{
         const allgroups = []
         const response = await axios.get('http://localhost:3001/groups')
@@ -16,9 +19,18 @@ function ProductsGroupPage(){
                 group:group.name,
                 productsName:response.data.map(prod=>prod.name)
             })
-            if(index ===groups.length-1)
-                console.log(allgroups)
+            if(index ===groups.length-1){
+                setGroupsState({groups:allgroups})
+            }
         })
+        console.log(props.match.params)
+    }, [])
+
+    useEffect(async ()=>{
+        const response = await axios.get('http://localhost:3001/products', {params: {group:props.match.params.groupName}})
+        const products = response.data
+        await setProductsState({ products:products })
+        console.log(productsState)
     }, [])
 
     return (
@@ -36,4 +48,5 @@ function ProductsGroupPage(){
     )
 }
 
+const ProductsGroupPage = withRouter(ProductsGroupPageComponent)
 export {ProductsGroupPage}
