@@ -7,6 +7,9 @@ import { Link, withRouter } from "react-router-dom"
 import RestoreIcon from '@material-ui/icons/Restore';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
+import ShopIcon from '@material-ui/icons/Shop';
+import LocalMallIcon from '@material-ui/icons/LocalMall';
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 
 const useStyles = makeStyles((theme) => ({
   header:{
@@ -189,9 +192,9 @@ export default function HeaderLayout(props) {
                     showLabels
                     className={classes.headerNavigations}
                     >
-                    <BottomNavigationAction className={classes.headerNavigationItem} onClick={()=>props.history.push('/panel/orders')} label="سفارش ها" icon={<Link to="/panel/orders"><RestoreIcon className={classes.headerNavigationItem}/></Link>} />
-                    <BottomNavigationAction className={classes.headerNavigationItem} onClick={()=>props.history.push('/panel/quantity')} label="موجودی و قیمت ها" icon={<Link to="/panel/quantity"><FavoriteIcon className={classes.headerNavigationItem}/></Link>} />
-                    <BottomNavigationAction className={classes.headerNavigationItem} onClick={()=>props.history.push('/panel/products')} label="کالا ها" icon={<Link to="/panel/products"><LocationOnIcon className={classes.headerNavigationItem}/></Link>} />
+                    <BottomNavigationAction className={classes.headerNavigationItem} onClick={()=>props.history.push('/panel/orders')} label="سفارش ها" icon={<Link to="/panel/orders"><ShopIcon className={classes.headerNavigationItem}/></Link>} />
+                    <BottomNavigationAction className={classes.headerNavigationItem} onClick={()=>props.history.push('/panel/quantity')} label="موجودی و قیمت ها" icon={<Link to="/panel/quantity"><AttachMoneyIcon className={classes.headerNavigationItem}/></Link>} />
+                    <BottomNavigationAction className={classes.headerNavigationItem} onClick={()=>props.history.push('/panel/products')} label="کالا ها" icon={<Link to="/panel/products"><LocalMallIcon className={classes.headerNavigationItem}/></Link>} />
                 </BottomNavigation>
                 <MenuItem >
                     <Typography className={classes.name} variant="h6">
