@@ -14,9 +14,9 @@ const useStyles = makeStyles((theme) => ({
       position: 'relative',
       boxShadow:'0 0 20px 5px rgba(162, 136, 227,.5)',
     },
-    cover: {
-        width: 151,
-        height:'100%',
+    img: {
+        width: '140px',
+        height:'140px'
     },
     content:{
         display: 'flex',
@@ -65,13 +65,12 @@ function ProductCardComponent(props){
         <Grid item lg={lg} md={md} sm={sm} xs={xs} xl={xl} onClick={()=>props.history.push(url)}>
             <Card className={classes.card}>
                 <CardContent className={classes.content}>
-                    <Typography variant="h4" component="h2" className={classes.title}>{name}</Typography>
+                    <Typography variant="h6" component="h2" className={classes.title}>{name}</Typography>
                     <Typography className={classes.subtitle} variant="subtitle2" component="p">{description}</Typography>
                 </CardContent>
-                <CardMedia 
-                    className={classes.cover}
-                    image={`http://localhost:3001${image}`}
-                    title="Live from space album cover"/>
+                <div className={classes.img}>
+                    <img style={{width:'140px'}} src={`http://localhost:3001${image}`}/>
+                </div>
                 <a href={url} size="small" className={classes.button} onClick={e=>e.stopPropagation()}>
                 اطلاعات بیشتر
                 </a>
