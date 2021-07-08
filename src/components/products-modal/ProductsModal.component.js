@@ -116,7 +116,7 @@ export default function ProductModal(props) {
 
     const inputEl = useRef(null)
 
-    const submitButtonHandler = (event, product) => {
+    const submitButtonHandler = async (event, product) => {
         event.preventDefault()
         const {mode} = props
         console.log(mode)
@@ -132,7 +132,7 @@ export default function ProductModal(props) {
             formdata.append("description", description);
             formdata.append("price", price);
             formdata.append("quantity", quantity);
-            axios.patch(`http://localhost:3001/products/${id}`, formdata)
+            await axios.patch(`http://localhost:3001/products/${id}`, formdata)
             operationSuccess = true
         }
         else if (mode==='add'){
@@ -146,7 +146,7 @@ export default function ProductModal(props) {
             formdata.append("description", description);
             formdata.append("price", price);
             formdata.append("quantity", quantity);
-            axios.post(`http://localhost:3001/products`,formdata)
+            await axios.post(`http://localhost:3001/products`,formdata)
             operationSuccess = true
         }
         if(operationSuccess){
