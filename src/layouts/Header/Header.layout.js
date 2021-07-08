@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { makeStyles, AppBar, Toolbar, IconButton, Typography ,MenuItem, Menu } from '@material-ui/core';
-import MailIcon from '@material-ui/icons/Mail';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import { ReactComponent as ShopLogo } from "../../assets/icons/shop-logo.svg"
 import { Link, withRouter } from "react-router-dom"
@@ -112,7 +111,7 @@ export default function HeaderLayout(props) {
             <IconButton aria-label="show 4 new mails" >
               <ShoppingCartIcon />
             </IconButton>
-            <Link to="/panel/login" className={classes.menuAnchors}>
+            <Link to="/panel/login" className={classes.menuAnchors} onClick={(event)=>event.stopPropagation()}>
               سبد خرید
             </Link>
         </MenuItem>
@@ -120,7 +119,7 @@ export default function HeaderLayout(props) {
             <IconButton aria-label="show 4 new mails">
               <AccountCircleIcon />
             </IconButton>
-            <Link to="/panel/login" className={classes.menuAnchors}>>
+            <Link to="/panel/login" className={classes.menuAnchors} onClick={(event)=>event.stopPropagation()}>
               مدیریت
             </Link>
         </MenuItem>
@@ -133,7 +132,7 @@ export default function HeaderLayout(props) {
         <Toolbar>
             <MenuItem className={classes.title} onClick={()=>props.history.push('/cart')}>
             <Typography variant="p" noWrap>
-                  <Link to="/cart" className={classes.menuAnchors}>
+                  <Link to="/cart" className={classes.menuAnchors} onClick={(event)=>event.stopPropagation()}>
                     سبد خرید
                   </Link>
                 </Typography>
@@ -141,7 +140,7 @@ export default function HeaderLayout(props) {
             </MenuItem>
             <MenuItem className={classes.title} onClick={()=>props.history.push('/panel/login')}>
                 <Typography variant="p" noWrap>
-                  <Link to="/panel/login" className={classes.menuAnchors}>
+                  <Link to="/panel/login" className={classes.menuAnchors} onClick={(event)=>event.stopPropagation()}>
                     مدیریت
                   </Link>
                 </Typography>
@@ -151,14 +150,14 @@ export default function HeaderLayout(props) {
           <div className={classes.sectionDesktop}>
             <MenuItem>
                 <Typography className={classes.name} variant="h6" onClick={()=>props.history.push('/')}>
-                  <Link to="/" className={classes.menuAnchors}>
+                  <Link to="/" className={classes.menuAnchors} onClick={(event)=>event.stopPropagation()}>
                     فروشگاه فلان
                   </Link>
                 </Typography>
             </MenuItem>
             <MenuItem>
                 <Typography className={classes.title} variant="h6" noWrap onClick={()=>props.history.push('/')}>
-                  <Link to="/" className={classes.menuAnchors}>
+                  <Link to="/" className={classes.menuAnchors} onClick={(event)=>event.stopPropagation()}>
                     <ShopLogo className={classes.shopLogo}/>
                   </Link>
                 </Typography>
@@ -176,12 +175,12 @@ export default function HeaderLayout(props) {
             </IconButton>
               <MenuItem>
                   <Typography className={classes.name} style={{marginRight:'30px'}} variant="h6" onClick={()=>props.history.push('/')}>
-                    <Link to="/" className={classes.menuAnchors}>
+                    <Link to="/" className={classes.menuAnchors} onClick={(event)=>event.stopPropagation()}>
                       فروشگاه فلان
                     </Link>
                   </Typography>
-                  <Typography className={classes.name} variant="h6" noWrap onClick={()=>props.history.push('/')}>
-                    <Link to="/" className={classes.menuAnchors}>
+                  <Typography className={classes.name} variant="h6" noWrap onClick={()=>props.history.push('/')} onClick={(event)=>event.stopPropagation()}>
+                    <Link to="/" className={classes.menuAnchors} onClick={(event)=>event.stopPropagation()}>
                       <ShopLogo className={classes.shopLogo}/>
                     </Link>
                   </Typography>
