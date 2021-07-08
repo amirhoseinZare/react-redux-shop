@@ -101,7 +101,7 @@ export default function OrdersTable() {
             renderItem={(item) => (
                 <PaginationItem
                 component={Link}
-                to={`?page${item.page}`}
+                to={`?page=${item.page}`}
                 {...item}
                 />
             )}

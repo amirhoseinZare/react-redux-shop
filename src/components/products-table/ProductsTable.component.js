@@ -118,7 +118,7 @@ export default function ProductsTable(props) {
             renderItem={(item) => (
                 <PaginationItem
                   component={Link}
-                  to={`?page${item.page}`}
+                  to={`?page=${item.page}`}
                   {...item}
                 />
             )}

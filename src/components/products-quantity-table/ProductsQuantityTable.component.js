@@ -141,7 +141,7 @@ export default function QuantityTable(props) {
             renderItem={(item) => (
                 <PaginationItem
                   component={Link}
-                  to={`?page${item.page}`}
+                  to={`?page=${item.page}`}
                   {...item}
                 />
             )}
