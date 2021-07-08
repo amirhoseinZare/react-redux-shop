@@ -11,7 +11,8 @@ const useStyles = makeStyles((theme) => ({
       display: 'flex',
       justifyContent: 'flex-end',
       alignItems: 'center',
-      position: 'relative'
+      position: 'relative',
+      boxShadow:'0 0 20px 5px rgba(162, 136, 227,.5)',
     },
     cover: {
         width: 151,
@@ -32,10 +33,17 @@ const useStyles = makeStyles((theme) => ({
     },
     button:{
         position:'absolute',
-        backgroundColor:'var(--tea-green)',
+        backgroundColor:'var(--beau-blue)',
         color:'var(--russian-violet)',
         bottom:'10px',
         left:'10px',
+        width:'125px',
+        height:'40px',
+        lineHeight:'36px',
+        textDecoration:'none',
+        borderRadius:'4px',
+        border:'2px solid var(--russian-violet)',
+        boxSizing:'border-box',
     }
   }));
 

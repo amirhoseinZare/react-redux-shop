@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme)=>({
     productInfo:{
         width:'100%',
         marginTop:theme.spacing(7),
+        color:'var(--russian-violet)',
     },
     quantityInput:{
        width:'30px',
@@ -24,7 +25,14 @@ const useStyles = makeStyles((theme)=>({
         border:'none',
         display:'flex',
         width:'200px',
-        justifyContent: 'space-evenly'
+        justifyContent: 'space-evenly',
+        backgroundColor:'var(--light-cyan)',
+        color:'var(--russian-violet)',
+        borderRadius:'4px',
+        border:'2px solid var(--russian-violet)',
+        boxSizing:'border-box',
+        height:'40px',
+        lineHeight:'36px',
     },
     lineHeight:{
         lineHeight:'40px',
@@ -35,12 +43,12 @@ const useStyles = makeStyles((theme)=>({
         display:'flex',
         flexDirection:'row-reverse',
         width:'700px',
-        margin:'auto'
+        margin:'auto',
     },
     productCategory:{
         display:'flex',
         justifyContent: 'space-between',
-        paddingRight:theme.spacing(2)
+        paddingRight:theme.spacing(2),
     },
     productPrice:{
         textAlign:'right',
@@ -50,7 +58,8 @@ const useStyles = makeStyles((theme)=>({
     productActions:{
         display:'flex',
         justifyContent: 'space-between',
-        paddingRight:theme.spacing(2)
+        paddingRight:theme.spacing(2),
+        marginTop:theme.spacing(2)
     },
     productDescription:{
         textAlign:'right',

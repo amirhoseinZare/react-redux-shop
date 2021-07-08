@@ -12,12 +12,12 @@ const useStyles = makeStyles((theme) => ({
         paddingRight: theme.spacing(2),
         paddingTop: theme.spacing(4),
         cursor:'pointer',
-        textDecoration:'underline',
         display:'flex',
         alignItems: 'center',
     },
     anchorGroupTitle:{
-        color:"#000"
+        color:"var(--russian-violet)",
+        textDecoration:'none'
     },
     productsContainer:{
         width:'100%',
