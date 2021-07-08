@@ -3,6 +3,7 @@ import {useEffect, useState} from "react"
 import {Grid} from "@material-ui/core"
 import axios from "axios"
 import {withRouter} from "react-router-dom"
+import {ProductsGroupAside} from "../../../components/index"
 
 function ProductsGroupPageComponent(props){
 
@@ -17,20 +18,20 @@ function ProductsGroupPageComponent(props){
             const response = await axios.get('http://localhost:3001/products', {params: {group:group.name}})
             allgroups.push({
                 group:group.name,
-                productsName:response.data.map(prod=>prod.name)
+                groupId:group.id,
+                products:response.data.map(prod=> ({name:prod.name, id:prod.id})),
             })
             if(index ===groups.length-1){
-                setGroupsState({groups:allgroups})
+                console.log(allgroups)
+                await setGroupsState({groups:allgroups})
             }
         })
-        console.log(props.match.params)
     }, [])
 
     useEffect(async ()=>{
         const response = await axios.get('http://localhost:3001/products', {params: {group:props.match.params.groupName}})
         const products = response.data
         await setProductsState({ products:products })
-        console.log(productsState)
     }, [])
 
     return (
@@ -41,7 +42,7 @@ function ProductsGroupPageComponent(props){
                     Product group page
                 </Grid>
                 <Grid item lg={4} md={2} sm ={2} xs={2}>
-                    other
+                    <ProductsGroupAside groups={groupsState.groups}/>
                 </Grid>
             </div>
         </div>

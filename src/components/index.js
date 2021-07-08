@@ -4,3 +4,4 @@ export {QuantityTable} from "./products-quantity-table/ProductsQuantityTable.com
 export {OrdersTable} from "./orders-table/OrdersTable.component"
 export {ProductModal} from "./products-modal/ProductsModal.component"
 export {ProductInput} from "./product-input/ProductInput.component"
+export {ProductsGroupAside} from "./product-group-aside/ProductGroupAside.component"
