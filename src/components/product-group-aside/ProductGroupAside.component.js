@@ -1,5 +1,6 @@
 import {useEffect} from 'react'
 import {makeStyles} from '@material-ui/core'
+import {withRouter} from "react-router-dom"
 
 const useStyles = makeStyles((theme) => ({
    container: {
@@ -20,10 +21,14 @@ const useStyles = makeStyles((theme) => ({
     textAlign:'right',
     marginBottom:theme.spacing(1),
     color:'var(--lavender-floral)'
+   },
+   groupTitleLink:{
+    color:'var(--russian-violet)',
+    textDecoration:'none'
    }
 }));
 
-function ProductsGroupAside(props){
+function ProductsGroupAsideComponent(props){
     const classes = useStyles();
 
     useEffect( async ()=>{
@@ -36,10 +41,12 @@ function ProductsGroupAside(props){
                 props.groups.map(group=>{
                     const {groupId:id, products, group:name} = group
                     return <article className={classes.groupCategory} key={id}>
-                        <h4 className={classes.groupTitle}>{name}</h4>
+                        <h4 className={classes.groupTitle}><a className={classes.groupTitleLink} href={`/product/group/${id}/${name}`}>{name}</a></h4>
                         {products.map(prod=>{
                             const {name, id:prodId} = prod
-                            return (<p className={classes.subGroupTitle} key={prodId}>{name}</p>)
+                            return (<p className={classes.subGroupTitle} key={prodId}>
+                                <a className={classes.groupTitleLink} href={`/product/${prodId}`}>{name}</a>
+                            </p>)
                         })}
                     </article>
                 })
@@ -47,7 +54,7 @@ function ProductsGroupAside(props){
         </section>
     )
 }
-
+const ProductsGroupAside = withRouter(ProductsGroupAsideComponent)
 export {
     ProductsGroupAside
 }
