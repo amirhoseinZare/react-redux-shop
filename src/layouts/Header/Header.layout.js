@@ -48,6 +48,14 @@ const useStyles = makeStyles((theme) => ({
   },
   icon:{
     marginLeft:'10px',
+  },
+  toolBar:{
+    backgroundColor:'var(--russian-violet)'
+  },
+  menuAnchors:{
+    color:'var(--light-cyan)',
+    fill:'var(--light-cyan)',
+    textDecoration:'none'
   }
 }));
 
@@ -101,7 +109,7 @@ export default function HeaderLayout(props) {
             <IconButton aria-label="show 4 new mails" >
               <MailIcon />
             </IconButton>
-            <Link to="/panel/login">
+            <Link to="/panel/login" className={classes.menuAnchors}>
               سبد خرید
             </Link>
         </MenuItem>
@@ -109,7 +117,7 @@ export default function HeaderLayout(props) {
             <IconButton aria-label="show 4 new mails">
               <MailIcon />
             </IconButton>
-            <Link to="/panel/login">
+            <Link to="/panel/login" className={classes.menuAnchors}>>
               مدیریت
             </Link>
         </MenuItem>
@@ -118,11 +126,11 @@ export default function HeaderLayout(props) {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="static">
+      <AppBar position="static" className={classes.toolBar}>
         <Toolbar>
             <MenuItem className={classes.title} onClick={()=>props.history.push('/cart')}>
             <Typography variant="p" noWrap>
-                  <Link to="/cart">
+                  <Link to="/cart" className={classes.menuAnchors}>
                     سبد خرید
                   </Link>
                 </Typography>
@@ -130,7 +138,7 @@ export default function HeaderLayout(props) {
             </MenuItem>
             <MenuItem className={classes.title} onClick={()=>props.history.push('/panel/login')}>
                 <Typography variant="p" noWrap>
-                  <Link to="/panel/login">
+                  <Link to="/panel/login" className={classes.menuAnchors}>
                     مدیریت
                   </Link>
                 </Typography>
@@ -140,14 +148,14 @@ export default function HeaderLayout(props) {
           <div className={classes.sectionDesktop}>
             <MenuItem>
                 <Typography className={classes.name} variant="h6" onClick={()=>props.history.push('/')}>
-                  <Link to="/">
+                  <Link to="/" className={classes.menuAnchors}>
                     فروشگاه فلان
                   </Link>
                 </Typography>
             </MenuItem>
             <MenuItem>
                 <Typography className={classes.title} variant="h6" noWrap onClick={()=>props.history.push('/')}>
-                  <Link to="/">
+                  <Link to="/" className={classes.menuAnchors}>
                     <ShopLogo className={classes.shopLogo}/>
                   </Link>
                 </Typography>
@@ -165,12 +173,12 @@ export default function HeaderLayout(props) {
             </IconButton>
               <MenuItem>
                   <Typography className={classes.name} style={{marginRight:'30px'}} variant="h6" onClick={()=>props.history.push('/')}>
-                    <Link to="/">
+                    <Link to="/" className={classes.menuAnchors}>
                       فروشگاه فلان
                     </Link>
                   </Typography>
                   <Typography className={classes.name} variant="h6" noWrap onClick={()=>props.history.push('/')}>
-                    <Link to="/">
+                    <Link to="/" className={classes.menuAnchors}>
                       <ShopLogo className={classes.shopLogo}/>
                     </Link>
                   </Typography>
