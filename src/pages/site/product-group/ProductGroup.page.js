@@ -64,8 +64,8 @@ function ProductsGroupPageComponent(props){
                     <Typography variant="h4" component="h1" className={classes.productGroupTitle}>{props.match.params.groupName}</Typography>
                     <div className={classes.productsContainer}>
                     {productsState.products.map((prod, index)=>{
-                        const {name, description, image, url} = prod
-                        return (<ProductCard lg={6} md={6} sm ={12} xs={12} name={name} description={description} image={image}></ProductCard>)
+                        const {name, description, image, id} = prod
+                        return (<ProductCard lg={6} md={6} sm ={12} xs={12} url={`/product/${id}`} name={name} description={description} image={image}></ProductCard>)
                     })}
                     </div>
                 </Grid>

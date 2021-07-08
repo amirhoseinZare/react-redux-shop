@@ -1,4 +1,5 @@
 import { Button,CardActions ,Grid, makeStyles, Card, CardMedia, CardContent, Typography  } from "@material-ui/core"
+import {withRouter} from "react-router-dom"
 
 const useStyles = makeStyles((theme) => ({
     card: {
@@ -38,12 +39,12 @@ const useStyles = makeStyles((theme) => ({
     }
   }));
 
-function ProductCard(psops){
+function ProductCardComponent(props){
     const classes = useStyles();
 
-    const {name , description, image, url, lg=4, md=6, sm=6, xs=12, xl=3 } = psops
+    const {name , description, image, url, lg=4, md=6, sm=6, xs=12, xl=3 } = props
     return (
-        <Grid item lg={lg} md={md} sm={sm} xs={xs} xl={xl}>
+        <Grid item lg={lg} md={md} sm={sm} xs={xs} xl={xl} onClick={()=>props.history.push(url)}>
             <Card className={classes.card}>
                 <CardContent className={classes.content}>
                     <Typography variant="h4" component="h2" className={classes.title}>{name}</Typography>
@@ -53,7 +54,7 @@ function ProductCard(psops){
                     className={classes.cover}
                     image={`http://localhost:3001${image}`}
                     title="Live from space album cover"/>
-                <a href={url} size="small" className={classes.button}>
+                <a href={url} size="small" className={classes.button} onClick={e=>e.stopPropagation()}>
                 اطلاعات بیشتر
                 </a>
             </Card>
@@ -61,6 +62,7 @@ function ProductCard(psops){
     )
 }
 
+const ProductCard = withRouter(ProductCardComponent)
 export {
     ProductCard
 }

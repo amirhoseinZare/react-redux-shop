@@ -74,9 +74,9 @@ function HomePagePage(props){
                                     </h1>
                                 </Grid>
                                     {product.products.map(prod=>{
-                                        const {name, description, image} = prod
+                                        const {name, description, image, id} = prod
                                         return (
-                                            <ProductCard key={prod.id} name={name} description={description} image={image} url={''}/>
+                                            <ProductCard key={prod.id} name={name} description={description} image={image} url={`/product/${id}`}/>
                                         )
                                     })}
                             </Fragment>
