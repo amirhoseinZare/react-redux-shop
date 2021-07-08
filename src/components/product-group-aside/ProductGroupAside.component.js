@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
    },
    subGroupTitle:{
     textAlign:'right',
+    marginBottom:theme.spacing(1),
     color:'var(--lavender-floral)'
    }
 }));
@@ -35,10 +36,10 @@ function ProductsGroupAside(props){
                 props.groups.map(group=>{
                     const {groupId:id, products, group:name} = group
                     return <article className={classes.groupCategory} key={id}>
-                        <h1 className={classes.groupTitle}>{name}</h1>
+                        <h4 className={classes.groupTitle}>{name}</h4>
                         {products.map(prod=>{
                             const {name, id:prodId} = prod
-                            return (<h3 className={classes.subGroupTitle} key={prodId}>{name}</h3>)
+                            return (<p className={classes.subGroupTitle} key={prodId}>{name}</p>)
                         })}
                     </article>
                 })

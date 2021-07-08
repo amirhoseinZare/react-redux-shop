@@ -41,9 +41,9 @@ const useStyles = makeStyles((theme) => ({
 function ProductCard(psops){
     const classes = useStyles();
 
-    const {name , description, image, url} = psops
+    const {name , description, image, url, lg=4, md=6, sm=6, xs=12, xl=3 } = psops
     return (
-        <Grid item lg={4} md={6} sm={6} xs={12} xl={3}>
+        <Grid item lg={lg} md={md} sm={sm} xs={xs} xl={xl}>
             <Card className={classes.card}>
                 <CardContent className={classes.content}>
                     <Typography variant="h4" component="h2" className={classes.title}>{name}</Typography>
