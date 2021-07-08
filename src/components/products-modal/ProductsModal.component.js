@@ -132,8 +132,6 @@ export default function ProductModal(props) {
             formdata.append("group", group);
             formdata.append("headgroup", headgroup);
             formdata.append("description", description);
-            formdata.append("price", price);
-            formdata.append("quantity", quantity);
             await axios.patch(`http://localhost:3001/products/${id}`, formdata)
             operationSuccess = true
         }

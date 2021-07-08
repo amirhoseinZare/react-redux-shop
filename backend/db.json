@@ -5,9 +5,9 @@
       "group": "کفش مردانه",
       "headgroup": "کفش و کتانی",
       "description": "بسیا زیبا",
-      "price": "undefined",
-      "quantity": "undefined",
-      "image": "/files/2662390de26f6cf02b21ddcbbbda6579",
+      "price": 40000,
+      "quantity": 32,
+      "image": "/files/e2a418111422cc2b73d53710d030d7d4",
       "createdAt": 1625741032819,
       "id": 16
     },
@@ -16,8 +16,8 @@
       "group": "کفش مردانه",
       "headgroup": "کفش و کتانی",
       "description": "مناسب تمام سلیقه ها",
-      "price": "undefined",
-      "quantity": "undefined",
+      "price": 50000,
+      "quantity": 10,
       "image": "/files/77b10c8165898530218af8a824fa20e5",
       "createdAt": 1625741295194,
       "id": 17
@@ -27,8 +27,8 @@
     {
       "id": 1,
       "image": "/files/c604e3622372a536278fc5b77cef7c40",
-      "name": "mobile",
-      "headgroup": "eletronic"
+      "name": "موبایل",
+      "headgroup": "الکترونیک"
     },
     {
       "name": "کفش مردانه",
