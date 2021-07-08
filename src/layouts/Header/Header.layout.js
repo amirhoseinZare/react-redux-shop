@@ -4,6 +4,8 @@ import MailIcon from '@material-ui/icons/Mail';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import { ReactComponent as ShopLogo } from "../../assets/icons/shop-logo.svg"
 import { Link, withRouter } from "react-router-dom"
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -48,6 +50,7 @@ const useStyles = makeStyles((theme) => ({
   },
   icon:{
     marginLeft:'10px',
+    fill:'var(--light-cyan)'
   },
   toolBar:{
     backgroundColor:'var(--russian-violet)'
@@ -107,7 +110,7 @@ export default function HeaderLayout(props) {
     >
         <MenuItem onClick={()=>props.history.push('/cart')}>
             <IconButton aria-label="show 4 new mails" >
-              <MailIcon />
+              <ShoppingCartIcon />
             </IconButton>
             <Link to="/panel/login" className={classes.menuAnchors}>
               سبد خرید
@@ -115,7 +118,7 @@ export default function HeaderLayout(props) {
         </MenuItem>
         <MenuItem onClick={()=>props.history.push('/panel/login')}>
             <IconButton aria-label="show 4 new mails">
-              <MailIcon />
+              <AccountCircleIcon />
             </IconButton>
             <Link to="/panel/login" className={classes.menuAnchors}>>
               مدیریت
@@ -134,7 +137,7 @@ export default function HeaderLayout(props) {
                     سبد خرید
                   </Link>
                 </Typography>
-                <MailIcon className={classes.icon}/>
+                <ShoppingCartIcon className={classes.icon}/>
             </MenuItem>
             <MenuItem className={classes.title} onClick={()=>props.history.push('/panel/login')}>
                 <Typography variant="p" noWrap>
@@ -142,7 +145,7 @@ export default function HeaderLayout(props) {
                     مدیریت
                   </Link>
                 </Typography>
-                <MailIcon className={classes.icon}/>
+                <AccountCircleIcon className={classes.icon}/>
             </MenuItem>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
