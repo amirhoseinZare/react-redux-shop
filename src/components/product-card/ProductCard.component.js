@@ -23,10 +23,20 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: 'column',
         justifyContent:'space-between',
         alignItems:'flex-end',
-        height:130,
+        height:130
     },
     subtitle:{
-        marginBottom:theme.spacing(7)
+        marginBottom:theme.spacing(7),
+        wordWrap:'break !important',
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        width:'300px',
+        textAlign:'right',
+        direction:'rtl',
     },
     title:{
         direction:'rtl'
