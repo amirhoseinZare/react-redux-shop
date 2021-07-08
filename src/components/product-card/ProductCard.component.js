@@ -29,23 +29,20 @@ const useStyles = makeStyles((theme) => ({
     }
   }));
 
-function ProductCard(){
+function ProductCard(psops){
     const classes = useStyles();
 
+    const {name , description, image} = psops
     return (
         <Grid item lg={4} md={6} sm={6} xs={12} xl={3}>
             <Card className={classes.card}>
                 <CardContent className={classes.content}>
-                    <Typography variant="h4" component="h2">
-                        پنیر
-                    </Typography>
-                    <Typography className={classes.subtitle} variant="subtitle2" component="p">
-                    پنیر بسیار خوشمزه برای تمام سلیقه ها
-                    </Typography>
+                    <Typography variant="h4" component="h2">{name}</Typography>
+                    <Typography className={classes.subtitle} variant="subtitle2" component="p">{description}</Typography>
                 </CardContent>
                 <CardMedia 
                     className={classes.cover}
-                    image={img}
+                    image={`http://localhost:3001${image}`}
                     title="Live from space album cover"/>
             </Card>
         </Grid>
