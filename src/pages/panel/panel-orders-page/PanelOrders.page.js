@@ -2,6 +2,7 @@ import {PanelHeader} from "../../../layouts/index"
 import {OrdersTable} from "../../../components/index"
 import { Typography, Grid, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel } from "@material-ui/core"
 import { makeStyles } from '@material-ui/core/styles';
+import {useState} from "react"
 
 const useStyles = makeStyles({
     container:{
@@ -19,9 +20,10 @@ const useStyles = makeStyles({
 
 function PanelOrdersPage (){
     const classes = useStyles();
+    const [filterProducts, setFilterProducts] = useState({doneFilter:null})
 
-    const handleChange = ()=>{
-
+    const handleChange = ({target})=>{
+        setFilterProducts({doneFilter:target.value})
     }
 
     return (
@@ -31,7 +33,7 @@ function PanelOrdersPage (){
 
                 <FormControl component="div">
                     <form>
-                        <RadioGroup name="status" className={classes.radioContainer}>
+                        <RadioGroup name="status" className={classes.radioContainer} onChange={handleChange}>
                             <FormControlLabel value="false" control={<Radio color="primary" name="status"/>} label="سفارش های در انتظار" />
                             <FormControlLabel value="true" control={<Radio color="primary" name="status"/>} label="سفارش های تحویل شده" />
                         </RadioGroup>
@@ -39,7 +41,7 @@ function PanelOrdersPage (){
                 </FormControl>
                 <Typography variant="h5" component="p">مدیریت سفارش ها</Typography>
             </Grid>
-            <OrdersTable/>
+            <OrdersTable filterProducts={filterProducts}/>
         </div>
     )
 }

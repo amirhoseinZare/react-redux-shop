@@ -29,7 +29,7 @@ const useStyles = makeStyles({
     },
 });
 
-export default function OrdersTable() {
+export default function OrdersTable(props) {
     const classes = useStyles();
     const [ordersState, setOrdersState] = useState([])
     const [pageState, setPageState] = useState({perpage:5,page:1})
@@ -55,12 +55,17 @@ export default function OrdersTable() {
         }
     }, [])
 
+    useEffect( async ()=>{
+        const {doneFilter:done} = props.filterProducts
+        console.log(done==='false')
+    }, [props.filterProducts])
     
     useEffect( async ()=>{
         const { page } = pageState
-        const response = await axios.get('http://localhost:3001/orders', {params:{_page:page, _limit:5}})
+        const {doneFilter:done} = props.filterProducts
+        const response = await axios.get('http://localhost:3001/orders', {params:{_page:page, _limit:5, done:done}})
         setOrdersState(response.data)
-    }, [pageState])
+    }, [pageState, props.filterProducts])
     return (
     <Grid item lg={8} md={10} sm ={10} xs={10} className={classes.container}>
         <TableContainer component={Paper}>
