@@ -60,16 +60,16 @@ function ProductsGroupPageComponent(props){
         <div>
             <Header/>
             <div style={{display:'flex', }}>
-                <Grid item lg={8} md={8} sm ={8} xs={8}>
+                <Grid item lg={10} md={9} sm ={8} xs={8}>
                     <Typography variant="h4" component="h1" className={classes.productGroupTitle}>{props.match.params.groupName}</Typography>
                     <div className={classes.productsContainer}>
                     {productsState.products.map((prod, index)=>{
                         const {name, description, image, url} = prod
-                        return (<ProductCard lg={6} md={12} sm ={12} xs={12} name={name} description={description} image={image}></ProductCard>)
+                        return (<ProductCard lg={6} md={6} sm ={12} xs={12} name={name} description={description} image={image}></ProductCard>)
                     })}
                     </div>
                 </Grid>
-                <Grid item lg={4} md={4} sm ={4} xs={4} className={classes.asideContainer}>
+                <Grid item lg={2} md={3} sm ={4} xs={4} className={classes.asideContainer}>
                     <ProductsGroupAside groups={groupsState.groups}/>
                 </Grid>
             </div>
