@@ -122,6 +122,7 @@ export default function ProductModal(props) {
         console.log(mode)
         const {name , description, group, id, price} = product
         const headgroup = groupsState.find(g => g.name === group).headgroup
+        let operationSuccess = false
         if(mode==='edit'){
             const formdata = new FormData();
             formdata.append("image", inputEl.current.files[0]);
@@ -132,6 +133,7 @@ export default function ProductModal(props) {
             formdata.append("price", price);
             formdata.append("quantity", quantity);
             axios.patch(`http://localhost:3001/products/${id}`, formdata)
+            operationSuccess = true
         }
         else if (mode==='add'){
             console.log('in add')
@@ -145,6 +147,10 @@ export default function ProductModal(props) {
             formdata.append("price", price);
             formdata.append("quantity", quantity);
             axios.post(`http://localhost:3001/products`,formdata)
+            operationSuccess = true
+        }
+        if(operationSuccess){
+            window.location.reload();
         }
         handleClose()
     }
