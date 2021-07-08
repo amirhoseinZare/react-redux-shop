@@ -45,7 +45,8 @@ const useStyles = makeStyles((theme) => ({
   },
   shopLogo:{
     width:40,
-    fill:'#fff'
+    fill:'#fff',
+    fill:'var(--light-cyan)',
   },
   icon:{
     marginLeft:'10px',
