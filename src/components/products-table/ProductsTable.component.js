@@ -99,7 +99,7 @@ export default function ProductsTable(props) {
                                 <TableCell align="right">{`${headgroup}/${group}`}</TableCell>
                                 <TableCell align="right">{name}</TableCell>
                                 <TableCell style={{display:'flex'}} align="right" component="th" scope="row">
-                                    <div style={{width: '50px', height:'50px', overflow: 'hidden', borderRadius: '50%'}}><img style={{width:"100%"}} src={`http://localhost:3001${image}`}/></div>
+                                    <div style={{width: '100px', height:'50px', overflow: 'hidden'}}><img style={{width:"100%"}} src={`http://localhost:3001${image}`}/></div>
                                 </TableCell>
                             </TableRow>
                         )
