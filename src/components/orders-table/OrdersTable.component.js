@@ -4,6 +4,7 @@ import { Grid, Table,TableBody,TableCell,TableContainer,TableHead,TableRow,Paper
 import { Link } from "react-router-dom"
 import axios from "axios"
 import {Pagination, PaginationItem} from '@material-ui/lab';
+import {e2p} from "../../utils/LanGuaggeNumberConvertor.utils";
 
 const useStyles = makeStyles({
     container:{
@@ -60,7 +61,6 @@ export default function OrdersTable() {
         const response = await axios.get('http://localhost:3001/orders', {params:{_page:page, _limit:5}})
         setOrdersState(response.data)
     }, [pageState])
-
     return (
     <Grid item lg={8} md={10} sm ={10} xs={10} className={classes.container}>
         <TableContainer component={Paper}>
@@ -76,13 +76,14 @@ export default function OrdersTable() {
                 <TableBody>
                     {ordersState.map((row, index) => {
                         const { id, username, cost, createdAt } = row
+                        console.log(cost.replace, typeof cost)
                         return (
                             <TableRow className={index%2===0? classes.tableRow1 : classes.tableRow2} key={id}>
                                 <TableCell align="right" component="th" scope="row">
                                     <Link>بررسی سفارش</Link>
                                 </TableCell>
                                 <TableCell align="right">{new Date(createdAt).toLocaleDateString('fa-IR')}</TableCell>
-                                <TableCell align="right">{cost}</TableCell>
+                                <TableCell align="right">{e2p(''+cost)}</TableCell>
                                 <TableCell style={{display:'flex'}} align="right" component="th" scope="row">{username}</TableCell>
                             </TableRow>
                         )

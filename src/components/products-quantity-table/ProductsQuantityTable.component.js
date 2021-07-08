@@ -4,7 +4,7 @@ import { Grid, Table,TableBody,TableCell,TableContainer,TableHead,TableRow,Paper
 import { Link } from "react-router-dom"
 import axios from "axios"
 import {Pagination, PaginationItem} from '@material-ui/lab';
-import {ProductInput} from "../../components/index"
+import {ProductInput} from "../../components/index";
 
 const useStyles = makeStyles({
     container:{
