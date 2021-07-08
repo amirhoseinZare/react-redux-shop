@@ -116,23 +116,25 @@ export default function ProductModal(props) {
 
     const inputEl = useRef(null)
 
-    const submitButtonHandler = (event, product) => {
+    const submitButtonHandler = async(event, product) => {
         event.preventDefault()
         const {mode} = props
         console.log(mode)
         const {name , description, group, id, price} = product
         const headgroup = groupsState.find(g => g.name === group).headgroup
         let operationSuccess = false
+        console.log(inputEl.current.files[0])
         if(mode==='edit'){
             const formdata = new FormData();
-            formdata.append("image", inputEl.current.files[0]);
+            if(inputEl.current.files[0])
+                formdata.append("image", inputEl.current.files[0]);
             formdata.append("name", name);
             formdata.append("group", group);
             formdata.append("headgroup", headgroup);
             formdata.append("description", description);
             formdata.append("price", price);
             formdata.append("quantity", quantity);
-            axios.patch(`http://localhost:3001/products/${id}`, formdata)
+            await axios.patch(`http://localhost:3001/products/${id}`, formdata)
             operationSuccess = true
         }
         else if (mode==='add'){
@@ -146,7 +148,7 @@ export default function ProductModal(props) {
             formdata.append("description", description);
             formdata.append("price", price);
             formdata.append("quantity", quantity);
-            axios.post(`http://localhost:3001/products`,formdata)
+            await axios.post(`http://localhost:3001/products`,formdata)
             operationSuccess = true
         }
         if(operationSuccess){
