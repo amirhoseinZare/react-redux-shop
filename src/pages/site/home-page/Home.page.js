@@ -5,6 +5,7 @@ import {ProductCard} from "../../../components/index"
 import {useEffect, useState} from "react"
 import axios from "axios"
 import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
+import { withRouter } from "react-router-dom"
 
 const useStyles = makeStyles((theme) => ({
     groupTitle:{
@@ -30,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function HomePage(){
+function HomePagePage(props){
     const classes = useStyles();
 
     const [ productsState, setProductsState ] = useState({products:[]})
@@ -62,18 +63,20 @@ function HomePage(){
             <Grid container className={classes.productsContainer}>
                 {
                     productsState.products.map(product=>{
+                        const {name:groupName, id:groupId} = product.group
+                        const groupLink = `/product/group/${groupId}/${groupName}`
                         return (
                             <Fragment key={product.group.id}>
                                 <Grid item xs={12}>
-                                    <h1 className={classes.groupTitle} dir="rtl">
-                                        <a href='#' className={classes.anchorGroupTitle}>{product.group.name}</a>
+                                    <h1 className={classes.groupTitle} dir="rtl" onClick={()=>{props.history.push(groupLink)}}>
+                                        <a href={groupLink} className={classes.anchorGroupTitle} onClick={event=>event.stopPropagation()}>{product.group.name}</a>
                                         <ArrowLeftIcon className={classes.groupArrow}/>
                                     </h1>
                                 </Grid>
                                     {product.products.map(prod=>{
                                         const {name, description, image} = prod
                                         return (
-                                            <ProductCard key={prod.id} name={name} description={description} image={image}/>
+                                            <ProductCard key={prod.id} name={name} description={description} image={image} url={''}/>
                                         )
                                     })}
                             </Fragment>
@@ -87,6 +90,8 @@ function HomePage(){
        
     );
 }
+
+const HomePage = withRouter(HomePagePage)
 
 export {
     HomePage

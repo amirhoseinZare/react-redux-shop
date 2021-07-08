@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
 function ProductCard(psops){
     const classes = useStyles();
 
-    const {name , description, image} = psops
+    const {name , description, image, url} = psops
     return (
         <Grid item lg={4} md={6} sm={6} xs={12} xl={3}>
             <Card className={classes.card}>
@@ -53,9 +53,9 @@ function ProductCard(psops){
                     className={classes.cover}
                     image={`http://localhost:3001${image}`}
                     title="Live from space album cover"/>
-                <Button size="small" className={classes.button}>
+                <a href={url} size="small" className={classes.button}>
                 اطلاعات بیشتر
-                </Button>
+                </a>
             </Card>
         </Grid>
     )
