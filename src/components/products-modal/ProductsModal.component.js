@@ -74,7 +74,7 @@ export default function ProductModal(props) {
     const [open, setOpen] = useState(false);
 
     const [productState, setProductState] = useState({product:{
-        id:'', name:'', group:'', headgroup:'', image:''
+        id:'', name:'', group:'', headgroup:'', image:'', price:'', quantity:'',
     }})
 
     const [groupsState, setGroupsState] = useState([])
@@ -93,10 +93,6 @@ export default function ProductModal(props) {
     const inputChangeHandler = (event, name) => {
         setProductState({product:{...productState.product, [name]:event.target.value}})
     }
-
-    useEffect(async ()=>{
-        console.log(groupsState)
-    },[groupsState])
 
     useEffect(async ()=>{
         const groups = await axios.get('http://localhost:3001/groups')
@@ -124,7 +120,8 @@ export default function ProductModal(props) {
         event.preventDefault()
         const {mode} = props
         console.log(mode)
-        const {name , description, group, headgroup, id, price} = product
+        const {name , description, group, id, price} = product
+        const headgroup = groupsState.find(g => g.name === group).headgroup
         if(mode==='edit'){
             const formdata = new FormData();
             formdata.append("image", inputEl.current.files[0]);
@@ -133,6 +130,7 @@ export default function ProductModal(props) {
             formdata.append("headgroup", headgroup);
             formdata.append("description", description);
             formdata.append("price", price);
+            formdata.append("quantity", quantity);
             axios.patch(`http://localhost:3001/products/${id}`, formdata)
         }
         else if (mode==='add'){
@@ -145,6 +143,7 @@ export default function ProductModal(props) {
             formdata.append("headgroup", headgroup);
             formdata.append("description", description);
             formdata.append("price", price);
+            formdata.append("quantity", quantity);
             axios.post(`http://localhost:3001/products`,formdata)
         }
         handleClose()
@@ -154,7 +153,7 @@ export default function ProductModal(props) {
         console.log(inputEl)
     }, [inputEl])
 
-    const {id, name, description, group} = productState.product
+    const {id, name, description, group, price, quantity} = productState.product
     const body = (
         <div className={classes.paper} style={modalStyle}>
             <header className={classes.modalHeader}>
@@ -192,11 +191,23 @@ export default function ProductModal(props) {
                         }
                     </Select>
                 </FormControl>
+                
 
                 <div className={classes.productInputContainer}>
                     <label className={classes.productInoutLabel}>توضیحات کالا:</label>
                     <TextField dir="rtl" type="text" variant="outlined" value={description} onChange={(event)=>inputChangeHandler(event, 'description')}/>
                 </div>
+                {
+                    props.mode==='add' ? (<><div className={classes.productInputContainer}>
+                    <label className={classes.productInoutLabel}>موجودی:</label>
+                    <TextField dir="rtl" type="number" variant="outlined" value={quantity} onChange={(event)=>inputChangeHandler(event, 'quantity')}/>
+                </div>
+
+                <div className={classes.productInputContainer}>
+                    <label className={classes.productInoutLabel}>قیمت:</label>
+                    <TextField dir="rtl" type="number" variant="outlined" value={price} onChange={(event)=>inputChangeHandler(event, 'price')}/>
+                </div></>) : null
+                }
 
                 <footer className={classes.modalFooter}>
                     <Button  type="submit" color="primary" background="primary" onClick={(event)=>submitButtonHandler(event,  productState.product)}>ذخیره</Button>
