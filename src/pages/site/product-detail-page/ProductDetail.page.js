@@ -73,7 +73,13 @@ const useStyles = makeStyles((theme)=>({
     productImage:{
         width:'300px',
         height:'168px',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        display:'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    productImageItem:{
+        width:'100%'
     }
 }))
 
@@ -96,7 +102,7 @@ function ProductDetailPageComponent(props){
                 <section className={classes.productInfo}>
                     <div className={classes.productMainInfo}>
                         <div className={classes.productImage}>
-                            <img src={`http://localhost:3001${image}`}/>
+                            <img className={classes.productImageItem} src={`http://localhost:3001${image}`}/>
                         </div>
                         <div>
                             <Typography className={classes.productName} variant="h4" component="h1">{name}</Typography>
