@@ -1,5 +1,4 @@
-import { Paper, Grid, makeStyles, Card, CardMedia, CardContent, Typography  } from "@material-ui/core"
-import img from "../../assets/images/live-from-space.jpg"
+import { Button,CardActions ,Grid, makeStyles, Card, CardMedia, CardContent, Typography  } from "@material-ui/core"
 
 const useStyles = makeStyles((theme) => ({
     card: {
@@ -10,12 +9,12 @@ const useStyles = makeStyles((theme) => ({
       height:130,
       display: 'flex',
       justifyContent: 'flex-end',
-      alignItems: 'center'
+      alignItems: 'center',
+      position: 'relative'
     },
     cover: {
         width: 151,
         height:'100%',
-
     },
     content:{
         display: 'flex',
@@ -29,6 +28,13 @@ const useStyles = makeStyles((theme) => ({
     },
     title:{
         direction:'rtl'
+    },
+    button:{
+        position:'absolute',
+        backgroundColor:'var(--tea-green)',
+        color:'var(--russian-violet)',
+        bottom:'10px',
+        left:'10px',
     }
   }));
 
@@ -47,6 +53,9 @@ function ProductCard(psops){
                     className={classes.cover}
                     image={`http://localhost:3001${image}`}
                     title="Live from space album cover"/>
+                <Button size="small" className={classes.button}>
+                اطلاعات بیشتر
+                </Button>
             </Card>
         </Grid>
     )
