@@ -1,12 +1,21 @@
 import {Header} from "../../../layouts/index"
 import {useEffect, useState} from "react"
-import {Grid} from "@material-ui/core"
+import {Grid , makeStyles} from "@material-ui/core"
 import axios from "axios"
 import {withRouter} from "react-router-dom"
 import {ProductsGroupAside} from "../../../components/index"
 
-function ProductsGroupPageComponent(props){
+const useStyles = makeStyles((theme) => ({
+    asideContainer:{
+        height:'100vh',
+        borderLeft: '1px solid var(--lavender-floral)',
+        boxSizing: 'border-box'
+    }
+}));
+ 
 
+function ProductsGroupPageComponent(props){
+    const classes = useStyles();
     const [groupsState, setGroupsState] = useState({ groups: [] })
     const [productsState, setProductsState] = useState({ products: [] })
 
@@ -38,10 +47,10 @@ function ProductsGroupPageComponent(props){
         <div>
             <Header/>
             <div style={{display:'flex', }}>
-                <Grid item lg={8} md={10} sm ={10} xs={10}>
+                <Grid item lg={10} md={10} sm ={10} xs={10}>
                     Product group page
                 </Grid>
-                <Grid item lg={4} md={2} sm ={2} xs={2}>
+                <Grid item lg={2} md={2} sm ={2} xs={2} className={classes.asideContainer}>
                     <ProductsGroupAside groups={groupsState.groups}/>
                 </Grid>
             </div>
