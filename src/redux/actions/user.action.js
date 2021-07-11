@@ -1,10 +1,12 @@
+import UserActionTypes from "../types/user.types"
+
 const addToCart = (product) => ({
-    type:'ADD_TO_CART',
+    type:UserActionTypes.ADD_TO_CART,
     payload:product
 })
 
 const removeFromCart = (product) => ({
-    type:'REMOVE_FROM_CART',
+    type:UserActionTypes.REMOVE_FROM_CART,
     payload:product
 })
 
