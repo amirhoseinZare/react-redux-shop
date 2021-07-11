@@ -93,11 +93,13 @@ function ProductDetailPageComponent(props){
     useEffect( async () =>{
         const response = await axios.get(`http://localhost:3001/products/${props.match.params.productId}`)
         const product = response.data
+        console.log(props.userCart)
         await setProductsState(product)
     }, [])
 
     useEffect(()=>{
         console.log(props.userCart)
+        localStorage.cart = JSON.stringify(props.userCart)
     }, [props.userCart])
 
     const addToCartButtonClickHandler = (event,product)=>{
@@ -122,7 +124,7 @@ function ProductDetailPageComponent(props){
                             </div>
                             <Typography variant="h5" component="p" className={classes.productPrice}>{e2p(numberWithCommas(''+price))} تومان</Typography>
                             <div className={classes.productActions}>
-                                <button className={[classes.cartButton]} onClick={(event)=>addToCartButtonClickHandler(event, {name,price,id})}>
+                                <button className={[classes.cartButton]} onClick={(event)=>addToCartButtonClickHandler(event, {name,price:+price,id})}>
                                     <ControlPointIcon className={classes.lineHeight}/><div className={classes.lineHeight}>افزودن به سبد خرید</div>
                                 </button>
                                 <input min="0" className={classes.quantityInput} type="number" />
