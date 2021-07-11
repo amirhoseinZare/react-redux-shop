@@ -6,6 +6,8 @@ import axios from "axios"
 import {e2p} from "../../../utils/LanGuaggeNumberConvertor.utils"
 import {numberWithCommas} from "../../../utils/numberWithCommas.utils"
 import ControlPointIcon from '@material-ui/icons/ControlPoint';
+import {connect} from "react-redux"
+import {addToCart} from "../../../redux/actions/user.action"
 
 const useStyles = makeStyles((theme)=>({
     productInfo:{
@@ -94,7 +96,15 @@ function ProductDetailPageComponent(props){
         await setProductsState(product)
     }, [])
 
-    const {name, description, image, group, headgroup, price} = productsState
+    useEffect(()=>{
+        console.log(props.userCart)
+    }, [props.userCart])
+
+    const addToCartButtonClickHandler = (event,product)=>{
+        props.addToCart(product)
+    }
+
+    const {name, description, image, group, headgroup, price, id} = productsState
     return (
         <div>
             <Header/>
@@ -112,7 +122,7 @@ function ProductDetailPageComponent(props){
                             </div>
                             <Typography variant="h5" component="p" className={classes.productPrice}>{e2p(numberWithCommas(''+price))} تومان</Typography>
                             <div className={classes.productActions}>
-                                <button className={[classes.cartButton]}>
+                                <button className={[classes.cartButton]} onClick={(event)=>addToCartButtonClickHandler(event, {name,price,id})}>
                                     <ControlPointIcon className={classes.lineHeight}/><div className={classes.lineHeight}>افزودن به سبد خرید</div>
                                 </button>
                                 <input min="0" className={classes.quantityInput} type="number" />
@@ -126,5 +136,10 @@ function ProductDetailPageComponent(props){
     )
 }
 
-const ProductDetailPage = withRouter(ProductDetailPageComponent)
+const mapStateToProps = ({user:{cart}}) => ({userCart:cart})
+const mapDispatchToProps = (dispatch) => ({
+    addToCart:product => dispatch(addToCart(product))
+})
+
+const ProductDetailPage = connect(mapStateToProps, mapDispatchToProps)(withRouter(ProductDetailPageComponent))
 export {ProductDetailPage}
