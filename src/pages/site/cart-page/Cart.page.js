@@ -41,7 +41,8 @@ const useStyles = makeStyles({
         backgroundColor:'#fff',
         border:'2px solid var(--lavender-floral)',
         padding:'5px 10px',
-        color:'var(--lavender-floral)'
+        color:'var(--lavender-floral)',
+        textDecoration:'none',
     },
     tableHeaders:{
         color:'var(--russian-violet)',
@@ -104,7 +105,7 @@ function CartPageComponent (props){
                     </Table>
                 </TableContainer>
                 <div className={classes.cartInfo}>
-                    <button className={classes.buyButton}>نهایی کردن سبد خرید</button>
+                    <Link className={classes.buyButton} to="/checkout">نهایی کردن سبد خرید</Link>
                     <div className={classes.cartPrice}>
                         <p className={classes.cartPriceTypography}>جمع:</p>
                         <div className={classes.cartPriceCost}>{e2p(numberWithCommas(props.userCart.reduce((acc, cv) => acc + +cv.allPrice  , 0)))}</div><span>تومان</span>
