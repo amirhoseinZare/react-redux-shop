@@ -107,7 +107,7 @@ function CartPageComponent (props){
                     <button className={classes.buyButton}>نهایی کردن سبد خرید</button>
                     <div className={classes.cartPrice}>
                         <p className={classes.cartPriceTypography}>جمع:</p>
-                        <div className={classes.cartPriceCost}>12,432</div><span>تومان</span>
+                        <div className={classes.cartPriceCost}>{e2p(numberWithCommas(props.userCart.reduce((acc, cv) => acc + +cv.allPrice  , 0)))}</div><span>تومان</span>
                     </div>
                 </div>
             </Grid>
