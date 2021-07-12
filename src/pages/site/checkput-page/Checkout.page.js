@@ -3,6 +3,7 @@ import {TextField, Grid} from "@material-ui/core"
 import { makeStyles } from '@material-ui/core/styles';
 import {useState, useEffect} from "react"
 import axios from "axios"
+import {connect} from "react-redux"
 
 const useStyles = makeStyles((theme) => ({
     container:{
@@ -34,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function CheckoutPage (){
+function CheckoutPageComponent(props){
 
     const classes = useStyles();
 
@@ -46,10 +47,22 @@ function CheckoutPage (){
         setState({...state, [name]:value })
     }
 
+    console.log(props.userCart.reduce((acc, cv)=> acc + +cv.allPrice, 0))
+
     const submitHandler = (event)=>{
         event.preventDefault()
         const { name, familyName, address, phone, deliveryTime } = state
-        axios.post('http://localhost:3001/orders', {name, familyName, address, phone, deliveryRequestTime:deliveryTime, pay:false, delivered:false,deliveryDoneTime:'' })
+        axios.post('http://localhost:3001/orders', { 
+            name, 
+            familyName, 
+            address, 
+            phone, 
+            deliveryRequestTime:deliveryTime, 
+            pay:false, 
+            delivered:false,
+            deliveryDoneTime:'', 
+            cost:props.userCart.reduce((acc, cv)=> acc + +cv.allPrice, 0)
+        })
         setState({
             name:'', familyName:'', address:'', phone:'', deliveryTime:'',
         })
@@ -118,4 +131,6 @@ function CheckoutPage (){
     )
 }
 
+const mapStateToProps = ({user:{cart}})=>({userCart:cart})
+const CheckoutPage = connect(mapStateToProps)(CheckoutPageComponent)
 export {CheckoutPage}
