@@ -7,6 +7,7 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import {connect} from "react-redux"
 import {removeFromCart} from "../../redux/actions/user.action"
+import {e2p} from "../../utils/LanGuaggeNumberConvertor.utils"
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -150,7 +151,7 @@ export default function HeaderLayout(props) {
                 <Link to="/cart" className={classes.menuAnchors} onClick={(event)=>event.stopPropagation()}>
                   سبد خرید
                 </Link>
-                <div className={classes.cartNumber} >{props.userCart.reduce((acc,cv)=>acc+cv.count, 0)}</div>
+                <div className={classes.cartNumber} >{e2p(''+props.userCart.reduce((acc,cv)=>acc+cv.count, 0))}</div>
               </Typography>
               <ShoppingCartIcon className={classes.icon}/>
             </MenuItem>
