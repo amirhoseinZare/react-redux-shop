@@ -1,6 +1,7 @@
 import {Header} from "../../../layouts/index"
 import {TextField, Grid} from "@material-ui/core"
 import { makeStyles } from '@material-ui/core/styles';
+import {useState} from "react"
 
 const useStyles = makeStyles((theme) => ({
     container:{
@@ -36,6 +37,16 @@ function CheckoutPage (){
 
     const classes = useStyles();
 
+    const [state, setState] = useState({
+        name:'', familyName:'', address:'', phone:'', deliveryTime:'',
+    })
+
+    const channgInputHandler  = ({target:{value}}, name)=>{
+        setState({...state, [name]:value })
+    }
+
+    const { name, familyName, address, phone, deliveryTime } = state
+
     return (
         <div>
             <Header/>
@@ -46,7 +57,7 @@ function CheckoutPage (){
                         <div>
                             <label for="family-name">:نام خانوادگی</label>
                         </div>
-                        <TextField className={classes.textField} id="family-name" variant="outlined" />
+                        <TextField onChange={e=>channgInputHandler(e, 'familyName')} value={familyName} className={classes.textField} id="family-name" variant="outlined" />
                     </div>
                 </Grid>
 
@@ -55,7 +66,7 @@ function CheckoutPage (){
                         <div>
                             <label for="name">:نام</label>
                         </div>
-                        <TextField className={classes.textField} id="name" variant="outlined" />
+                        <TextField onChange={e=>channgInputHandler(e, 'name')} value={name} className={classes.textField} id="name" variant="outlined" />
                     </div>
                 </Grid>
 
@@ -64,7 +75,7 @@ function CheckoutPage (){
                         <div>
                             <label for="phone">:تلفن همراه</label>
                         </div>
-                        <TextField className={classes.textField} id="phone" variant="outlined" />
+                        <TextField onChange={e=>channgInputHandler(e, 'phone')} type="number" value={phone} className={classes.textField} id="phone" variant="outlined" />
                     </div>
                 </Grid>
 
@@ -73,7 +84,7 @@ function CheckoutPage (){
                         <div>
                             <label for="address">:آدرس</label>
                         </div>
-                        <TextField className={classes.textField} id="address" variant="outlined" />
+                        <TextField onChange={e=>channgInputHandler(e, 'address')} value={address} className={classes.textField} id="address" variant="outlined" />
                     </div>
                 </Grid>
 
@@ -82,7 +93,7 @@ function CheckoutPage (){
                         <div>
                             <label for="time" >:زمان تحویل</label>
                         </div>
-                        <TextField className={classes.textField} id="time" variant="outlined" />
+                        <TextField onChange={e=>channgInputHandler(e, 'deliveryTime')} value={deliveryTime} className={classes.textField} id="time" variant="outlined" />
                     </div>
                 </Grid>
 
