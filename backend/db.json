@@ -94,8 +94,8 @@
       "phone": "۰۹۰۳۵۱۹۳۴۲۶",
       "deliveryRequestTime": 1624540323565,
       "pay": true,
-      "delivered": false,
-      "deliveryDoneTime": 1624570390565,
+      "delivered": true,
+      "deliveryDoneTime": 1626126079799,
       "cost": 78120000,
       "products": [
         {
@@ -123,8 +123,8 @@
       "phone": "۰۹۰۳۵۱۹۳۴۲۶",
       "deliveryRequestTime": 1624540323565,
       "pay": true,
-      "delivered": false,
-      "deliveryDoneTime": 1624570390565,
+      "delivered": true,
+      "deliveryDoneTime": 1626125585737,
       "cost": 78120000,
       "products": [
         {

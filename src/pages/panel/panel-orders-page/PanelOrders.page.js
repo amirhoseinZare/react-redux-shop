@@ -7,6 +7,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import {e2p} from "../../../utils/LanGuaggeNumberConvertor.utils"
 import {numberWithCommas} from "../../../utils/numberWithCommas.utils"
 import {Link} from "react-router-dom"
+import axios from "axios"
 
 const useStyles = makeStyles((theme)=>({
     container:{
@@ -71,10 +72,10 @@ const useStyles = makeStyles((theme)=>({
         margin: '30px 20px'
     },
     deliveryButton:{
-        border: '2px solid var(--lavender-floral)',
-        backgroundColor:'transparent',
+        border: 'none',
+        backgroundColor:'var(--dark-blue)',
         padding:'10px 20px',
-        color:'var(--lavender-floral)'
+        color:'#fff'
     }
 }));
 
@@ -103,6 +104,11 @@ function PanelOrdersPage (){
         console.log(name, familyName, address, phone, cost)
     }, [orderState])
 
+    const deliveryButtonHandler = async (e , orderId) => {
+        console.log(orderId)
+        await axios.patch(`http://localhost:3001/orders/${orderId}`, { deliveryDoneTime: + new Date().getTime(), delivered:true })
+        window.location.reload()
+    }
 
     const { name, familyName, address, phone, cost, deliveryDoneTime, deliveryRequestTime } = orderState.item;
     const body = (
@@ -140,7 +146,7 @@ function PanelOrdersPage (){
                 <TableContainer  className={classes.tableContainer} component={Paper}>
                     <Table className={classes.table} aria-label="simple table">
                         <TableHead>
-                        <TableRow>
+                        <TableRow style={{background:'var(--light-face)'}}>
                             <TableCell align="right">تعداد &times; قیمت</TableCell>
                             <TableCell className={classes.tableHeaders} align="right">تعداد</TableCell>
                             <TableCell className={classes.tableHeaders} align="right">قیمت</TableCell>
@@ -149,7 +155,7 @@ function PanelOrdersPage (){
                         </TableHead>
                         <TableBody>
                         {orderState.item.products.map((row, index) => (
-                            <TableRow style={{backgroundColor:index%2===0?'var(--beau-blue)':'var(--light-cyan)'}} key={row.id}>
+                            <TableRow style={{backgroundColor:index%2===0?'#cfba93':'var(--light-face)'}} key={row.id}>
                                 <TableCell align="right">{e2p(numberWithCommas('' + row.allPrice))}</TableCell>
                                 <TableCell align="right">{e2p(numberWithCommas('' + row.count))}</TableCell>
                                 <TableCell align="right">{e2p(numberWithCommas('' + row.price))}</TableCell>
@@ -161,10 +167,10 @@ function PanelOrdersPage (){
                         </TableBody>
                     </Table>
                 </TableContainer>
-
-                <button className={classes.deliveryButton}>
+                { !orderState.item.delivered ? (<button className={classes.deliveryButton} onClick={event => deliveryButtonHandler(event , orderState.item.id)}>
                     تحویل شد
-                </button>
+                </button>) : <p dir="rtl"> زمان تحویل: {new Date(+deliveryDoneTime).toLocaleString('fa-IR')}</p>
+}
             </div>
         </div>
       );
