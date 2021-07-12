@@ -45,64 +45,70 @@ function CheckoutPage (){
         setState({...state, [name]:value })
     }
 
+    const submitHandler = (event)=>{
+        event.preventDefault()
+        console.log(state)
+    }
+
     const { name, familyName, address, phone, deliveryTime } = state
 
     return (
         <div>
             <Header/>
-
-            <div className={classes.container}>
-                <Grid xs={2} xl={6} lg={6} md={6} sm={6}>  
-                    <div className={classes.input}>
-                        <div>
-                            <label for="family-name">:نام خانوادگی</label>
+            <form onSubmit={submitHandler}>
+                <div className={classes.container}>
+                    <Grid xs={2} xl={6} lg={6} md={6} sm={6}>  
+                        <div className={classes.input}>
+                            <div>
+                                <label for="family-name">:نام خانوادگی</label>
+                            </div>
+                            <TextField onChange={e=>channgInputHandler(e, 'familyName')} value={familyName} className={classes.textField} id="family-name" variant="outlined" />
                         </div>
-                        <TextField onChange={e=>channgInputHandler(e, 'familyName')} value={familyName} className={classes.textField} id="family-name" variant="outlined" />
-                    </div>
-                </Grid>
+                    </Grid>
 
-                <Grid xs={2} xl={6} lg={6} md={6} sm={6}>  
-                    <div className={classes.input}>
-                        <div>
-                            <label for="name">:نام</label>
+                    <Grid xs={2} xl={6} lg={6} md={6} sm={6}>  
+                        <div className={classes.input}>
+                            <div>
+                                <label for="name">:نام</label>
+                            </div>
+                            <TextField onChange={e=>channgInputHandler(e, 'name')} value={name} className={classes.textField} id="name" variant="outlined" />
                         </div>
-                        <TextField onChange={e=>channgInputHandler(e, 'name')} value={name} className={classes.textField} id="name" variant="outlined" />
-                    </div>
-                </Grid>
+                    </Grid>
 
-                <Grid xs={2} xl={6} lg={6} md={6} sm={6}>  
-                    <div className={classes.input}>
-                        <div>
-                            <label for="phone">:تلفن همراه</label>
+                    <Grid xs={2} xl={6} lg={6} md={6} sm={6}>  
+                        <div className={classes.input}>
+                            <div>
+                                <label for="phone">:تلفن همراه</label>
+                            </div>
+                            <TextField onChange={e=>channgInputHandler(e, 'phone')} type="number" value={phone} className={classes.textField} id="phone" variant="outlined" />
                         </div>
-                        <TextField onChange={e=>channgInputHandler(e, 'phone')} type="number" value={phone} className={classes.textField} id="phone" variant="outlined" />
-                    </div>
-                </Grid>
+                    </Grid>
 
-                <Grid xs={2} xl={6} lg={6} md={6} sm={6}>  
-                    <div className={classes.input}>
-                        <div>
-                            <label for="address">:آدرس</label>
+                    <Grid xs={2} xl={6} lg={6} md={6} sm={6}>  
+                        <div className={classes.input}>
+                            <div>
+                                <label for="address">:آدرس</label>
+                            </div>
+                            <TextField onChange={e=>channgInputHandler(e, 'address')} value={address} className={classes.textField} id="address" variant="outlined" />
                         </div>
-                        <TextField onChange={e=>channgInputHandler(e, 'address')} value={address} className={classes.textField} id="address" variant="outlined" />
-                    </div>
-                </Grid>
+                    </Grid>
 
-                <Grid xs={2} xl={6} lg={6} md={6} sm={6}>  
-                    <div className={classes.input}>
-                        <div>
-                            <label for="time" >:زمان تحویل</label>
+                    <Grid xs={2} xl={6} lg={6} md={6} sm={6}>  
+                        <div className={classes.input}>
+                            <div>
+                                <label for="time" >:زمان تحویل</label>
+                            </div>
+                            <TextField onChange={e=>channgInputHandler(e, 'deliveryTime')} value={deliveryTime} className={classes.textField} id="time" variant="outlined" />
                         </div>
-                        <TextField onChange={e=>channgInputHandler(e, 'deliveryTime')} value={deliveryTime} className={classes.textField} id="time" variant="outlined" />
-                    </div>
-                </Grid>
+                    </Grid>
 
-            </div>
+                </div>
 
-            <div className={classes.buttonContainer}>
-                <button className={classes.payButton}>پرداخت</button>
-            </div>
-            
+                <div className={classes.buttonContainer}>
+                    <button className={classes.payButton}>پرداخت</button>
+                </div>
+            </form>
+
         </div>
     )
 }
