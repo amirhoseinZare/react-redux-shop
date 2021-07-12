@@ -52,7 +52,7 @@ function PaymentSuccess(props){
             const {products} = response.data
             products.forEach(async product => {
                 const response = await axios.get(`http://localhost:3001/products/${product.id}`)
-                await axios.patch(`http://localhost:3001/products/${product.id}`, { quantity:response.data.quantity-product.quantity })    
+                await axios.patch(`http://localhost:3001/products/${product.id}`, { quantity: +response.data.quantity - +product.count })    
             })
             props.emptyUserCart()
             localStorage.cart = '[]'
