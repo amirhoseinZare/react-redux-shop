@@ -27,6 +27,12 @@ const useStyles = makeStyles({
     table: {
         minWidth: 650,
     },
+    editOrderButton:{
+        backgroundColor:'transparent',
+        color:'blue',
+        textDecoration: 'underline',
+        border:'none'
+    }
 });
 
 export default function OrdersTable(props) {
@@ -85,7 +91,7 @@ export default function OrdersTable(props) {
                         return (
                             <TableRow className={index%2===0? classes.tableRow1 : classes.tableRow2} key={id}>
                                 <TableCell align="right" component="th" scope="row">
-                                    <Link>بررسی سفارش</Link>
+                                    <button className={classes.editOrderButton} onClick={(event)=>props.modalHandleOpen(row)}>بررسی سفارش</button>
                                 </TableCell>
                                 <TableCell align="right">{new Date(createdAt).toLocaleDateString('fa-IR')}</TableCell>
                                 <TableCell align="right">{e2p(''+cost)}</TableCell>

@@ -1,8 +1,10 @@
 import {PanelHeader} from "../../../layouts/index"
 import {OrdersTable} from "../../../components/index"
-import { SimpleModal, Modal,Typography, Grid, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel } from "@material-ui/core"
+import { Modal,Typography, Grid, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel } from "@material-ui/core"
 import { makeStyles } from '@material-ui/core/styles';
 import {useState} from "react"
+import CloseIcon from '@material-ui/icons/Close';
+import {e2p} from "../../../utils/LanGuaggeNumberConvertor.utils"
 
 const useStyles = makeStyles((theme)=>({
     container:{
@@ -18,12 +20,48 @@ const useStyles = makeStyles((theme)=>({
     },
     paper: {
         position: 'absolute',
-        width: 400,
+        width: '600px',
         backgroundColor: theme.palette.background.paper,
         border: '2px solid #000',
         boxShadow: theme.shadows[5],
         padding: theme.spacing(2, 4, 3),
-      },
+        top:'50%', 
+        left:'50%',
+        transform: 'translate(-50%, -50%)'
+    },
+    modalButtonClose:{
+        display:'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding:'0',
+        backgroundColor:'red',
+        border:'none',
+        textAlign:'center',
+        width:'25px',
+        height:'25px',
+        borderRadius:'50%'
+    },
+    modalHeader:{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+    },
+    modalBody:{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        width:'80%',
+        margin: 'auto',
+        flexDirection:'column',
+    },
+    modalBodyItem:{
+        width:'50%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        flexDirection: 'row-reverse',
+        margin: '10px auto'
+    }
 }));
 
 function PanelOrdersPage (){
@@ -46,10 +84,37 @@ function PanelOrdersPage (){
 
     const body = (
         <div className={classes.paper}>
-          <h2 id="simple-modal-title">Text in a modal</h2>
-          <p id="simple-modal-description">
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </p>
+            <div className={classes.modalHeader}>
+                <button className={classes.modalButtonClose} onClick={handleClose}><CloseIcon style={{color:'#fff'}} /></button>
+                <Typography>نمایش سفارش</Typography>
+            </div>
+            <div className={classes.modalBody}>
+                <div className={classes.modalBodyItem}>
+                    <Typography dir="rtl" variant="p" component="p" id="simple-modal-title">نام مشتری:</Typography>
+                    <Typography dir="rtl" id="simple-modal-description">امیرحسین زارع</Typography>
+                </div>
+
+                <div className={classes.modalBodyItem}>
+                    <Typography dir="rtl" variant="p" component="p" id="simple-modal-title">آدرس:</Typography>
+                    <Typography dir="rtl" id="simple-modal-description">میدان ..... خ ....</Typography>
+                </div>
+
+                <div className={classes.modalBodyItem}>
+                    <Typography dir="rtl" variant="p" component="p" id="simple-modal-title">تلفن:</Typography>
+                    <Typography dir="rtl" id="simple-modal-description">{e2p(09035193426)}</Typography>
+                </div>
+
+                <div className={classes.modalBodyItem}>
+                    <Typography dir="rtl" variant="p" component="p" id="simple-modal-title">زمان تحویل:</Typography>
+                    <Typography dir="rtl" id="simple-modal-description">۱۳۹۹/۰۵/۰۸</Typography>
+                </div>
+
+                <div className={classes.modalBodyItem}>
+                    <Typography dir="rtl" variant="p" component="p" id="simple-modal-title">زمان سفارش:</Typography>
+                    <Typography dir="rtl" id="simple-modal-description">۱۳۹۹/۰۵/۰۸</Typography>
+                </div>
+
+            </div>
         </div>
       );
 
@@ -69,10 +134,7 @@ function PanelOrdersPage (){
                 <Typography variant="h5" component="p">مدیریت سفارش ها</Typography>
             </Grid>
             
-            <OrdersTable filterProducts={filterProducts}/>
-            <button type="button" onClick={handleOpen}>
-                Open Modal
-            </button>
+            <OrdersTable filterProducts={filterProducts} modalHandleOpen={handleOpen}/>
             <Modal
                 open={open}
                 onClose={handleClose}
