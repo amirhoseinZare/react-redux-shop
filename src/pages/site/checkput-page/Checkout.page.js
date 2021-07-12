@@ -48,7 +48,7 @@ function CheckoutPageComponent(props){
     }
 
     console.log(props.userCart.reduce((acc, cv)=> acc + +cv.allPrice, 0))
-
+    const productsId = props.userCart.map(prod=> ({id:prod.id, quantity:prod.count}) )
     const submitHandler = async (event)=>{
         event.preventDefault()
         const { name, familyName, address, phone, deliveryTime } = state
@@ -62,13 +62,14 @@ function CheckoutPageComponent(props){
                 pay:false, 
                 delivered:false,
                 deliveryDoneTime:'', 
-                cost:props.userCart.reduce((acc, cv)=> acc + +cv.allPrice, 0)
+                cost:props.userCart.reduce((acc, cv)=> acc + +cv.allPrice, 0),
+                products:productsId
             })
             const { data:{id:orderId} } = response
             window.location.href = `http://localhost:4000/payment?order=${orderId}`
             setState({
                 name:'', familyName:'', address:'', phone:'', deliveryTime:'',
-            })                
+            })  
         } catch (error) {
             console.log(error)
         }

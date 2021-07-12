@@ -49,6 +49,11 @@ function PaymentSuccess(props){
     useEffect(async ()=>{
         try {
             const response = await axios.patch(`http://localhost:3001/orders/${urlParams.get('order')}`, { pay:true })    
+            const {products} = response.data
+            products.forEach(async product => {
+                const response = await axios.get(`http://localhost:3001/products/${product.id}`)
+                await axios.patch(`http://localhost:3001/products/${product.id}`, { quantity:response.data.quantity-product.quantity })    
+            })
             props.emptyUserCart()
             localStorage.cart = '[]'
         } catch (error) {
