@@ -67,6 +67,11 @@ const useStyles = makeStyles({
 function CartPageComponent (props){
     const classes = useStyles();
  
+    const removeFromcartButtonClickHandler = (event, row)=>{
+        props.removeFromCart(row)
+        localStorage.cart = JSON.stringify(props.userCart)
+    }
+
     return (
         <div>
             <Header/>
@@ -86,7 +91,7 @@ function CartPageComponent (props){
                         {props.userCart.map((row, index) => (
                             <TableRow style={{backgroundColor:index%2===0?'var(--beau-blue)':'var(--light-cyan)'}} key={row.id}>
                                 <TableCell component="th" scope="row">
-                                    <button className={classes.deleteButton} onClick={(event)=>props.removeFromCart(row)}>حذف</button>
+                                    <button className={classes.deleteButton} onClick={(event)=>removeFromcartButtonClickHandler(event, row)}>حذف</button>
                                 </TableCell>
                                 <TableCell align="right">{e2p(numberWithCommas('' + row.count))}</TableCell>
                                 <TableCell align="right">{e2p(numberWithCommas('' + row.price))}</TableCell>

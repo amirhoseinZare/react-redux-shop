@@ -19,14 +19,16 @@ const useReducer = (state=INITIAL_STATE, action) => {
             return { ...state, cart:[...products] };
         }
         case UserActionTypes.REMOVE_FROM_CART:{
-            const productToRemove = action.product
+            const productToRemove = action.payload
             const products = state.cart
+            console.log(productToRemove, products)
             const productIndex = products.findIndex(prod => prod.id===productToRemove.id)
+            console.log(productIndex)
             if(productIndex!==-1){
-                const newProducts = products.splice(productIndex,1)
-                return { ...state, cart:[...newProducts] };
+                products.splice(productIndex,1)
+                return { ...state, cart:[...products] };
             }
-            return state
+            return {...state}
         }
         default:
             return state;
