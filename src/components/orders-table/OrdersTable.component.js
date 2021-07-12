@@ -63,7 +63,7 @@ export default function OrdersTable(props) {
     useEffect( async ()=>{
         const { page } = pageState
         const {doneFilter:done} = props.filterProducts
-        const response = await axios.get('http://localhost:3001/orders', {params:{_page:page, _limit:5, done:done}})
+        const response = await axios.get('http://localhost:3001/orders', {params:{_page:page, _limit:5, delivered:done}})
         setOrdersState(response.data)
     }, [pageState, props.filterProducts])
     return (
@@ -80,7 +80,7 @@ export default function OrdersTable(props) {
                 </TableHead>
                 <TableBody>
                     {ordersState.map((row, index) => {
-                        const { id, username, cost, createdAt } = row
+                        const { id, name, familyName, cost, createdAt } = row
                         console.log(cost.replace, typeof cost)
                         return (
                             <TableRow className={index%2===0? classes.tableRow1 : classes.tableRow2} key={id}>
@@ -89,7 +89,7 @@ export default function OrdersTable(props) {
                                 </TableCell>
                                 <TableCell align="right">{new Date(createdAt).toLocaleDateString('fa-IR')}</TableCell>
                                 <TableCell align="right">{e2p(''+cost)}</TableCell>
-                                <TableCell style={{display:'flex'}} align="right" component="th" scope="row">{username}</TableCell>
+                                <TableCell style={{display:'flex'}} align="right" component="th" scope="row">{`${name} ${familyName}`}</TableCell>
                             </TableRow>
                         )
                     })}
