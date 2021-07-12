@@ -5,6 +5,8 @@ import { useEffect, useState } from "react"
 import {e2p} from "../../../utils/LanGuaggeNumberConvertor.utils"
 import {numberWithCommas} from "../../../utils/numberWithCommas.utils"
 import {Link} from "react-router-dom"
+import {connect} from "react-redux"
+import {removeFromCart} from "../../../redux/actions/user.action"
 
 const useStyles = makeStyles({
     table: {
@@ -43,7 +45,6 @@ const useStyles = makeStyles({
     },
     tableHeaders:{
         color:'var(--russian-violet)',
-        backgroundColor:'var(--light-cyan)'
     },
     cartPrice:{
         display: 'flex',
@@ -63,9 +64,9 @@ const useStyles = makeStyles({
     }
 });
 
-function CartPage (){
+function CartPageComponent (props){
     const classes = useStyles();
-    const rows = [{}]
+ 
     return (
         <div>
             <Header/>
@@ -82,16 +83,16 @@ function CartPage (){
                         </TableRow>
                         </TableHead>
                         <TableBody>
-                        {rows.map((row) => (
-                            <TableRow className={classes.tableBody} key={row.name}>
-                            <TableCell component="th" scope="row">
-                                <button className={classes.deleteButton}>حذف</button>
-                            </TableCell>
-                            <TableCell align="right">{e2p(numberWithCommas(''+42353))}</TableCell>
-                            <TableCell align="right">{e2p(numberWithCommas(''+434642))}</TableCell>
-                            <TableCell align="right">
-                                <Link className={classes.productLink}>کفش ۱</Link>
-                            </TableCell>
+                        {props.userCart.map((row, index) => (
+                            <TableRow style={{backgroundColor:index%2===0?'var(--beau-blue)':'var(--light-cyan)'}} key={row.id}>
+                                <TableCell component="th" scope="row">
+                                    <button className={classes.deleteButton} onClick={(event)=>props.removeFromCart(row)}>حذف</button>
+                                </TableCell>
+                                <TableCell align="right">{e2p(numberWithCommas('' + row.count))}</TableCell>
+                                <TableCell align="right">{e2p(numberWithCommas('' + row.price))}</TableCell>
+                                <TableCell align="right">
+                                    <Link className={classes.productLink} to={`/product/${row.id}`}>{row.name}</Link>
+                                </TableCell>
                             </TableRow>
                         ))}
                         </TableBody>
@@ -109,4 +110,8 @@ function CartPage (){
     )
 }
 
+const mapStateToProps = ({user:{cart}}) => ({userCart:cart})
+const mapDispatchToProps = (dispatch) => ({removeFromCart:product=>dispatch(removeFromCart(product))})
+
+const CartPage = connect(mapStateToProps, mapDispatchToProps)(CartPageComponent)
 export {CartPage}
