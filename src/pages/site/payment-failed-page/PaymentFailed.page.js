@@ -2,6 +2,9 @@ import {Header} from "../../../layouts/index"
 import {Typography, Grid} from "@material-ui/core"
 import {makeStyles} from "@material-ui/core/styles"
 import CloseIcon from '@material-ui/icons/Close';
+import {Link} from "react-router-dom"
+import axios from "axios"
+import {useEffect} from "react"
 
 const useStyles = makeStyles((theme) => ({
     header:{
@@ -32,13 +35,26 @@ const useStyles = makeStyles((theme) => ({
         left: '50%',
         fontSize: 'xxx-large',
         transform: 'translate(-50%, -50%)'
+    },
+    backToCartPageLink:{
+        textDecoration:'none',
+        border:'1px solid var(--lavender-floral)',
+        color:'var(--lavender-floral)'
     }
-
 }));
 
 function PaymentFailedPage(){
 
     const classes = useStyles();
+
+    const urlParams = new URLSearchParams(window.location.search);
+    useEffect(async ()=>{
+        try {
+            await axios.delete(`http://localhost:3001/orders/${urlParams.get('order')}`)    
+        } catch (error) {
+            console.log(error)            
+        }
+    }, [])
 
     return (
         <div>
@@ -48,6 +64,9 @@ function PaymentFailedPage(){
                 <div className={classes.paymentIcon}><CloseIcon className={classes.paymentIconItem}/></div>
                 <Typography dir="rtl" variant="p" component="p">پرداخت موفقیت آمیز نبود. سفارش شما در انتظار پرداخت است.</Typography>
             </Grid>
+            <div style={{textAlign: 'center'}}>
+                <Link className={classes.backToCartPageLink} to="/cart">برگشت به سبد خرید</Link> <Link className={classes.backToCartPageLink} to="/checkout">برگشت به صفحه ی خرید</Link>
+            </div>
         </div>
     )
 }
