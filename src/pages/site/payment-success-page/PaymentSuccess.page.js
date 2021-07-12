@@ -2,6 +2,10 @@ import {Header} from "../../../layouts/index"
 import {Typography, Grid} from "@material-ui/core"
 import {makeStyles} from "@material-ui/core/styles"
 import DoneIcon from '@material-ui/icons/Done';
+import {useEffect} from 'react'
+import axios from 'axios'
+import {emptyUserCart} from "../../../redux/actions/user.action"
+import {connect} from "react-redux"
 
 const useStyles = makeStyles((theme) => ({
     header:{
@@ -36,9 +40,25 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-function PaymentSuccessPage(){
+function PaymentSuccess(props){
 
     const classes = useStyles();
+    const urlParams = new URLSearchParams(window.location.search);
+    console.log(urlParams.get('order'))
+
+    useEffect(async ()=>{
+        try {
+            const response = await axios.patch(`http://localhost:3001/orders/${urlParams.get('order')}`, { pay:true })    
+            props.emptyUserCart()
+            localStorage.cart = '[]'
+        } catch (error) {
+            console.log(error)            
+        }
+    }, [])
+
+    useEffect(async ()=>{
+        localStorage.cart = JSON.stringify(props.userCart)
+    }, [props.userCart])
 
     return (
         <div>
@@ -52,4 +72,8 @@ function PaymentSuccessPage(){
     )
 }
 
+const mapStateToProps = ({user:{cart}}) => ({userCart:cart})
+const mapDispatchToProps = (dispatch) => ({ emptyUserCart:dispatch(emptyUserCart()) })
+
+const PaymentSuccessPage = connect(mapStateToProps, mapDispatchToProps)(PaymentSuccess)
 export {PaymentSuccessPage}
