@@ -83,6 +83,7 @@ function CartPageComponent (props){
                         <TableHead>
                         <TableRow>
                             <TableCell className={classes.tableHeaders}></TableCell>
+                            <TableCell align="right">تعداد &times; قیمت</TableCell>
                             <TableCell className={classes.tableHeaders} align="right">تعداد</TableCell>
                             <TableCell className={classes.tableHeaders} align="right">قیمت</TableCell>
                             <TableCell className={classes.tableHeaders} align="right">کالا</TableCell>
@@ -94,6 +95,7 @@ function CartPageComponent (props){
                                 <TableCell component="th" scope="row">
                                     <button className={classes.deleteButton} onClick={(event)=>removeFromcartButtonClickHandler(event, row)}>حذف</button>
                                 </TableCell>
+                                <TableCell align="right">{e2p(numberWithCommas('' + row.allPrice))}</TableCell>
                                 <TableCell align="right">{e2p(numberWithCommas('' + row.count))}</TableCell>
                                 <TableCell align="right">{e2p(numberWithCommas('' + row.price))}</TableCell>
                                 <TableCell align="right">
