@@ -49,23 +49,29 @@ function CheckoutPageComponent(props){
 
     console.log(props.userCart.reduce((acc, cv)=> acc + +cv.allPrice, 0))
 
-    const submitHandler = (event)=>{
+    const submitHandler = async (event)=>{
         event.preventDefault()
         const { name, familyName, address, phone, deliveryTime } = state
-        axios.post('http://localhost:3001/orders', { 
-            name, 
-            familyName, 
-            address, 
-            phone, 
-            deliveryRequestTime:deliveryTime, 
-            pay:false, 
-            delivered:false,
-            deliveryDoneTime:'', 
-            cost:props.userCart.reduce((acc, cv)=> acc + +cv.allPrice, 0)
-        })
-        setState({
-            name:'', familyName:'', address:'', phone:'', deliveryTime:'',
-        })
+        try {
+            const response = await axios.post('http://localhost:3001/orders', { 
+                name, 
+                familyName, 
+                address, 
+                phone, 
+                deliveryRequestTime:deliveryTime, 
+                pay:false, 
+                delivered:false,
+                deliveryDoneTime:'', 
+                cost:props.userCart.reduce((acc, cv)=> acc + +cv.allPrice, 0)
+            })
+            const { data:{id:orderId} } = response
+            window.location.href = `http://localhost:4000/payment?order=${orderId}`
+            setState({
+                name:'', familyName:'', address:'', phone:'', deliveryTime:'',
+            })                
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     const { name, familyName, address, phone, deliveryTime } = state
