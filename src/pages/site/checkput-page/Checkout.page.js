@@ -48,6 +48,9 @@ function CheckoutPage (){
     const submitHandler = (event)=>{
         event.preventDefault()
         console.log(state)
+        setState({
+            name:'', familyName:'', address:'', phone:'', deliveryTime:'',
+        })
     }
 
     const { name, familyName, address, phone, deliveryTime } = state
@@ -55,7 +58,7 @@ function CheckoutPage (){
     return (
         <div>
             <Header/>
-            <form onSubmit={submitHandler}>
+            <form onSubmit={submitHandler} noValidate>
                 <div className={classes.container}>
                     <Grid xs={2} xl={6} lg={6} md={6} sm={6}>  
                         <div className={classes.input}>
