@@ -48,7 +48,7 @@ function CheckoutPageComponent(props){
     }
 
     console.log(props.userCart.reduce((acc, cv)=> acc + +cv.allPrice, 0))
-    const productsId = props.userCart.map(prod=> ({id:prod.id, quantity:prod.count}) )
+    const productsInfo = props.userCart.map(prod=> ({id:prod.id, name:prod.name, price:prod.price, count:prod.count}) )
     const submitHandler = async (event)=>{
         event.preventDefault()
         const { name, familyName, address, phone, deliveryTime } = state
@@ -63,7 +63,7 @@ function CheckoutPageComponent(props){
                 delivered:false,
                 deliveryDoneTime:'', 
                 cost:props.userCart.reduce((acc, cv)=> acc + +cv.allPrice, 0),
-                products:productsId
+                products:productsInfo
             })
             const { data:{id:orderId} } = response
             window.location.href = `http://localhost:4000/payment?order=${orderId}`

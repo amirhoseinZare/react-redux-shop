@@ -2,7 +2,7 @@ import {PanelHeader} from "../../../layouts/index"
 import {OrdersTable} from "../../../components/index"
 import { Modal,Typography, Grid, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel } from "@material-ui/core"
 import { makeStyles } from '@material-ui/core/styles';
-import {useState} from "react"
+import {useState, useEffect} from "react"
 import CloseIcon from '@material-ui/icons/Close';
 import {e2p} from "../../../utils/LanGuaggeNumberConvertor.utils"
 
@@ -67,6 +67,7 @@ const useStyles = makeStyles((theme)=>({
 function PanelOrdersPage (){
     const classes = useStyles();
     const [filterProducts, setFilterProducts] = useState({doneFilter:null})
+    const [orderState, setOrder] = useState({item:{ name:'', familyName:'', address:'', phone:'', cost:'', deliveryDoneTime:'', deliveryRequestTime:''}})
 
     const handleChange = ({target})=>{
         setFilterProducts({doneFilter:target.value})
@@ -74,14 +75,22 @@ function PanelOrdersPage (){
 
     const [open, setOpen] = useState(false);
 
-    const handleOpen = () => {
-      setOpen(true);
+    const handleOpen = async (order) => {
+        await setOrder({item:order})
+        setOpen(true);
     };
   
     const handleClose = () => {
       setOpen(false);
     };
 
+    useEffect(()=>{
+        const { name, familyName, address, phone, cost } = orderState.item;
+        console.log(name, familyName, address, phone, cost)
+    }, [orderState])
+
+
+    const { name, familyName, address, phone, cost, deliveryDoneTime, deliveryRequestTime } = orderState.item;
     const body = (
         <div className={classes.paper}>
             <div className={classes.modalHeader}>
@@ -91,29 +100,32 @@ function PanelOrdersPage (){
             <div className={classes.modalBody}>
                 <div className={classes.modalBodyItem}>
                     <Typography dir="rtl" variant="p" component="p" id="simple-modal-title">نام مشتری:</Typography>
-                    <Typography dir="rtl" id="simple-modal-description">امیرحسین زارع</Typography>
+                    <Typography dir="rtl" id="simple-modal-description">{`${name} ${familyName}`}</Typography>
                 </div>
 
                 <div className={classes.modalBodyItem}>
                     <Typography dir="rtl" variant="p" component="p" id="simple-modal-title">آدرس:</Typography>
-                    <Typography dir="rtl" id="simple-modal-description">میدان ..... خ ....</Typography>
+                    <Typography dir="rtl" id="simple-modal-description">{address}</Typography>
                 </div>
 
                 <div className={classes.modalBodyItem}>
                     <Typography dir="rtl" variant="p" component="p" id="simple-modal-title">تلفن:</Typography>
-                    <Typography dir="rtl" id="simple-modal-description">{e2p(09035193426)}</Typography>
+                    <Typography dir="rtl" id="simple-modal-description">{e2p(''+phone)}</Typography>
                 </div>
 
                 <div className={classes.modalBodyItem}>
                     <Typography dir="rtl" variant="p" component="p" id="simple-modal-title">زمان تحویل:</Typography>
-                    <Typography dir="rtl" id="simple-modal-description">۱۳۹۹/۰۵/۰۸</Typography>
+                    <Typography dir="rtl" id="simple-modal-description">{new Date(deliveryDoneTime).toLocaleString('fa-IR')}</Typography>
                 </div>
 
                 <div className={classes.modalBodyItem}>
                     <Typography dir="rtl" variant="p" component="p" id="simple-modal-title">زمان سفارش:</Typography>
-                    <Typography dir="rtl" id="simple-modal-description">۱۳۹۹/۰۵/۰۸</Typography>
+                    <Typography dir="rtl" id="simple-modal-description">{new Date(deliveryRequestTime).toLocaleString('fa-IR')}</Typography>
                 </div>
 
+                <button>
+                    تحویل شد
+                </button>
             </div>
         </div>
       );
