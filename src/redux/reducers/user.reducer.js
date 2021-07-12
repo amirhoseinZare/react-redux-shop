@@ -30,6 +30,9 @@ const useReducer = (state=INITIAL_STATE, action) => {
             }
             return {...state}
         }
+        case UserActionTypes.EMPTY_USER_CART:{
+            return { ...state, cart:[]}
+        }
         default:
             return state;
     }

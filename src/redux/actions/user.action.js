@@ -10,7 +10,12 @@ const removeFromCart = (product) => ({
     payload:product
 })
 
+const emptyUserCart = () => ({
+    type:UserActionTypes.EMPTY_USER_CART
+})
+
 export {
     addToCart,
-    removeFromCart
+    removeFromCart,
+    emptyUserCart
 }
