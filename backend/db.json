@@ -102,13 +102,15 @@
           "id": 16,
           "name": "کفش Nike مشکی",
           "price": 60000,
-          "count": 2
+          "count": 2,
+          "allPrice": 120000
         },
         {
           "id": 22,
           "name": "گوشی ۴",
           "price": 39000000,
-          "count": 2
+          "count": 2,
+          "allPrice": 78000000
         }
       ],
       "createdAt": 1626123729901,

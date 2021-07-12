@@ -63,6 +63,18 @@ const useStyles = makeStyles((theme)=>({
         justifyContent: 'space-between',
         flexDirection: 'row-reverse',
         margin: '10px auto'
+    },
+    table:{
+        paddingTop: '30px'
+    },
+    tableContainer:{
+        margin: '30px 20px'
+    },
+    deliveryButton:{
+        border: '2px solid var(--lavender-floral)',
+        backgroundColor:'transparent',
+        padding:'10px 20px',
+        color:'var(--lavender-floral)'
     }
 }));
 
@@ -125,7 +137,7 @@ function PanelOrdersPage (){
                     <Typography dir="rtl" id="simple-modal-description">{new Date(deliveryRequestTime).toLocaleString('fa-IR')}</Typography>
                 </div>
 
-                <TableContainer component={Paper}>
+                <TableContainer  className={classes.tableContainer} component={Paper}>
                     <Table className={classes.table} aria-label="simple table">
                         <TableHead>
                         <TableRow>
@@ -150,7 +162,7 @@ function PanelOrdersPage (){
                     </Table>
                 </TableContainer>
 
-                <button>
+                <button className={classes.deliveryButton}>
                     تحویل شد
                 </button>
             </div>
