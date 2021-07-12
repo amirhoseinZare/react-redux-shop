@@ -1,7 +1,8 @@
 import {Header} from "../../../layouts/index"
 import {TextField, Grid} from "@material-ui/core"
 import { makeStyles } from '@material-ui/core/styles';
-import {useState} from "react"
+import {useState, useEffect} from "react"
+import axios from "axios"
 
 const useStyles = makeStyles((theme) => ({
     container:{
@@ -47,7 +48,8 @@ function CheckoutPage (){
 
     const submitHandler = (event)=>{
         event.preventDefault()
-        console.log(state)
+        const { name, familyName, address, phone, deliveryTime } = state
+        axios.post('http://localhost:3001/orders', {name, familyName, address, phone, deliveryRequestTime:deliveryTime, pay:false, delivered:false,deliveryDoneTime:'' })
         setState({
             name:'', familyName:'', address:'', phone:'', deliveryTime:'',
         })
