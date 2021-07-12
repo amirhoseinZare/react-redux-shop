@@ -1,10 +1,12 @@
 import {PanelHeader} from "../../../layouts/index"
 import {OrdersTable} from "../../../components/index"
-import { Modal,Typography, Grid, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel } from "@material-ui/core"
+import { Modal,Typography, Grid, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@material-ui/core"
 import { makeStyles } from '@material-ui/core/styles';
 import {useState, useEffect} from "react"
 import CloseIcon from '@material-ui/icons/Close';
 import {e2p} from "../../../utils/LanGuaggeNumberConvertor.utils"
+import {numberWithCommas} from "../../../utils/numberWithCommas.utils"
+import {Link} from "react-router-dom"
 
 const useStyles = makeStyles((theme)=>({
     container:{
@@ -67,7 +69,7 @@ const useStyles = makeStyles((theme)=>({
 function PanelOrdersPage (){
     const classes = useStyles();
     const [filterProducts, setFilterProducts] = useState({doneFilter:null})
-    const [orderState, setOrder] = useState({item:{ name:'', familyName:'', address:'', phone:'', cost:'', deliveryDoneTime:'', deliveryRequestTime:''}})
+    const [orderState, setOrder] = useState({item:{ name:'', familyName:'', address:'', phone:'', cost:'', deliveryDoneTime:'', deliveryRequestTime:'', products:[{}]}})
 
     const handleChange = ({target})=>{
         setFilterProducts({doneFilter:target.value})
@@ -122,6 +124,31 @@ function PanelOrdersPage (){
                     <Typography dir="rtl" variant="p" component="p" id="simple-modal-title">زمان سفارش:</Typography>
                     <Typography dir="rtl" id="simple-modal-description">{new Date(deliveryRequestTime).toLocaleString('fa-IR')}</Typography>
                 </div>
+
+                <TableContainer component={Paper}>
+                    <Table className={classes.table} aria-label="simple table">
+                        <TableHead>
+                        <TableRow>
+                            <TableCell align="right">تعداد &times; قیمت</TableCell>
+                            <TableCell className={classes.tableHeaders} align="right">تعداد</TableCell>
+                            <TableCell className={classes.tableHeaders} align="right">قیمت</TableCell>
+                            <TableCell className={classes.tableHeaders} align="right">کالا</TableCell>
+                        </TableRow>
+                        </TableHead>
+                        <TableBody>
+                        {orderState.item.products.map((row, index) => (
+                            <TableRow style={{backgroundColor:index%2===0?'var(--beau-blue)':'var(--light-cyan)'}} key={row.id}>
+                                <TableCell align="right">{e2p(numberWithCommas('' + row.allPrice))}</TableCell>
+                                <TableCell align="right">{e2p(numberWithCommas('' + row.count))}</TableCell>
+                                <TableCell align="right">{e2p(numberWithCommas('' + row.price))}</TableCell>
+                                <TableCell align="right">
+                                    <Link className={classes.productLink} to={`/product/${row.id}`}>{row.name}</Link>
+                                </TableCell>
+                            </TableRow>
+                        ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
 
                 <button>
                     تحویل شد
