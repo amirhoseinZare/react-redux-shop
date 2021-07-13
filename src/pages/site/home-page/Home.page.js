@@ -33,28 +33,15 @@ const useStyles = makeStyles((theme) => ({
 
 function HomePagePage(props){
     const classes = useStyles();
-
     const [ productsState, setProductsState ] = useState({products:[]})
     // const [ groupsState, setGroupsState  ] = useState({groups:[]})
     useEffect(async()=>{
         const response = await axios.get('http://localhost:3001/groups')
         const groups = response.data
-        const productsGroup = []
-        groups.forEach(async (group, index) => {
-            const response = await axios.get('http://localhost:3001/products', {params: {group:group.name}})
-            const  products = response.data
-            if(products.length>0){
-                productsGroup.push({
-                    group: group,
-                    products:products
-                })
-            }
-            if(index === groups.length-1){
-                await setProductsState({products:productsGroup})
-                console.log(productsState)
-            }
+        Promise.all(groups.map((group, index) => axios.get('http://localhost:3001/products', {params: {group:group.name, _limit:6}}))).then((responses)=>{
+            const productsGroup = responses.map( (res,i)=> ({group:groups[i], products:res.data}))
+            setProductsState({products:productsGroup})
         })
-        
     }, [])
 
     return (
