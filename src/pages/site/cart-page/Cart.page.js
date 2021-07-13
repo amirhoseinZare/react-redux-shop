@@ -111,6 +111,7 @@ function CartPageComponent (props){
             <Header/>
             <Grid item lg={8} md={10} sm ={10} xs={10} className={classes.container}>
                 <Typography variant="h4" component="p" className={classes.title}>سبد خرید</Typography>
+                { props.userCart.length<1 ? <Typography dir="rtl" variant="h5" component="p" lassName={classes.title}>شما هنوز محصولی به سبد خرید خود اضافه نکرده اید.</Typography> : <>
                 <TableContainer component={Paper}>
                     <Table className={classes.table} aria-label="simple table">
                         <TableHead>
@@ -145,7 +146,8 @@ function CartPageComponent (props){
                         <p className={classes.cartPriceTypography}>جمع:</p>
                         <div className={classes.cartPriceCost}>{e2p(numberWithCommas(props.userCart.reduce((acc, cv) => acc + +cv.allPrice  , 0)))}</div><span>تومان</span>
                     </div>
-                </div>
+                </div></> }
+                
             </Grid>
             <ToastContainer />
         </div>
