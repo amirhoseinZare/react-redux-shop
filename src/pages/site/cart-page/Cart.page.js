@@ -9,6 +9,7 @@ import {connect} from "react-redux"
 import {removeFromCart} from "../../../redux/actions/user.action"
 import axios from "axios"
 import { ToastContainer, toast } from 'react-toastify';
+import {withRouter} from 'react-router-dom'
 
 const useStyles = makeStyles({
     table: {
@@ -77,22 +78,32 @@ function CartPageComponent (props){
 
     const finalizeCart = async (event)=>{
         event.preventDefault()
-        props.userCart.forEach(async product => {
-            const reponse = await axios.get(`http://localhost:3001/products/${product.id}`)
-            if(reponse.data.quantity < product.count){
-                event.preventDefault()
-                toast.error(`متاسفانه موجودی محصول ${product.name} کافی نیست.`, {
-                    position: "bottom-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    rtl: true,
-                });
-            }
+        let success = true
+        console.log(props.userCart.map(prod=>axios.get(`http://localhost:3001/products/${prod.id}`)))
+        await Promise.all(props.userCart.map(prod=>axios.get(`http://localhost:3001/products/${prod.id}`))).then((responses)=>{
+            responses.forEach((response,index)=>{
+                const product = response.data
+                console.log(product,props.userCart[index], product.quantity<props.userCart[index].count)
+                if(product.quantity<props.userCart[index].count){
+                    success = false
+                }
+            })
         })
+        if(success){
+            props.history.push('/checkout')
+        }
+        else{
+            toast.error('متاسفانه موجودی محصولات مورد انتخاب شما کافی نیست.', {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                rtl: true,
+            });
+        }
     }
 
     return (
@@ -144,5 +155,5 @@ function CartPageComponent (props){
 const mapStateToProps = ({user:{cart}}) => ({userCart:cart})
 const mapDispatchToProps = (dispatch) => ({removeFromCart:product=>dispatch(removeFromCart(product))})
 
-const CartPage = connect(mapStateToProps, mapDispatchToProps)(CartPageComponent)
+const CartPage = connect(mapStateToProps, mapDispatchToProps)(withRouter(CartPageComponent))
 export {CartPage}
