@@ -8,6 +8,7 @@ import {numberWithCommas} from "../../../utils/numberWithCommas.utils"
 import ControlPointIcon from '@material-ui/icons/ControlPoint';
 import {connect} from "react-redux"
 import {addToCart} from "../../../redux/actions/user.action"
+import { ToastContainer, toast } from 'react-toastify';
 
 const useStyles = makeStyles((theme)=>({
     productInfo:{
@@ -102,8 +103,23 @@ function ProductDetailPageComponent(props){
         localStorage.cart = JSON.stringify(props.userCart)
     }, [props.userCart])
 
-    const addToCartButtonClickHandler = (event,product)=>{
-        props.addToCart(product)
+    const addToCartButtonClickHandler = async (event,product)=>{
+        const response = await axios.get(`http://localhost:3001/products/${product.id}`)
+        const productInCart = props.userCart.find(prod=>prod.id===product.id)
+        if( (!productInCart) ||  productInCart.count<response.data.quantity ){
+            props.addToCart(product)
+            return 
+        }
+        toast.error('متاسفانه موجودی محصول کافی نیست.', {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            rtl: true,
+        });
     }
 
     const {name, description, image, group, headgroup, price, id} = productsState
@@ -134,6 +150,7 @@ function ProductDetailPageComponent(props){
                     <Typography className={classes.productDescription} variant="h5" component="p">{description}</Typography>
                 </section>
             </main>
+            <ToastContainer rtl={true}/>
         </div>
     )
 }
