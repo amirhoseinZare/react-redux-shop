@@ -7,6 +7,8 @@ import {numberWithCommas} from "../../../utils/numberWithCommas.utils"
 import {Link} from "react-router-dom"
 import {connect} from "react-redux"
 import {removeFromCart} from "../../../redux/actions/user.action"
+import axios from "axios"
+import { ToastContainer, toast } from 'react-toastify';
 
 const useStyles = makeStyles({
     table: {
@@ -73,6 +75,26 @@ function CartPageComponent (props){
         localStorage.cart = JSON.stringify(props.userCart)
     }
 
+    const finalizeCart = async (event)=>{
+        event.preventDefault()
+        props.userCart.forEach(async product => {
+            const reponse = await axios.get(`http://localhost:3001/products/${product.id}`)
+            if(reponse.data.quantity < product.count){
+                event.preventDefault()
+                toast.error(`متاسفانه موجودی محصول ${product.name} کافی نیست.`, {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    rtl: true,
+                });
+            }
+        })
+    }
+
     return (
         <div>
             <Header/>
@@ -107,13 +129,14 @@ function CartPageComponent (props){
                     </Table>
                 </TableContainer>
                 <div className={classes.cartInfo}>
-                    <Link className={classes.buyButton} to="/checkout">نهایی کردن سبد خرید</Link>
+                    <Link className={classes.buyButton} to="/checkout" onClick={finalizeCart}>نهایی کردن سبد خرید</Link>
                     <div className={classes.cartPrice}>
                         <p className={classes.cartPriceTypography}>جمع:</p>
                         <div className={classes.cartPriceCost}>{e2p(numberWithCommas(props.userCart.reduce((acc, cv) => acc + +cv.allPrice  , 0)))}</div><span>تومان</span>
                     </div>
                 </div>
             </Grid>
+            <ToastContainer />
         </div>
     )
 }
