@@ -9,6 +9,7 @@ import { withRouter } from "react-router-dom"
 
 const useStyles = makeStyles((theme) => ({
     groupTitle:{
+        display:'inline-block',
         paddingRight: theme.spacing(2),
         paddingTop: theme.spacing(4),
         cursor:'pointer',
@@ -54,11 +55,11 @@ function HomePagePage(props){
                         const groupLink = `/product/group/${groupId}/${groupName}`
                         return (
                             <Fragment key={product.group.id}>
-                                <Grid item xs={12}>
-                                    <h1 className={classes.groupTitle} dir="rtl" onClick={()=>{props.history.push(groupLink)}}>
+                                <Grid style={{display: 'flex', justifyContent: 'flex-end'}} item xs={12}>
+                                    <h2 className={classes.groupTitle} dir="rtl" onClick={()=>{props.history.push(groupLink)}}>
                                         <a href={groupLink} className={classes.anchorGroupTitle} onClick={event=>event.stopPropagation()}>{product.group.name}</a>
                                         <ArrowLeftIcon className={classes.groupArrow}/>
-                                    </h1>
+                                    </h2>
                                 </Grid>
                                     {product.products.map(prod=>{
                                         const {name, description, image, id} = prod
