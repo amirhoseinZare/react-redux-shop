@@ -1,5 +1,5 @@
 import {Header} from "../../../layouts/index"
-import {withRouter} from "react-router-dom"
+import {withRouter, Link} from "react-router-dom"
 import {useEffect, useState} from "react"
 import {makeStyles, Typography } from "@material-ui/core"
 import axios from "axios"
@@ -9,6 +9,7 @@ import ControlPointIcon from '@material-ui/icons/ControlPoint';
 import {connect} from "react-redux"
 import {addToCart} from "../../../redux/actions/user.action"
 import { ToastContainer, toast } from 'react-toastify';
+import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
 
 const useStyles = makeStyles((theme)=>({
     productInfo:{
@@ -50,8 +51,9 @@ const useStyles = makeStyles((theme)=>({
     },
     productCategory:{
         display:'flex',
-        justifyContent: 'space-between',
+        justifyContent: 'flex-end',
         paddingRight:theme.spacing(2),
+        margin:'15px 0'
     },
     productPrice:{
         textAlign:'right',
@@ -83,6 +85,20 @@ const useStyles = makeStyles((theme)=>({
     },
     productImageItem:{
         width:'100%'
+    },
+    productCategoryTitle:{
+        display:'inline-flex',
+        alignItems: 'center',
+        marginLeft:'20px',
+    },
+    productCategoryTitleLink:{
+        textDecoration:'none',
+        color:'var(--lavender-floral)'
+    },
+    productSubCategoryTitle:{
+        display:'inline-flex',
+        alignItems: 'center',
+        color:'var(--lavender-floral)'
     }
 }))
 
@@ -95,7 +111,9 @@ function ProductDetailPageComponent(props){
     useEffect( async () =>{
         const response = await axios.get(`http://localhost:3001/products/${props.match.params.productId}`)
         const product = response.data
-        console.log(props.userCart)
+        const groupResponse = await axios.get(`http://localhost:3001/groups/`, {params:{name:product.group}})
+        console.log(groupResponse.data)
+        product.groupId = groupResponse.data.id
         await setProductsState(product)
     }, [])
 
@@ -130,7 +148,7 @@ function ProductDetailPageComponent(props){
         setCartCount({ quantity: event.target.value})
     }
 
-    const {name, description, image, group, headgroup, price, id} = productsState
+    const {name, description, image, group, headgroup, price, id, groupId} = productsState
     return (
         <div>
             <Header/>
@@ -143,8 +161,11 @@ function ProductDetailPageComponent(props){
                         <div>
                             <Typography className={classes.productName} variant="h4" component="h1">{name}</Typography>
                             <div className={classes.productCategory}>
-                                <Typography variant="h6" component="p">{group}</Typography>
-                                <Typography variant="h6" component="p">{headgroup}</Typography>
+                                <Typography variant="h6" component="p" className={classes.productSubCategoryTitle}>{headgroup}</Typography>
+                                <Typography variant="h6" component="p" className={classes.productCategoryTitle}>
+                                    <ArrowLeftIcon style={{color:'var(--lavender-floral)'}}/>
+                                    <Link to={`/product/group/${groupId}/${group}`} className={classes.productCategoryTitleLink}>{group}</Link>
+                                </Typography>
                             </div>
                             <Typography variant="h5" component="p" className={classes.productPrice}>{e2p(numberWithCommas(''+price))} تومان</Typography>
                             <div className={classes.productActions}>
