@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme)=>({
         flexDirection:'column',
     },
     modalBodyItem:{
-        width:'50%',
+        width:'80%',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -76,6 +76,14 @@ const useStyles = makeStyles((theme)=>({
         backgroundColor:'var(--dark-blue)',
         padding:'10px 20px',
         color:'#fff'
+    },
+    modalDescriptionTypo:{
+        width:'400px',
+        textAlign:'left',
+    },
+    modalDescriptionTitle:{
+        width:'200px',
+        textAlign:'right',
     }
 }));
 
@@ -110,7 +118,7 @@ function PanelOrdersPage (){
         window.location.reload()
     }
 
-    const { name, familyName, address, phone, cost, deliveryDoneTime, deliveryRequestTime } = orderState.item;
+    const { name, familyName, address, phone, cost, deliveryDoneTime, deliveryRequestTime, createdAt } = orderState.item;
     const body = (
         <div className={classes.paper}>
             <div className={classes.modalHeader}>
@@ -119,28 +127,33 @@ function PanelOrdersPage (){
             </div>
             <div className={classes.modalBody}>
                 <div className={classes.modalBodyItem}>
-                    <Typography dir="rtl" variant="p" component="p" id="simple-modal-title">نام مشتری:</Typography>
-                    <Typography dir="rtl" id="simple-modal-description">{`${name} ${familyName}`}</Typography>
+                    <Typography dir="rtl" variant="p" component="p" className={classes.modalDescriptionTitle} >نام مشتری:</Typography>
+                    <Typography dir="rtl" className={classes.modalDescriptionTypo}>{`${name} ${familyName}`}</Typography>
                 </div>
 
                 <div className={classes.modalBodyItem}>
-                    <Typography dir="rtl" variant="p" component="p" id="simple-modal-title">آدرس:</Typography>
-                    <Typography dir="rtl" id="simple-modal-description">{address}</Typography>
+                    <Typography dir="rtl" variant="p" component="p" className={classes.modalDescriptionTitle} >آدرس:</Typography>
+                    <Typography dir="rtl" className={classes.modalDescriptionTypo}>{address}</Typography>
                 </div>
 
                 <div className={classes.modalBodyItem}>
-                    <Typography dir="rtl" variant="p" component="p" id="simple-modal-title">تلفن:</Typography>
-                    <Typography dir="rtl" id="simple-modal-description">{e2p(''+phone)}</Typography>
+                    <Typography dir="rtl" variant="p" component="p" className={classes.modalDescriptionTitle} >تلفن:</Typography>
+                    <Typography dir="rtl" className={classes.modalDescriptionTypo}>{e2p(''+phone)}</Typography>
                 </div>
 
                 <div className={classes.modalBodyItem}>
-                    <Typography dir="rtl" variant="p" component="p" id="simple-modal-title">زمان تحویل:</Typography>
-                    <Typography dir="rtl" id="simple-modal-description">{new Date(deliveryDoneTime).toLocaleString('fa-IR')}</Typography>
+                    <Typography dir="rtl" variant="p" component="p" className={classes.modalDescriptionTitle} >زمان تحویل:</Typography>
+                    <Typography dir="rtl" className={classes.modalDescriptionTypo}>{deliveryDoneTime ? new Date(deliveryDoneTime).toLocaleString('fa-IR') : "تحویل داده نشده."}</Typography>
                 </div>
 
                 <div className={classes.modalBodyItem}>
-                    <Typography dir="rtl" variant="p" component="p" id="simple-modal-title">زمان سفارش:</Typography>
-                    <Typography dir="rtl" id="simple-modal-description">{new Date(deliveryRequestTime).toLocaleString('fa-IR')}</Typography>
+                    <Typography dir="rtl" variant="p" component="p" className={classes.modalDescriptionTitle} >زمان سفارش:</Typography>
+                    <Typography dir="rtl" className={classes.modalDescriptionTypo}>{deliveryRequestTime}</Typography>
+                </div>
+
+                <div className={classes.modalBodyItem}>
+                    <Typography dir="rtl" variant="p" component="p" className={classes.modalDescriptionTitle} >زمان ثبت سفارش:</Typography>
+                    <Typography dir="rtl" className={classes.modalDescriptionTypo}>{new Date(createdAt).toLocaleString('fa-IR')}</Typography>
                 </div>
 
                 <TableContainer  className={classes.tableContainer} component={Paper}>
