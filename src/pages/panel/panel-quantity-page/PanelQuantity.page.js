@@ -31,8 +31,9 @@ function PanelQuantityPage (){
         console.log(editingProductsState)
         editingProductsState.forEach(async({id, quantity, price}, index)=>{
             const obj = {}
-            if(quantity)
-                obj.quantity = quantity 
+            if(quantity>=0){
+                obj.quantity = quantity
+            }
             if(price)
                 obj.price = price
             console.log(id, obj)

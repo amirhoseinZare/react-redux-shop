@@ -1,8 +1,8 @@
 import UserActionTypes from "../types/user.types"
 
-const addToCart = (product) => ({
+const addToCart = (product, count) => ({
     type:UserActionTypes.ADD_TO_CART,
-    payload:product
+    payload:{product:product, count:count}
 })
 
 const removeFromCart = (product) => ({

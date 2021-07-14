@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme)=>({
         color:'var(--russian-violet)',
     },
     quantityInput:{
-       width:'30px',
+       width:'60px',
        marginLeft:theme.spacing(2)
     },
     cartButton:{
@@ -90,6 +90,7 @@ function ProductDetailPageComponent(props){
     const classes = useStyles();
 
     const [ productsState, setProductsState] = useState({ })
+    const [ cartcount, setCartCount] = useState({ quantity:1 })
 
     useEffect( async () =>{
         const response = await axios.get(`http://localhost:3001/products/${props.match.params.productId}`)
@@ -106,10 +107,12 @@ function ProductDetailPageComponent(props){
     const addToCartButtonClickHandler = async (event,product)=>{
         const response = await axios.get(`http://localhost:3001/products/${product.id}`)
         const productInCart = props.userCart.find(prod=>prod.id===product.id)
-        if( (!productInCart) ||  productInCart.count<response.data.quantity ){
-            props.addToCart(product)
-            return 
-        }
+        console.log(cartcount.quantity, response.data.quantity)
+        if(response.data.quantity>0)
+            if( (!productInCart) ||  cartcount.quantity<=response.data.quantity ){
+                props.addToCart(product, +cartcount.quantity)
+                return 
+            }
         toast.error('متاسفانه موجودی محصول کافی نیست.', {
             position: "bottom-right",
             autoClose: 5000,
@@ -120,6 +123,11 @@ function ProductDetailPageComponent(props){
             progress: undefined,
             rtl: true,
         });
+    }
+
+    const cartQuantityChangeHandler = (event)=>{
+        event.target.value = event.target.value.replaceAll(/[.-]/g, '')
+        setCartCount({ quantity: event.target.value})
     }
 
     const {name, description, image, group, headgroup, price, id} = productsState
@@ -143,7 +151,7 @@ function ProductDetailPageComponent(props){
                                 <button className={[classes.cartButton]} onClick={(event)=>addToCartButtonClickHandler(event, {name,price:+price,id})}>
                                     <ControlPointIcon className={classes.lineHeight}/><div className={classes.lineHeight}>افزودن به سبد خرید</div>
                                 </button>
-                                <input min="0" className={classes.quantityInput} type="number" />
+                                <input onChange={cartQuantityChangeHandler} value={cartcount.quantity} min="1" className={classes.quantityInput} type="number" />
                             </div>
                         </div>
                     </div>
@@ -157,7 +165,7 @@ function ProductDetailPageComponent(props){
 
 const mapStateToProps = ({user:{cart}}) => ({userCart:cart})
 const mapDispatchToProps = (dispatch) => ({
-    addToCart:product => dispatch(addToCart(product))
+    addToCart:(product, count) => dispatch(addToCart(product, count))
 })
 
 const ProductDetailPage = connect(mapStateToProps, mapDispatchToProps)(withRouter(ProductDetailPageComponent))
