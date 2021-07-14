@@ -4,6 +4,7 @@ import { IconButton ,Button, Modal, Typography, MenuItem, Select, FormControl, T
 import { Cancel } from '@material-ui/icons';
 import modules from "./ProductsModal.module.scss"
 import axios from "axios"
+import {TextEditor} from "../../components/index"
 
 function getModalStyle() {
   return {
@@ -74,8 +75,12 @@ export default function ProductModal(props) {
     const [open, setOpen] = useState(false);
 
     const [productState, setProductState] = useState({product:{
-        id:'', name:'', group:'', headgroup:'', image:'', price:'', quantity:'',
+        id:'', name:'', group:'', headgroup:'', image:'', price:'', quantity:'', description:''
     }})
+
+    const setProductDescription = (val)=>{
+        setProductState({...productState, description:val})
+    }
 
     const [groupsState, setGroupsState] = useState([])
 
@@ -201,7 +206,7 @@ export default function ProductModal(props) {
 
                 <div className={classes.productInputContainer}>
                     <label className={classes.productInoutLabel}>توضیحات کالا:</label>
-                    <TextField dir="rtl" type="text" variant="outlined" value={description} onChange={(event)=>inputChangeHandler(event, 'description')}/>
+                    {/* <TextField dir="rtl" type="text" variant="outlined" value={description} onChange={(event)=>inputChangeHandler(event, 'description')}/> */}
                 </div>
                 {
                     props.mode==='add' ? (<><div className={classes.productInputContainer}>
@@ -234,6 +239,7 @@ export default function ProductModal(props) {
         >
             {body}
         </Modal>
+        <TextEditor handleChange={setProductDescription}/>
         </div>
     );
 }

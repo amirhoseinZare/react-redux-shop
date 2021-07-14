@@ -3,6 +3,7 @@ import { AppRouter } from "./router/App.route"
 import {connect} from "react-redux"
 import {useEffect} from "react"
 import 'react-toastify/dist/ReactToastify.css';
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 function App({cart}) {
   useEffect(()=>{
