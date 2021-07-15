@@ -70,6 +70,7 @@ const useStyles = makeStyles((theme)=>({
         textAlign:'right',
         width:'700px',
         margin:'auto',
+        direction:'rtl',
     },
     productName:{
         paddingRight:theme.spacing(2),
