@@ -85,7 +85,7 @@ export default function ProductModal(props) {
     }})
 
     const setProductDescription = (val)=>{
-        setProductState({...productState, description:val})
+        setProductState({product:{...productState.product, description:val}})
     }
 
     const [groupsState, setGroupsState] = useState([])
@@ -228,7 +228,7 @@ export default function ProductModal(props) {
 
                 <div className={classes.productInputContainer}>
                     <label className={classes.productInoutLabel}>توضیحات کالا:</label>
-                    <TextEditor handleChange={setProductDescription}/>
+                    <TextEditor handleChange={setProductDescription} defaultText={description} />
                 </div>
 
                 <footer className={classes.modalFooter}>
