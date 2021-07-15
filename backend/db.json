@@ -4,7 +4,7 @@
       "name": "کفش Nike مشکی",
       "group": "کفش مردانه",
       "headgroup": "کفش و کتانی",
-      "description": "بسیا زیبا",
+      "description": "<p><strong>بسیا زیبا😂</strong></p>\n",
       "price": 60000,
       "quantity": 0,
       "image": "/files/e2a418111422cc2b73d53710d030d7d4",
@@ -65,17 +65,6 @@
       "image": "/files/07e3de6e27b675495688170604f5e52d",
       "createdAt": 1625767049714,
       "id": 22
-    },
-    {
-      "name": "235235234232",
-      "group": "موبایل",
-      "headgroup": "الکترونیک",
-      "description": "<h4>eql/fknelkwnflkwenlfk</h4>\n<h1>ae;kfnvwelknf</h1>\n",
-      "price": "23432545",
-      "quantity": "235325423",
-      "image": "/files/6d505a88cea5218360153e4f866e8f23",
-      "createdAt": 1626357462076,
-      "id": 23
     }
   ],
   "groups": [

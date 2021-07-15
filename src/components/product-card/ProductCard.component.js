@@ -66,7 +66,7 @@ function ProductCardComponent(props){
             <Card className={classes.card}>
                 <CardContent className={classes.content}>
                     <Typography variant="h6" component="h2" className={classes.title}>{name}</Typography>
-                    <Typography className={classes.subtitle} variant="subtitle2" component="p">{description}</Typography>
+                    <Typography className={classes.subtitle} variant="subtitle2" component="p" dangerouslySetInnerHTML={{ __html: description }}/>
                 </CardContent>
                 <div className={classes.img}>
                     <img style={{width:'140px'}} src={`http://localhost:3001${image}`}/>
