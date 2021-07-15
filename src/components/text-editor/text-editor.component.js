@@ -2,6 +2,7 @@ import { Editor } from "react-draft-wysiwyg";
 import { EditorState, convertToRaw } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 import {useEffect, useState} from "react"
+import classes from "./text-editor.module.scss"
 
 function TextEditor(props){
     const toolbar = {
@@ -154,9 +155,9 @@ function TextEditor(props){
     return (
         <Editor
         editorState={editorState.editorState}
-        // toolbarClassName="toolbarClassName"
-        // wrapperClassName="wrapperClassName"
-        // editorClassName="editorClassName"
+        toolbarClassName={classes.toolbar}
+        wrapperClassName={classes.wrapper}
+        editorClassName={classes.editor}
         onEditorStateChange={(editorState) => {setEditorState({editorState})}}
         toolbar={{inline: { inDropdown: true }}}
         style={{width:'400px'}}

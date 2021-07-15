@@ -17,7 +17,7 @@ function getModalStyle() {
 const useStyles = makeStyles((theme) => ({
   paper: {
     position: 'absolute',
-    width: 400,
+    width: 600,
     display: 'flex',
     justifyContent:'space-between',
     flexDirection: 'column',
@@ -27,13 +27,13 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2, 4, 3),
   },
   modalHeader:{
-    width: 400,
+    width: 600,
     display: 'flex',
     justifyContent: 'space-between',
     marginBottom: '20px'
   },
   productGroup:{
-    width: 400,
+    width: 190,
     display: 'flex',
     direction:'rtl',
     marginBottom: '20px'
@@ -56,8 +56,9 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: '20px'
     },
     modalFooter:{
-        width:400,
-        textAlign:'center'
+        width:600,
+        textAlign:'center',
+        marginTop: '100px'
     },
     productInoutLabel:{
         margin:'0 0 5px 0'
@@ -66,6 +67,11 @@ const useStyles = makeStyles((theme) => ({
         width:'50px',
         height:'50px',
         overflow:'hidden',
+    },
+    priceAndQuantityContainer:{
+        display: 'flex',
+        flexDirection:'row',
+        justifyContent: 'space-between',
     }
 }));
 
@@ -174,6 +180,12 @@ export default function ProductModal(props) {
                 <Typography>افزودن / ویرایش کالا</Typography>
             </header>
             <form>
+
+                <div className={classes.productInputContainer}>
+                    <label className={classes.productInoutLabel}>نام کالا:</label>
+                    <TextField dir="rtl" placeholder="مثال : بیسکوییت" type="text" variant="outlined" value={name} onChange={(event)=>inputChangeHandler(event, 'name')}/>
+                </div>
+                
                 <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-end'}}>
                     <span className={classes.productInoutLabel}>:تصویر کالا</span>
                     <label className={modules.input_file_label}>
@@ -182,43 +194,42 @@ export default function ProductModal(props) {
                         <span className={modules.file_name} >file</span>
                     </label>
                 </div>
+                
+                
+                <div className={classes.priceAndQuantityContainer}>
 
-                <div className={classes.productInputContainer}>
-                    <label className={classes.productInoutLabel}>نام کالا:</label>
-                    <TextField dir="rtl" placeholder="مثال : بیسکوییت" type="text" variant="outlined" value={name} onChange={(event)=>inputChangeHandler(event, 'name')}/>
+                    <FormControl className={classes.productGroup}>
+                        <label  className={classes.productInoutLabel}>دسته بندی:</label>
+                        <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            variant="outlined"
+                            value={group}
+                            onChange={(event)=>inputChangeHandler(event , 'group')}
+                        >
+                            {
+                                groupsState.length>0 ? groupsState.map(group =><MenuItem key={id} value={group.name}>{group.name}</MenuItem>) : null
+                            }
+                        </Select>
+                    </FormControl>
+
+                    {
+                        props.mode==='add' ? (<><div className={classes.productInputContainer}>
+                                <label className={classes.productInoutLabel}>موجودی:</label>
+                                <TextField style={{width:'190px'}} dir="rtl" type="number" variant="outlined" value={quantity} onChange={(event)=>inputChangeHandler(event, 'quantity')}/>
+                            </div>
+
+                            <div className={classes.productInputContainer}>
+                                <label className={classes.productInoutLabel}>قیمت:</label>
+                                <TextField style={{width:'190px'}} dir="rtl" type="number" variant="outlined" value={price} onChange={(event)=>inputChangeHandler(event, 'price')}/>
+                            </div></>) : null
+                    }
                 </div>
-                
-                <FormControl className={classes.productGroup}>
-                    <label  className={classes.productInoutLabel}>دسته بندی:</label>
-                    <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        variant="outlined"
-                        value={group}
-                        onChange={(event)=>inputChangeHandler(event , 'group')}
-                    >
-                        {
-                            groupsState.length>0 ? groupsState.map(group =><MenuItem key={id} value={group.name}>{group.name}</MenuItem>) : null
-                        }
-                    </Select>
-                </FormControl>
-                
 
                 <div className={classes.productInputContainer}>
                     <label className={classes.productInoutLabel}>توضیحات کالا:</label>
-                    {/* <TextField dir="rtl" type="text" variant="outlined" value={description} onChange={(event)=>inputChangeHandler(event, 'description')}/> */}
+                    <TextEditor handleChange={setProductDescription}/>
                 </div>
-                {
-                    props.mode==='add' ? (<><div className={classes.productInputContainer}>
-                    <label className={classes.productInoutLabel}>موجودی:</label>
-                    <TextField dir="rtl" type="number" variant="outlined" value={quantity} onChange={(event)=>inputChangeHandler(event, 'quantity')}/>
-                </div>
-
-                <div className={classes.productInputContainer}>
-                    <label className={classes.productInoutLabel}>قیمت:</label>
-                    <TextField dir="rtl" type="number" variant="outlined" value={price} onChange={(event)=>inputChangeHandler(event, 'price')}/>
-                </div></>) : null
-                }
 
                 <footer className={classes.modalFooter}>
                     <Button  type="submit" color="primary" background="primary" onClick={(event)=>submitButtonHandler(event,  productState.product)}>ذخیره</Button>
@@ -239,7 +250,6 @@ export default function ProductModal(props) {
         >
             {body}
         </Modal>
-        <TextEditor handleChange={setProductDescription}/>
         </div>
     );
 }
