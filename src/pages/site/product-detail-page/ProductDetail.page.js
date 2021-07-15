@@ -176,7 +176,7 @@ function ProductDetailPageComponent(props){
                             </div>
                         </div>
                     </div>
-                    <Typography className={classes.productDescription} variant="h5" component="p">{description}</Typography>
+                    <Typography className={classes.productDescription} variant="h5" component="p" dangerouslySetInnerHTML={{__html:description}}/>
                 </section>
             </main>
             <ToastContainer rtl={true}/>
