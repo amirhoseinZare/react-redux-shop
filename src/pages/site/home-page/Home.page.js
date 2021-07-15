@@ -6,6 +6,7 @@ import {useEffect, useState} from "react"
 import axios from "axios"
 import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
 import { withRouter } from "react-router-dom"
+import {Spinner} from "../../../components/index"
 
 const useStyles = makeStyles((theme) => ({
     groupTitle:{
@@ -34,46 +35,54 @@ const useStyles = makeStyles((theme) => ({
 
 function HomePagePage(props){
     const classes = useStyles();
+    const [loading, setLoading] = useState({show:true});
     const [ productsState, setProductsState ] = useState({products:[]})
-    // const [ groupsState, setGroupsState  ] = useState({groups:[]})
     useEffect(async()=>{
         const response = await axios.get('http://localhost:3001/groups')
         const groups = response.data
-        Promise.all(groups.map((group, index) => axios.get('http://localhost:3001/products', {params: {group:group.name, _limit:6}}))).then((responses)=>{
+        Promise.all(groups.map((group, index) => axios.get('http://localhost:3001/products', {params: {group:group.name, _limit:6}}))).then(async (responses)=>{
             const productsGroup = responses.map( (res,i)=> ({group:groups[i], products:res.data}))
+            await setLoading({show:false})
             setProductsState({products:productsGroup})
+
         })
     }, [])
+
+    const pageContent = (<Grid container className={classes.productsContainer}>
+        {
+            productsState.products.map(product=>{
+                const {name:groupName, id:groupId} = product.group
+                const groupLink = `/product/group/${groupId}/${groupName}`
+                return (
+                    <Fragment key={product.group.id}>
+                        <Grid style={{display: 'flex', justifyContent: 'flex-end'}} item xs={12}>
+                            <h2 className={classes.groupTitle} dir="rtl" onClick={()=>{props.history.push(groupLink)}}>
+                                <a href={groupLink} className={classes.anchorGroupTitle} onClick={event=>event.stopPropagation()}>{product.group.name}</a>
+                                <ArrowLeftIcon className={classes.groupArrow}/>
+                            </h2>
+                        </Grid>
+                            {product.products.map(prod=>{
+                                const {name, description, image, id} = prod
+                                return (
+                                    <ProductCard key={prod.id} name={name} description={description} image={image} url={`/product/${id}`}/>
+                                )
+                            })}
+                    </Fragment>
+                    
+                )
+            })
+        }
+        
+    </Grid>)
+
+    const loadingUi = (<div style={{display: 'flex', justifyContent: 'center', paddingTop:'50px'}} >
+                            <Spinner spinnerColor='var(--russian-violet)'/>
+                        </div>)
 
     return (
         <Fragment>
             <Header/>
-            <Grid container className={classes.productsContainer}>
-                {
-                    productsState.products.map(product=>{
-                        const {name:groupName, id:groupId} = product.group
-                        const groupLink = `/product/group/${groupId}/${groupName}`
-                        return (
-                            <Fragment key={product.group.id}>
-                                <Grid style={{display: 'flex', justifyContent: 'flex-end'}} item xs={12}>
-                                    <h2 className={classes.groupTitle} dir="rtl" onClick={()=>{props.history.push(groupLink)}}>
-                                        <a href={groupLink} className={classes.anchorGroupTitle} onClick={event=>event.stopPropagation()}>{product.group.name}</a>
-                                        <ArrowLeftIcon className={classes.groupArrow}/>
-                                    </h2>
-                                </Grid>
-                                    {product.products.map(prod=>{
-                                        const {name, description, image, id} = prod
-                                        return (
-                                            <ProductCard key={prod.id} name={name} description={description} image={image} url={`/product/${id}`}/>
-                                        )
-                                    })}
-                            </Fragment>
-                            
-                        )
-                    })
-                }
-                
-            </Grid>
+            { loading.show ? loadingUi : pageContent }
         </Fragment>
        
     );
