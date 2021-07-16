@@ -10,6 +10,7 @@ import {connect} from "react-redux"
 import {addToCart} from "../../../redux/actions/user.action"
 import { ToastContainer, toast } from 'react-toastify';
 import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
+import {Spinner} from "../../../components/index"
 
 const useStyles = makeStyles((theme)=>({
     productInfo:{
@@ -108,7 +109,8 @@ function ProductDetailPageComponent(props){
 
     const [ productsState, setProductsState] = useState({ })
     const [ cartcount, setCartCount] = useState({ quantity:1 })
-
+    const [loading, setLoading] = useState({ show: true })
+    
     useEffect( async () =>{
         const response = await axios.get(`http://localhost:3001/products/${props.match.params.productId}`)
         const product = response.data
@@ -116,6 +118,7 @@ function ProductDetailPageComponent(props){
         console.log(groupResponse.data)
         product.groupId = groupResponse.data.id
         await setProductsState(product)
+        setLoading({show:false})
     }, [])
 
     useEffect(()=>{
@@ -150,9 +153,8 @@ function ProductDetailPageComponent(props){
     }
 
     const {name, description, image, group, headgroup, price, id, groupId} = productsState
-    return (
-        <div>
-            <Header/>
+
+    const pageContent = (
             <main>
                 <section className={classes.productInfo}>
                     <div className={classes.productMainInfo}>
@@ -180,6 +182,16 @@ function ProductDetailPageComponent(props){
                     <Typography className={classes.productDescription} variant="h5" component="p" dangerouslySetInnerHTML={{__html:description}}/>
                 </section>
             </main>
+    )
+
+    const loadingUi = ((<div style={{display: 'flex', justifyContent: 'center', paddingTop:'50px'}} >
+                            <Spinner spinnerColor='var(--russian-violet)'/>
+                    </div>))
+
+    return (
+        <div>
+            <Header/>
+            { loading.show ? loadingUi : pageContent }
             <ToastContainer rtl={true}/>
         </div>
     )

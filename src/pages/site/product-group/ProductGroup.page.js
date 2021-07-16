@@ -4,7 +4,7 @@ import {Grid , makeStyles, Typography} from "@material-ui/core"
 import axios from "axios"
 import {withRouter} from "react-router-dom"
 import {ProductsGroupAside, ProductCard} from "../../../components/index"
-
+import {Spinner} from "../../../components/index"
 
 const useStyles = makeStyles((theme) => ({
     asideContainer:{
@@ -31,6 +31,7 @@ function ProductsGroupPageComponent(props){
     const classes = useStyles();
     const [groupsState, setGroupsState] = useState({ groups: [] })
     const [productsState, setProductsState] = useState({ products: [] })
+    const [loading, setLoading] = useState({ show: true })
 
     useEffect(async ()=>{
         const allgroups = []
@@ -54,25 +55,34 @@ function ProductsGroupPageComponent(props){
         const response = await axios.get('http://localhost:3001/products', {params: {group:props.match.params.groupName}})
         const products = response.data
         await setProductsState({ products:products })
+        setLoading({show:false})
     }, [])
 
+    const pageContent = (
+        <div style={{display:'flex', }}>
+            <Grid item lg={10} md={9} sm ={8} xs={8}>
+                <Typography variant="h4" component="h1" className={classes.productGroupTitle}>{props.match.params.groupName}</Typography>
+                <div className={classes.productsContainer}>
+                {productsState.products.map((prod, index)=>{
+                    const {name, description, image, id} = prod
+                    return (<ProductCard lg={6} md={6} sm ={12} xs={12} url={`/product/${id}`} name={name} description={description} image={image}></ProductCard>)
+                })}
+                </div>
+            </Grid>
+            <Grid item lg={2} md={3} sm ={4} xs={4} className={classes.asideContainer}>
+                <ProductsGroupAside groups={groupsState.groups}/>
+            </Grid>
+        </div>
+    )
+
+    const loadingUi = (<div style={{display: 'flex', justifyContent: 'center', paddingTop:'50px'}} >
+                            <Spinner spinnerColor='var(--russian-violet)'/>
+                        </div>)
+    
     return (
         <div>
             <Header/>
-            <div style={{display:'flex', }}>
-                <Grid item lg={10} md={9} sm ={8} xs={8}>
-                    <Typography variant="h4" component="h1" className={classes.productGroupTitle}>{props.match.params.groupName}</Typography>
-                    <div className={classes.productsContainer}>
-                    {productsState.products.map((prod, index)=>{
-                        const {name, description, image, id} = prod
-                        return (<ProductCard lg={6} md={6} sm ={12} xs={12} url={`/product/${id}`} name={name} description={description} image={image}></ProductCard>)
-                    })}
-                    </div>
-                </Grid>
-                <Grid item lg={2} md={3} sm ={4} xs={4} className={classes.asideContainer}>
-                    <ProductsGroupAside groups={groupsState.groups}/>
-                </Grid>
-            </div>
+            { loading.show ? loadingUi : pageContent }
         </div>
     )
 }
