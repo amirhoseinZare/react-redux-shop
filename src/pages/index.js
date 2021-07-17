@@ -5,7 +5,6 @@ export {HomePage} from './site/home-page/Home.page'
 export {PaymentFailedPage} from './site/payment-failed-page/PaymentFailed.page'
 export {PaymentSuccessPage} from './site/payment-success-page/PaymentSuccess.page'
 export {ProductDetailPage} from './site/product-detail-page/ProductDetail.page'
-export {ProductsListPage} from './site/products-list-page/ProductsList.page'
 export {ProductsGroupPage} from "./site/product-group/ProductGroup.page"
 
 // panel

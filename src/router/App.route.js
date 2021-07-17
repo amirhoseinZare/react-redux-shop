@@ -22,7 +22,6 @@ function AppRouter(){
         <Switch>
 
             <Route exact path="/" component={HomePage}/>
-            <Route exact path="/products" component={ProductsListPage}/>
             <Route exact path="/product/:productId" component={ProductDetailPage}/>
             <Route exact path="/cart" component={CartPage}/>
             <Route exact path="/checkout" component={CheckoutPage}/>
