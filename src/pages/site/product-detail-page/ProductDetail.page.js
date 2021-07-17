@@ -2,8 +2,7 @@ import {Header} from "../../../layouts/index"
 import {withRouter, Link} from "react-router-dom"
 import {useEffect, useState} from "react"
 import {makeStyles, Typography } from "@material-ui/core"
-import {getProduct} from "../../../model/products.model"
-import {getGroups} from "../../../model/groups.model"
+import productApi from "../../../model/products.model"
 import {e2p} from "../../../utils/LanGuaggeNumberConvertor.utils"
 import {numberWithCommas} from "../../../utils/numberWithCommas.utils"
 import ControlPointIcon from '@material-ui/icons/ControlPoint';
@@ -12,6 +11,7 @@ import {addToCart} from "../../../redux/actions/user.action"
 import { ToastContainer, toast } from 'react-toastify';
 import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
 import {Spinner} from "../../../components/index"
+import groupApi from "../../../model/groups.model"
 
 const useStyles = makeStyles((theme)=>({
     productInfo:{
@@ -113,9 +113,9 @@ function ProductDetailPageComponent(props){
     const [loading, setLoading] = useState({ show: true })
     
     useEffect( async () =>{
-        const response = await getProduct(props.match.params.productId)
+        const response = await productApi.get(props.match.params.productId)
         const product = response.data
-        const groupResponse = await getGroups({params:{name:product.group}})
+        const groupResponse = await groupApi.gets({params:{name:product.group}})
         console.log(groupResponse.data)
         product.groupId = groupResponse.data.id
         await setProductsState(product)
@@ -128,7 +128,7 @@ function ProductDetailPageComponent(props){
     }, [props.userCart])
 
     const addToCartButtonClickHandler = async (event,product)=>{
-        const response = await getProduct(product.id)
+        const response = await product.get(product.id)
         const productInCart = props.userCart.find(prod=>prod.id===product.id)
         console.log(cartcount.quantity, response.data.quantity)
         if(response.data.quantity>0)

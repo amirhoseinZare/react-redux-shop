@@ -3,7 +3,7 @@ import {QuantityTable} from "../../../components/index"
 import {Typography, Button, Grid} from "@material-ui/core"
 import { makeStyles } from '@material-ui/core/styles';
 import { useState, useEffect } from "react";
-import { patchProduct } from "../../../model/products.model";
+import product from "../../../model/products.model";
 
 const useStyles = makeStyles({
     container:{
@@ -38,11 +38,11 @@ function PanelQuantityPage (){
                 obj.price = price
             console.log(id, obj)
             if(index===editingProductsState.length-1){
-                await patchProduct(id, null, {...obj})
+                await product.patch(id, null, {...obj})
                 await setEditMode({edit:'done'})
             }
             else {
-                patchProduct(id, null, {...obj})
+                product.patch(id, null, {...obj})
             }
         })
     }

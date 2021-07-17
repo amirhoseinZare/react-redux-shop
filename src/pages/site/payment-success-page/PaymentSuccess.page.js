@@ -7,6 +7,7 @@ import {emptyUserCart} from "../../../redux/actions/user.action"
 import {connect} from "react-redux"
 import order from "../../../model/orders.model"
 import {getProduct, patchProduct} from "../../../model/products.model"
+import product from "../../../model/products.model"
 
 const useStyles = makeStyles((theme) => ({
     header:{
@@ -52,8 +53,8 @@ function PaymentSuccess(props){
             const response = await order.patch(urlParams.get('order'), null, { pay:true })    
             const {products} = response.data
             products.forEach(async product => {
-                const response = await getProduct(product.id)
-                await patchProduct(product.id, null, { quantity: +response.data.quantity - +product.count })    
+                const response = await product.get(product.id)
+                await product.patch(product.id, null, { quantity: +response.data.quantity - +product.count })    
             })
             props.emptyUserCart()
             localStorage.cart = '[]'

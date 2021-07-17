@@ -1,7 +1,5 @@
 import axios from 'axios'
 const instance = axios.create();
-instance.defaults.timeout = 5000;
-instance.defaults.baseURL = 'http://localhost:3001';
 
 class Service {
     constructor(entity){
@@ -46,5 +44,4 @@ class Service {
     }
 }
 
-export {Service};
-export default instance 
+export default Service

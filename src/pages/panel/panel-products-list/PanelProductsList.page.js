@@ -1,9 +1,9 @@
-import {useState, useEffect} from "react"
+import {useState} from "react"
 import {PanelHeader} from "../../../layouts/index"
 import {ProductsTable, ProductModal} from "../../../components/index"
 import {Typography, Button, Grid} from "@material-ui/core"
 import { makeStyles } from '@material-ui/core/styles';
-import {deleteProduct} from "../../../model/products.model"
+import product from "../../../model/products.model"
 
 const useStyles = makeStyles({
     container:{
@@ -32,7 +32,7 @@ function PanelProductsList (){
 
     const openModalDeleteButtonHandler = async (row)=>{
         await setModalMode({...modalMode,mode:'delete'})
-        await deleteProduct(row.id)
+        await product.delete(row.id)
         setModalMode({...modalMode, mode:'default'})
     }
 

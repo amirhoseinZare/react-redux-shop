@@ -1,9 +1,5 @@
-import service from "./http.model"
+import Service from "./http.model"
 
-const getGroups = (config)=>{
-    return service.get('/groups', config)
-}
+const group = new Service('groups')
 
-export {
-    getGroups
-}
+export default group
