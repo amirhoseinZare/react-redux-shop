@@ -5,6 +5,7 @@ import { Link } from "react-router-dom"
 import axios from "axios"
 import {Pagination, PaginationItem} from '@material-ui/lab';
 import {ProductInput} from "../../components/index";
+import productApi from "../../model/products.model"
 
 const useStyles = makeStyles({
     container:{
@@ -48,7 +49,7 @@ export default function QuantityTable(props) {
 
     useEffect( async ()=>{
         try {
-            const response = await axios.get('http://localhost:3001/products', {params:{_page:1, _limit:5}})
+            const response = await productApi.gets( {params:{_page:1, _limit:5}})
             const products = response.data
             await setProductsState(products)
 
@@ -65,13 +66,13 @@ export default function QuantityTable(props) {
         
     useEffect( async ()=>{
         const { page } = pageState
-        const response = await axios.get('http://localhost:3001/products', {params:{_page:page, _limit:5}})
+        const response = await productApi.gets( {params:{_page:page, _limit:5}})
         setProductsState(response.data)
     }, [pageState])
 
     useEffect( async ()=>{
         const { page } = pageState
-        const response = await axios.get('http://localhost:3001/products', {params:{_page:page, _limit:5}})
+        const response = await productApi.gets( {params:{_page:page, _limit:5}})
         console.log(response)
         setProductsState(response.data)
     }, [props.editmode])

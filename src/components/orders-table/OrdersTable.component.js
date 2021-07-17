@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Table,TableBody,TableCell,TableContainer,TableHead,TableRow,Paper} from '@material-ui/core';
 import { Link } from "react-router-dom"
-import axios from "axios"
 import {Pagination, PaginationItem} from '@material-ui/lab';
 import {e2p} from "../../utils/LanGuaggeNumberConvertor.utils";
+import order from "../../model/orders.model"
 
 const useStyles = makeStyles({
     container:{
@@ -48,7 +48,7 @@ export default function OrdersTable(props) {
     useEffect( async ()=>{
         try {
             const { page, perpage } = pageState
-            const response = await axios.get('http://localhost:3001/orders', {params:{_page:page, _limit:5}})
+            const response = await order.gets({params:{_page:page, _limit:5}})
 
             await setOrdersState(response.data)
 
@@ -69,7 +69,7 @@ export default function OrdersTable(props) {
     useEffect( async ()=>{
         const { page } = pageState
         const {doneFilter:done} = props.filterProducts
-        const response = await axios.get('http://localhost:3001/orders', {params:{_page:page, _limit:5, delivered:done}})
+        const response = await order.gets({params:{_page:page, _limit:5, delivered:done}})
         setOrdersState(response.data)
     }, [pageState, props.filterProducts])
     return (

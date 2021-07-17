@@ -3,9 +3,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import { IconButton ,Button, Modal, Typography, MenuItem, Select, FormControl, TextField, Input } from '@material-ui/core';
 import { Cancel } from '@material-ui/icons';
 import modules from "./ProductsModal.module.scss"
-import axios from "axios"
 import {TextEditor} from "../../components/index"
 import productApi  from "../../model/products.model"
+import groupApi from "../../model/groups.model"
 
 function getModalStyle() {
   return {
@@ -93,7 +93,7 @@ export default function ProductModal(props) {
 
     const handleOpen = async () => {
         setOpen(true);
-        const groups = await axios.get('http://localhost:3001/groups')
+        const groups = await groupApi.gets()
         await setGroupsState(groups.data)
     };
 
@@ -107,7 +107,7 @@ export default function ProductModal(props) {
     }
 
     useEffect(async ()=>{
-        const groups = await axios.get('http://localhost:3001/groups')
+        const groups = await groupApi.gets()
         await setGroupsState(groups.data)
         await props.setModalOpenHandler({modalHandler:handleOpen})
     },[])

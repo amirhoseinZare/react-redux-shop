@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Button, Grid, Table,TableBody,TableCell,TableContainer,TableHead,TableRow,Paper} from '@material-ui/core';
+import { Grid, Table,TableBody,TableCell,TableContainer,TableHead,TableRow,Paper} from '@material-ui/core';
 import { Link } from "react-router-dom"
-import axios from "axios"
 import {Pagination, PaginationItem} from '@material-ui/lab';
+import productApi from "../../model/products.model"
 
 const useStyles = makeStyles({
     container:{
@@ -47,7 +47,7 @@ export default function ProductsTable(props) {
     useEffect( async ()=>{
         try {
             const { page, perpage } = pageState
-            const response = await axios.get('http://localhost:3001/products', {params:{_page:page, _limit:5}})
+            const response = await productApi.gets({params:{_page:page, _limit:5}})
 
             await setProductsState(response.data)
 
@@ -62,14 +62,14 @@ export default function ProductsTable(props) {
 
     useEffect( async ()=>{
         const { page } = pageState
-        const response = await axios.get('http://localhost:3001/products', {params:{_page:page, _limit:5}})
+        const response = await productApi.gets({params:{_page:page, _limit:5}})
         setProductsState(response.data)
     }, [pageState])
 
     useEffect( async ()=>{
        if(props.mode === 'default'){
         const { page } = pageState
-        const response = await axios.get('http://localhost:3001/products', {params:{_page:page, _limit:5}})
+        const response = await productApi.gets({params:{_page:page, _limit:5}})
         setProductsState(response.data)
        }
     }, [props.mode])
