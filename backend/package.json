@@ -10,9 +10,12 @@
   },
   "author": "Babak Khorrami",
   "license": "MIT",
-  "devDependencies": {
+  "dependencies": {
     "json-server": "^0.16.3",
-    "multer": "^1.4.2",
+    "jsonwebtoken": "^8.5.1",
+    "multer": "^1.4.2"
+  },
+  "devDependencies": {
     "nodemon": "^2.0.7"
   }
 }

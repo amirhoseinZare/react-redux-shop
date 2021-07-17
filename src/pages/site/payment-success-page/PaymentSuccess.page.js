@@ -5,7 +5,7 @@ import DoneIcon from '@material-ui/icons/Done';
 import {useEffect} from 'react'
 import {emptyUserCart} from "../../../redux/actions/user.action"
 import {connect} from "react-redux"
-import {patchOrder} from "../../../model/orders.model"
+import order from "../../../model/orders.model"
 import {getProduct, patchProduct} from "../../../model/products.model"
 
 const useStyles = makeStyles((theme) => ({
@@ -49,7 +49,7 @@ function PaymentSuccess(props){
 
     useEffect(async ()=>{
         try {
-            const response = await patchOrder(urlParams.get('order'), null, { pay:true })    
+            const response = await order.patch(urlParams.get('order'), null, { pay:true })    
             const {products} = response.data
             products.forEach(async product => {
                 const response = await getProduct(product.id)

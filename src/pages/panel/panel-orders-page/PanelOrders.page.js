@@ -7,7 +7,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import {e2p} from "../../../utils/LanGuaggeNumberConvertor.utils"
 import {numberWithCommas} from "../../../utils/numberWithCommas.utils"
 import {Link} from "react-router-dom"
-import {patchOrder} from "../../../model/orders.model"
+import order from "../../../model/orders.model"
 
 const useStyles = makeStyles((theme)=>({
     container:{
@@ -114,7 +114,7 @@ function PanelOrdersPage (){
 
     const deliveryButtonHandler = async (e , orderId) => {
         console.log(orderId)
-        await patchOrder(orderId, null,{ deliveryDoneTime: + new Date().getTime(), delivered:true })
+        await order.patch(orderId, null,{ deliveryDoneTime: + new Date().getTime(), delivered:true })
         window.location.reload()
     }
 

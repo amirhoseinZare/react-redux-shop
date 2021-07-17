@@ -239,5 +239,22 @@
       "createdAt": 1626521963171,
       "id": 6
     }
-  ]
+  ],
+  "users": [
+    {
+      "name": "Jamshid Mashayekhi",
+      "username": "admin",
+      "password": "admin",
+      "role": "admin"
+    }
+  ],
+  "protection": {
+    "products.get": false,
+    "orders.post": true,
+    "upload": true,
+    "products": "admin",
+    "orders": "admin",
+    "users": "admin",
+    "protection": "admin"
+  }
 }

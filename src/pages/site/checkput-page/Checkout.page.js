@@ -3,7 +3,7 @@ import {TextField, Grid} from "@material-ui/core"
 import { makeStyles } from '@material-ui/core/styles';
 import {useState, useEffect} from "react"
 import {connect} from "react-redux"
-import {postOrder} from "../../../model/orders.model"
+import order from "../../../model/orders.model"
 
 const useStyles = makeStyles((theme) => ({
     container:{
@@ -53,7 +53,7 @@ function CheckoutPageComponent(props){
         event.preventDefault()
         const { name, familyName, address, phone, deliveryTime } = state
         try {
-            const response = await postOrder(null, { 
+            const response = await order.post(null, { 
                 name, 
                 familyName, 
                 address, 
