@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import {useState, useEffect} from "react"
 import axios from "axios"
 import {connect} from "react-redux"
+import {postOrder} from "../../../model/orders.model"
 
 const useStyles = makeStyles((theme) => ({
     container:{
@@ -53,7 +54,7 @@ function CheckoutPageComponent(props){
         event.preventDefault()
         const { name, familyName, address, phone, deliveryTime } = state
         try {
-            const response = await axios.post('http://localhost:3001/orders', { 
+            const response = await postOrder(null, { 
                 name, 
                 familyName, 
                 address, 

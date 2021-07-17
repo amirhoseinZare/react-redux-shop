@@ -7,6 +7,7 @@ import axios from "axios"
 import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
 import { withRouter } from "react-router-dom"
 import {Spinner} from "../../../components/index"
+import {getOrders} from "../../../model/orders.model"
 
 const useStyles = makeStyles((theme) => ({
     groupTitle:{
