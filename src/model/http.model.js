@@ -6,6 +6,7 @@ class Service {
         this.entity = entity;
         instance.interceptors.request.use((config) => {
             const token = localStorage.getItem('token');
+            console.log(token)
                 if (token) {
                   config.headers["token"] = token;
                 }
@@ -15,7 +16,6 @@ class Service {
         });
         
         instance.interceptors.response.use(res => res, (error)=> {
-            console.log(error.response.status)
             return Promise.reject(error);
         });
         
@@ -31,12 +31,12 @@ class Service {
         return instance.get(`/${this.entity}/${id}`, config)
     }
     
-    post = (config, body)=>{
-        return instance.post(`/${this.entity}`, {...body, ...config})
+    post = (body)=>{
+        return instance.post(`/${this.entity}`, body)
     }
     
-    patch = (id, config, body)=>{
-        return instance.patch(`/${this.entity}/${id}`, {...body, ...config})
+    patch = (id, body)=>{
+        return instance.patch(`/${this.entity}/${id}`, body)
     }
     
     delete = (id)=>{

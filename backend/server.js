@@ -6,34 +6,6 @@ const fs = require('fs')
 const path = require('path')
 const multer  = require('multer')
 const upload = multer({ dest: 'uploads/' })
-const jwt = require('jsonwebtoken')
-const AUTH_JWT_SECRET = 'TOP-SECRET'
-const AUTH_JWT_OPTIONS = { expiresIn: 2*60 }
-
-// Load DB file for Authentication middleware and endpoints
-const DB = JSON.parse(fs.readFileSync(path.join(__dirname, './db.json'), 'utf-8'))
-
-// Authorization Middleware
-server.use((req, res, next) => {
-  const protections = DB.protection || {}
-  const entity = req.url.split('/')[1]
-  const entityProtection = protections[entity]
-  const methodSpecificProtection = protections[entity+'.'+req.method.toLowerCase()]
-  const protectionRule = methodSpecificProtection === false ? false : (methodSpecificProtection || entityProtection)
-
-  const token = req.headers.token || req.headers.Token
-  if (protectionRule && !token) return res.status(401).send()
-  if (!token) return next()
-
-  jwt.verify(token, AUTH_JWT_SECRET, (err, decoded) => {
-    if (err) return res.status(400).send(err.name === 'TokenExpiredError' ? 'Token Expired!' : 'Invalid Token!')
-    req.user = decoded
-    if (!protectionRule) return next() // no authorization is needed
-    const authorized = protectionRule === true || protectionRule === decoded.role
-    if (!authorized) return res.status(401).send()
-    next() // authorized
-  })
-})
 
 // Set default middlewares (logger, static, cors and no-cache)
 server.use(middlewares)
@@ -65,13 +37,19 @@ server.get('/files/:file_id', (req, res, next) => {
 server.use(jsonServer.bodyParser)
 
 
-// For all non-json POST and PATCH requests (create and edit endpoints using an image file)
+// For all non-json POST requests (object creation endpoints using an image file)
 // 1- Upload the file inside the `image` field
 // 2- (do it in next middleware)
 const imageFieldUploadMiddleware = upload.single('image')
-
 server.use((req, res, next) => {
-  if ((req.method === 'POST' ||  req.method === 'PATCH') && req.headers['content-type'] != 'application/json') {
+  if (req.method === 'POST' && req.headers['content-type'] != 'application/json') {
+    imageFieldUploadMiddleware(req, res, next)
+  } else {
+    next()
+  }
+})
+server.use((req, res, next) => {
+  if (req.method === 'PATCH' && req.headers['content-type'] != 'application/json') {
     imageFieldUploadMiddleware(req, res, next)
   } else {
     next()
@@ -108,26 +86,6 @@ server.use((req, res, next) => {
   }
   // Continue to JSON Server router
   next()
-})
-
-// Authentication Routes
-server.post([
-  '/auth/login',
-  '/auth/refresh-token',
-  ], function (req, res, next) {
-  if (req.url === '/auth/login') {
-    const { username, password } = req.body
-    req.user = (DB.users || {}).find(u => u.username == username && u.password == password)
-    if (!req.user) return res.status(400).send('No user with those credentials!')
-  }
-  if (req.url === '/auth/refresh-token'){
-    if (!req.user) return res.status(400).send('Token Required!')
-  }
-  const { username, role, name } = req.user
-  jwt.sign({username, role, name}, AUTH_JWT_SECRET, AUTH_JWT_OPTIONS, (err, token) => {
-    if (err) return next(error)
-    res.json({token})
-  })
 })
 
 // Use default router (CRUDs of db.json)

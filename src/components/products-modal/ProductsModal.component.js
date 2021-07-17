@@ -5,6 +5,7 @@ import { Cancel } from '@material-ui/icons';
 import modules from "./ProductsModal.module.scss"
 import axios from "axios"
 import {TextEditor} from "../../components/index"
+import productApi  from "../../model/products.model"
 
 function getModalStyle() {
   return {
@@ -143,7 +144,7 @@ export default function ProductModal(props) {
             formdata.append("group", group);
             formdata.append("headgroup", headgroup);
             formdata.append("description", description);
-            await axios.patch(`http://localhost:3001/products/${id}`, formdata)
+            await productApi.patch(id, formdata)
             operationSuccess = true
         }
         else if (mode==='add'){
@@ -157,7 +158,7 @@ export default function ProductModal(props) {
             formdata.append("description", description);
             formdata.append("price", price);
             formdata.append("quantity", quantity);
-            await axios.post(`http://localhost:3001/products`,formdata)
+            await productApi.post(formdata)
             operationSuccess = true
         }
         if(operationSuccess){
