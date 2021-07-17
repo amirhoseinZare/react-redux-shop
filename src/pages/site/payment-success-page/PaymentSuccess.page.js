@@ -3,9 +3,10 @@ import {Typography, Grid} from "@material-ui/core"
 import {makeStyles} from "@material-ui/core/styles"
 import DoneIcon from '@material-ui/icons/Done';
 import {useEffect} from 'react'
-import axios from 'axios'
 import {emptyUserCart} from "../../../redux/actions/user.action"
 import {connect} from "react-redux"
+import {patchOrder} from "../../../model/orders.model"
+import {getProduct, patchProduct} from "../../../model/products.model"
 
 const useStyles = makeStyles((theme) => ({
     header:{
@@ -48,11 +49,11 @@ function PaymentSuccess(props){
 
     useEffect(async ()=>{
         try {
-            const response = await axios.patch(`http://localhost:3001/orders/${urlParams.get('order')}`, { pay:true })    
+            const response = await patchOrder(urlParams.get('order'), null, { pay:true })    
             const {products} = response.data
             products.forEach(async product => {
-                const response = await axios.get(`http://localhost:3001/products/${product.id}`)
-                await axios.patch(`http://localhost:3001/products/${product.id}`, { quantity: +response.data.quantity - +product.count })    
+                const response = await getProduct(product.id)
+                await patchProduct(product.id, null, { quantity: +response.data.quantity - +product.count })    
             })
             props.emptyUserCart()
             localStorage.cart = '[]'

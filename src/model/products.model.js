@@ -5,7 +5,7 @@ const getProducts = (config)=>{
 }
 
 const getProduct = (id, config)=>{
-    return service.get(`/products${id}`, config)
+    return service.get(`/products/${id}`, config)
 }
 
 const postProduct = (config, body)=>{
@@ -13,11 +13,11 @@ const postProduct = (config, body)=>{
 }
 
 const patchProduct = (id, config, body)=>{
-    return service.patch(`/products${id}`, {...body, ...config})
+    return service.patch(`/products/${id}`, {...body, ...config})
 }
 
 const deleteProduct = (id)=>{
-    return service.delete(`/products${id}`)
+    return service.delete(`/products/${id}`)
 }
 
 export {

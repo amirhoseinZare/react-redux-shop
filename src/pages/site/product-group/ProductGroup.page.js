@@ -1,10 +1,11 @@
 import {Header} from "../../../layouts/index"
 import {useEffect, useState} from "react"
 import {Grid , makeStyles, Typography} from "@material-ui/core"
-import axios from "axios"
 import {withRouter} from "react-router-dom"
 import {ProductsGroupAside, ProductCard} from "../../../components/index"
 import {Spinner} from "../../../components/index"
+import {getGroups} from "../../../model/groups.model"
+import {getProducts} from "../../../model/products.model"
 
 const useStyles = makeStyles((theme) => ({
     asideContainer:{
@@ -35,10 +36,10 @@ function ProductsGroupPageComponent(props){
 
     useEffect(async ()=>{
         const allgroups = []
-        const response = await axios.get('http://localhost:3001/groups')
+        const response = await getGroups()
         const groups = response.data
         groups.forEach(async (group , index)=>{
-            const response = await axios.get('http://localhost:3001/products', {params: {group:group.name}})
+            const response = await getProducts({params: {group:group.name}})
             allgroups.push({
                 group:group.name,
                 groupId:group.id,
@@ -52,7 +53,7 @@ function ProductsGroupPageComponent(props){
     }, [])
 
     useEffect(async ()=>{
-        const response = await axios.get('http://localhost:3001/products', {params: {group:props.match.params.groupName}})
+        const response = await getProducts({params: {group:props.match.params.groupName}})
         const products = response.data
         await setProductsState({ products:products })
         setLoading({show:false})

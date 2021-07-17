@@ -2,7 +2,6 @@ import {Header} from "../../../layouts/index"
 import {TextField, Grid} from "@material-ui/core"
 import { makeStyles } from '@material-ui/core/styles';
 import {useState, useEffect} from "react"
-import axios from "axios"
 import {connect} from "react-redux"
 import {postOrder} from "../../../model/orders.model"
 

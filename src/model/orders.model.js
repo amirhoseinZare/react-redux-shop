@@ -13,11 +13,11 @@ const postOrder = (config, body)=>{
 }
 
 const patchOrder = (id, config, body)=>{
-    return service.patch(`/orders${id}`, {...body, ...config})
+    return service.patch(`/orders/${id}`, {...body, ...config})
 }
 
 const deleteOrder = (id)=>{
-    return service.delete(`/orders${id}`)
+    return service.delete(`/orders/${id}`)
 }
 
 export {

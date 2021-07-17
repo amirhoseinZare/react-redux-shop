@@ -3,7 +3,7 @@ import {QuantityTable} from "../../../components/index"
 import {Typography, Button, Grid} from "@material-ui/core"
 import { makeStyles } from '@material-ui/core/styles';
 import { useState, useEffect } from "react";
-import axios from "axios"
+import { patchProduct } from "../../../model/products.model";
 
 const useStyles = makeStyles({
     container:{
@@ -38,11 +38,11 @@ function PanelQuantityPage (){
                 obj.price = price
             console.log(id, obj)
             if(index===editingProductsState.length-1){
-                await axios.patch(`http://localhost:3001/products/${id}`, {...obj})
+                await patchProduct(id, null, {...obj})
                 await setEditMode({edit:'done'})
             }
             else {
-                axios.patch(`http://localhost:3001/products/${id}`, {...obj})
+                patchProduct(id, null, {...obj})
             }
         })
     }

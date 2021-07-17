@@ -3,8 +3,8 @@ import {Typography, Grid} from "@material-ui/core"
 import {makeStyles} from "@material-ui/core/styles"
 import CloseIcon from '@material-ui/icons/Close';
 import {Link} from "react-router-dom"
-import axios from "axios"
 import {useEffect} from "react"
+import {getOrder} from "../../../model/orders.model"
 
 const useStyles = makeStyles((theme) => ({
     header:{
@@ -50,7 +50,7 @@ function PaymentFailedPage(){
     const urlParams = new URLSearchParams(window.location.search);
     useEffect(async ()=>{
         try {
-            await axios.delete(`http://localhost:3001/orders/${urlParams.get('order')}`)    
+            await getOrder(urlParams.get('order'))
         } catch (error) {
             console.log(error)            
         }
