@@ -53,7 +53,7 @@ function CheckoutPageComponent(props){
         event.preventDefault()
         const { name, familyName, address, phone, deliveryTime } = state
         try {
-            const response = await orderApi.post(null, { 
+            const response = await orderApi.post({ 
                 name, 
                 familyName, 
                 address, 

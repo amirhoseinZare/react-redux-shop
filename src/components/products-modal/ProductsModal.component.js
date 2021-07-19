@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { IconButton ,Button, Modal, Typography, MenuItem, Select, FormControl, TextField, Input } from '@material-ui/core';
+import { Button, Modal, Typography, MenuItem, Select, FormControl, TextField, Input } from '@material-ui/core';
 import { Cancel } from '@material-ui/icons';
 import modules from "./ProductsModal.module.scss"
 import {TextEditor} from "../../components/index"

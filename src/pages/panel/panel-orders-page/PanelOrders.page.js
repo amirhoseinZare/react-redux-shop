@@ -114,7 +114,7 @@ function PanelOrdersPage (){
 
     const deliveryButtonHandler = async (e , orderId) => {
         console.log(orderId)
-        await orderApi.patch(orderId, null,{ deliveryDoneTime: + new Date().getTime(), delivered:true })
+        await orderApi.patch(orderId,{ deliveryDoneTime: + new Date().getTime(), delivered:true })
         window.location.reload()
     }
 

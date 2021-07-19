@@ -49,11 +49,11 @@ function PaymentSuccess(props){
 
     useEffect(async ()=>{
         try {
-            const response = await orderApi.patch(urlParams.get('order'), null, { pay:true })    
+            const response = await orderApi.patch(urlParams.get('order'), { pay:true })    
             const {products} = response.data
             products.forEach(async product => {
                 const response = await productApi.get(product.id)
-                await productApi.patch(product.id, null, { quantity: +response.data.quantity - +product.count })    
+                await productApi.patch(product.id, { quantity: +response.data.quantity - +product.count })    
             })
             props.emptyUserCart()
             localStorage.cart = '[]'
