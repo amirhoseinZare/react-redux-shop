@@ -57,15 +57,10 @@ function PaymentSuccess(props){
                 await productApi.patch(product.id, { quantity: +response.data.quantity - +product.count })    
             })
             props.emptyUserCart()
-            localStorage.cart = '[]'
         } catch (error) {
             console.log(error)            
         }
     }, [])
-
-    useEffect(async ()=>{
-        localStorage.cart = JSON.stringify(props.userCart)
-    }, [props.userCart])
 
     return (
         <div>

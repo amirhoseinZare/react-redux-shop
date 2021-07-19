@@ -1,7 +1,7 @@
 import UserActionTypes from "../types/user.types";
 
 const INITIAL_STATE = {
-    cart:JSON.parse(localStorage.getItem('cart')) || []
+    cart:[]
 }
 
 const useReducer = (state=INITIAL_STATE, action) => {

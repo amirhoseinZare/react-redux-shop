@@ -125,7 +125,6 @@ function ProductDetailPageComponent(props){
 
     useEffect(()=>{
         console.log(props.userCart)
-        localStorage.cart = JSON.stringify(props.userCart)
     }, [props.userCart])
 
     const addToCartButtonClickHandler = async (event,product)=>{

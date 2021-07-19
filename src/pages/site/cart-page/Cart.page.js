@@ -73,7 +73,6 @@ function CartPageComponent (props){
  
     const removeFromcartButtonClickHandler = (event, row)=>{
         props.removeFromCart(row)
-        localStorage.cart = JSON.stringify(props.userCart)
     }
 
     const finalizeCart = async (event)=>{
