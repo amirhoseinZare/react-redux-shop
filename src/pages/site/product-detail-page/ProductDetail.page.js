@@ -128,7 +128,7 @@ function ProductDetailPageComponent(props){
     }, [props.userCart])
 
     const addToCartButtonClickHandler = async (event,product)=>{
-        const response = await product.get(product.id)
+        const response = await productApi.get(product.id)
         const productInCart = props.userCart.find(prod=>prod.id===product.id)
         console.log(cartcount.quantity, response.data.quantity)
         if(response.data.quantity>0)

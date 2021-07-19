@@ -7,7 +7,7 @@ import product from "../../../model/products.model"
 import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
 import { withRouter } from "react-router-dom"
 import {Spinner} from "../../../components/index"
-import group from "../../../model/groups.model"
+import groupApi from "../../../model/groups.model"
 
 const useStyles = makeStyles((theme) => ({
     groupTitle:{
@@ -39,7 +39,7 @@ function HomePagePage(props){
     const [loading, setLoading] = useState({show:true});
     const [ productsState, setProductsState ] = useState({products:[]})
     useEffect(async()=>{
-        const response = await group.gets()
+        const response = await groupApi.gets()
         const groups = response.data
         Promise.all(groups.map((group, index) => product.gets({params: {group:group.name, _limit:6}}))).then(async (responses)=>{
             const productsGroup = responses.map( (res,i)=> ({group:groups[i], products:res.data}))

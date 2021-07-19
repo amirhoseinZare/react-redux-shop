@@ -4,8 +4,8 @@ import {Grid , makeStyles, Typography} from "@material-ui/core"
 import {withRouter} from "react-router-dom"
 import {ProductsGroupAside, ProductCard} from "../../../components/index"
 import {Spinner} from "../../../components/index"
-import group from "../../../model/groups.model"
-import product from "../../../model/products.model"
+import groupApi from "../../../model/groups.model"
+import productApi from "../../../model/products.model"
 
 const useStyles = makeStyles((theme) => ({
     asideContainer:{
@@ -36,10 +36,10 @@ function ProductsGroupPageComponent(props){
 
     useEffect(async ()=>{
         const allgroups = []
-        const response = await group.gets()
+        const response = await groupApi.gets()
         const groups = response.data
         groups.forEach(async (group , index)=>{
-            const response = await product.gets({params: {group:group.name}})
+            const response = await productApi.gets({params: {group:group.name}})
             allgroups.push({
                 group:group.name,
                 groupId:group.id,
@@ -53,7 +53,7 @@ function ProductsGroupPageComponent(props){
     }, [])
 
     useEffect(async ()=>{
-        const response = await product.gets({params: {group:props.match.params.groupName}})
+        const response = await productApi.gets({params: {group:props.match.params.groupName}})
         const products = response.data
         await setProductsState({ products:products })
         setLoading({show:false})

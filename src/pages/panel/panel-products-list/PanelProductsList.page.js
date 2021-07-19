@@ -3,7 +3,7 @@ import {PanelHeader} from "../../../layouts/index"
 import {ProductsTable, ProductModal} from "../../../components/index"
 import {Typography, Button, Grid} from "@material-ui/core"
 import { makeStyles } from '@material-ui/core/styles';
-import product from "../../../model/products.model"
+import productApi from "../../../model/products.model"
 
 const useStyles = makeStyles({
     container:{
@@ -32,7 +32,7 @@ function PanelProductsList (){
 
     const openModalDeleteButtonHandler = async (row)=>{
         await setModalMode({...modalMode,mode:'delete'})
-        await product.delete(row.id)
+        await productApi.delete(row.id)
         setModalMode({...modalMode, mode:'default'})
     }
 

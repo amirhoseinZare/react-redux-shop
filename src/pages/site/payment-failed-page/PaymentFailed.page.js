@@ -4,7 +4,7 @@ import {makeStyles} from "@material-ui/core/styles"
 import CloseIcon from '@material-ui/icons/Close';
 import {Link} from "react-router-dom"
 import {useEffect} from "react"
-import order from "../../../model/orders.model"
+import orderApi from "../../../model/orders.model"
 
 const useStyles = makeStyles((theme) => ({
     header:{
@@ -50,7 +50,7 @@ function PaymentFailedPage(){
     const urlParams = new URLSearchParams(window.location.search);
     useEffect(async ()=>{
         try {
-            await order.get(urlParams.get('order'))
+            await orderApi.get(urlParams.get('order'))
         } catch (error) {
             console.log(error)            
         }

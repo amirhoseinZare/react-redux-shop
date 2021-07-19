@@ -7,7 +7,7 @@ import {numberWithCommas} from "../../../utils/numberWithCommas.utils"
 import {Link} from "react-router-dom"
 import {connect} from "react-redux"
 import {removeFromCart} from "../../../redux/actions/user.action"
-import product from "../../../model/products.model"
+import productApi from "../../../model/products.model"
 import { ToastContainer, toast } from 'react-toastify';
 import {withRouter} from 'react-router-dom'
 
@@ -79,8 +79,8 @@ function CartPageComponent (props){
     const finalizeCart = async (event)=>{
         event.preventDefault()
         let success = true
-        console.log(props.userCart.map(prod=>product.get(prod.id)))
-        await Promise.all(props.userCart.map(prod=>product.get(prod.id))).then((responses)=>{
+        console.log(props.userCart.map(prod=>productApi.get(prod.id)))
+        await Promise.all(props.userCart.map(prod=>productApi.get(prod.id))).then((responses)=>{
             responses.forEach((response,index)=>{
                 const product = response.data
                 console.log(product,props.userCart[index], product.quantity<props.userCart[index].count)

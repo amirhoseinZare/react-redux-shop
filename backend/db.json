@@ -1,13 +1,13 @@
 {
   "products": [
     {
-      "name": "کفش Nike مشکی",
+      "name": "کفش Nike ",
       "group": "کفش مردانه",
       "headgroup": "کفش و کتانی",
       "description": "<h3><strong>بسیار عالی</strong></h3>\n",
       "price": 40000,
-      "quantity": 8,
-      "image": "/files/e2a418111422cc2b73d53710d030d7d4",
+      "quantity": 1,
+      "image": "/files/be35480c4460a03722f951c698900aeb",
       "createdAt": 1625741032819,
       "id": 16
     },
@@ -17,7 +17,7 @@
       "headgroup": "کفش و کتانی",
       "description": "مناسب تمام سلیقه ها",
       "price": 70000,
-      "quantity": 4,
+      "quantity": 1,
       "image": "/files/77b10c8165898530218af8a824fa20e5",
       "createdAt": 1625741295194,
       "id": 17
