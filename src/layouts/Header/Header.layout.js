@@ -8,6 +8,7 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import {connect} from "react-redux"
 import {removeFromCart} from "../../redux/actions/user.action"
 import {e2p} from "../../utils/LanGuaggeNumberConvertor.utils"
+import { cartSelector } from "../../redux/selects/user.select"
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -211,7 +212,7 @@ export default function HeaderLayout(props) {
   );
 }
 
-const mapStateToProps = ({user:{cart}}) => ({userCart:cart})
+const mapStateToProps = (state) => ({userCart:cartSelector(state)})
 const mapDispatchToProps = (dispatch) => ({removeFromCart:product => dispatch(removeFromCart(product))})
 
 const Header = connect(mapStateToProps, mapDispatchToProps)(withRouter(HeaderLayout))

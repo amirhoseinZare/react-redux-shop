@@ -1,7 +1,6 @@
 import {Header} from "../../../layouts/index"
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Grid, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@material-ui/core'
-import { useEffect, useState } from "react"
 import {e2p} from "../../../utils/LanGuaggeNumberConvertor.utils"
 import {numberWithCommas} from "../../../utils/numberWithCommas.utils"
 import {Link} from "react-router-dom"
@@ -10,6 +9,7 @@ import {removeFromCart} from "../../../redux/actions/user.action"
 import productApi from "../../../model/products.model"
 import { ToastContainer, toast } from 'react-toastify';
 import {withRouter} from 'react-router-dom'
+import { cartSelector } from "../../../redux/selects/user.select"
 
 const useStyles = makeStyles({
     table: {
@@ -154,7 +154,7 @@ function CartPageComponent (props){
     )
 }
 
-const mapStateToProps = ({user:{cart}}) => ({userCart:cart})
+const mapStateToProps = (state) => ({userCart:cartSelector(state)})
 const mapDispatchToProps = (dispatch) => ({removeFromCart:product=>dispatch(removeFromCart(product))})
 
 const CartPage = connect(mapStateToProps, mapDispatchToProps)(withRouter(CartPageComponent))

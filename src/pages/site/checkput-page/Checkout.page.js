@@ -1,9 +1,10 @@
 import {Header} from "../../../layouts/index"
 import {TextField, Grid} from "@material-ui/core"
 import { makeStyles } from '@material-ui/core/styles';
-import {useState, useEffect} from "react"
+import {useState} from "react"
 import {connect} from "react-redux"
 import orderApi from "../../../model/orders.model"
+import { cartSelector } from "../../../redux/selects/user.select"
 
 const useStyles = makeStyles((theme) => ({
     container:{
@@ -138,6 +139,6 @@ function CheckoutPageComponent(props){
     )
 }
 
-const mapStateToProps = ({user:{cart}})=>({userCart:cart})
+const mapStateToProps = (state)=>({userCart:cartSelector(state)})
 const CheckoutPage = connect(mapStateToProps)(CheckoutPageComponent)
 export {CheckoutPage}

@@ -7,6 +7,7 @@ import {emptyUserCart} from "../../../redux/actions/user.action"
 import {connect} from "react-redux"
 import orderApi from "../../../model/orders.model"
 import productApi from "../../../model/products.model"
+import { cartSelector } from "../../../redux/selects/user.select"
 
 const useStyles = makeStyles((theme) => ({
     header:{
@@ -78,7 +79,7 @@ function PaymentSuccess(props){
     )
 }
 
-const mapStateToProps = ({user:{cart}}) => ({userCart:cart})
+const mapStateToProps = (state) => ({userCart:cartSelector(state)})
 const mapDispatchToProps = (dispatch) => ({ emptyUserCart:dispatch(emptyUserCart()) })
 
 const PaymentSuccessPage = connect(mapStateToProps, mapDispatchToProps)(PaymentSuccess)

@@ -12,6 +12,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
 import {Spinner} from "../../../components/index"
 import groupApi from "../../../model/groups.model"
+import { cartSelector } from "../../../redux/selects/user.select"
 
 const useStyles = makeStyles((theme)=>({
     productInfo:{
@@ -198,7 +199,7 @@ function ProductDetailPageComponent(props){
     )
 }
 
-const mapStateToProps = ({user:{cart}}) => ({userCart:cart})
+const mapStateToProps = (state) => ({userCart:cartSelector(state)})
 const mapDispatchToProps = (dispatch) => ({
     addToCart:(product, count) => dispatch(addToCart(product, count))
 })
