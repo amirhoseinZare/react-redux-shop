@@ -50,7 +50,7 @@ function PaymentFailedPage(){
     const urlParams = new URLSearchParams(window.location.search);
     useEffect(async ()=>{
         try {
-            await orderApi.get(urlParams.get('order'))
+            await orderApi.delete(urlParams.get('order'))
         } catch (error) {
             console.log(error)            
         }
