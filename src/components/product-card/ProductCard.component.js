@@ -1,5 +1,7 @@
 import { Grid, makeStyles, Card, CardContent, Typography  } from "@material-ui/core"
 import {withRouter} from "react-router-dom"
+import {numberWithCommas} from "../../utils/numberWithCommas.utils"
+import {e2p} from "../../utils/LanGuaggeNumberConvertor.utils"
 
 const useStyles = makeStyles((theme) => ({
     card: {
@@ -60,13 +62,13 @@ const useStyles = makeStyles((theme) => ({
 function ProductCardComponent(props){
     const classes = useStyles();
 
-    const {name , description, image, url, lg=4, md=6, sm=6, xs=12, xl=3 } = props
+    const {name , price, image, url, lg=4, md=6, sm=6, xs=12, xl=3 } = props
     return (
         <Grid item lg={lg} md={md} sm={sm} xs={xs} xl={xl} onClick={()=>props.history.push(url)}>
             <Card className={classes.card}>
                 <CardContent className={classes.content}>
                     <Typography variant="h6" component="h2" className={classes.title}>{name}</Typography>
-                    <Typography className={classes.subtitle} variant="subtitle2" component="p" dangerouslySetInnerHTML={{ __html: description }}/>
+                    <Typography className={classes.subtitle} variant="h6" component="p">{e2p(numberWithCommas(price))}</Typography>
                 </CardContent>
                 <div className={classes.img}>
                     <img style={{width:'140px'}} src={`http://localhost:3001${image}`}/>
