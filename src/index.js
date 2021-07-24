@@ -1,8 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+
+import './assets/css/index.css';
 import './assets/css/normalize.css'
+
+import App from './App.jsx';
+
 import { BrowserRouter as Router} from "react-router-dom";
 import {Provider} from "react-redux"
 import store, {persistor} from "./redux/store"
