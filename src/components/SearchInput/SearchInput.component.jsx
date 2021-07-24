@@ -2,7 +2,7 @@ import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import styles from "./SerachInput.module.scss"
 import {useState, useEffect} from "react"
-import {delay, debounce} from 'lodash';
+import {debounce} from 'lodash';
 import productApi from "../../api/products.api"
 import {useHistory} from "react-router-dom"
 
@@ -18,7 +18,7 @@ export const SearchInput = () =>{
     const onAutoCompleteInputHandler = ({target:{value}}) => {
         debounce(async ()=>{
             await setProducts(value)
-        }, 2500)()
+        }, 1500)()
     }
 
     useEffect(()=>{

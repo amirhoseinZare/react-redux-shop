@@ -41,8 +41,8 @@ function ProductCardComponent(props){
 
     const {name , price, image, url, lg=3, md=4, sm=6, xs=12, xl=3 } = props
     return (
-        <Grid item lg={lg} md={md} sm={sm} xs={xs} xl={xl} onClick={()=>props.history.push(url)}>
-            <Card className={classes.card}  >
+        <Grid item lg={lg} md={md} sm={sm} xs={xs} xl={xl} >
+            <Card className={classes.card} onClick={()=>props.history.push(url)} >
                 <div className={classes.img}>
                     <img style={{width:'100%'}} src={`http://localhost:3001${image}`}/>
                 </div>
