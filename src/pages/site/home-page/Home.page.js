@@ -14,8 +14,8 @@ import {numberWithCommas} from "../../../utils/numberWithCommas.utils"
 const useStyles = makeStyles((theme) => ({
     groupTitle:{
         display:'inline-block',
-        paddingRight: theme.spacing(2),
-        paddingTop: theme.spacing(4),
+        paddingRight: theme.spacing(8),
+        paddingTop: theme.spacing(13),
         cursor:'pointer',
         display:'flex',
         alignItems: 'center',

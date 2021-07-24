@@ -81,7 +81,7 @@ const useStyles = makeStyles((theme)=>({
     },
     productImage:{
         width:'300px',
-        height:'168px',
+        height:'300px',
         overflow: 'hidden',
         display:'flex',
         justifyContent: 'center',
