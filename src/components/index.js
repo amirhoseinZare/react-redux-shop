@@ -8,3 +8,4 @@ export {ProductsGroupAside} from "./ProductGroupAside/ProductGroupAside.componen
 export {TextEditor} from "./TextEditor/TextEditor.component.jsx"
 export {Spinner} from "./Spinner/Spinner.component.jsx"
 export {SearchInput} from "./SearchInput/SearchInput.component.jsx"
+export {WithSpinner} from "./WithSpinner/WithSpinner.component.jsx"

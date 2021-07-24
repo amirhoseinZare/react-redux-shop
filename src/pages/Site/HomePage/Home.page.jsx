@@ -5,7 +5,7 @@ import {useEffect, useState} from "react"
 import product from "../../../api/products.api"
 import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
 import { withRouter } from "react-router-dom"
-import {Spinner, SearchInput, ProductCard} from "../../../components/index"
+import { WithSpinner, Spinner, SearchInput, ProductCard} from "../../../components/index"
 import groupApi from "../../../api/groups.api"
 import {e2p} from "../../../utils/LanGuaggeNumberConvertor.utils"
 import {numberWithCommas} from "../../../utils/numberWithCommas.utils"
@@ -79,14 +79,10 @@ function HomePagePage(props){
         
     </Grid>)
 
-    const loadingUi = (<div style={{display: 'flex', justifyContent: 'center', paddingTop:'50px'}} >
-                            <Spinner spinnerColor='var(--russian-violet)'/>
-                        </div>)
-
     return (
         <Fragment>
             <Header/>
-            { loading.show ? loadingUi : pageContent }
+            <WithSpinner isLoading={loading.show} content={pageContent} />
         </Fragment>
        
     );
