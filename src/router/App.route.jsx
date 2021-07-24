@@ -12,7 +12,7 @@ export const AppRouter = () =>(
         <Route exact path="/payment/success" component={PaymentSuccessPage}/>
         <Route exact path="/product/group/:groupId/:groupName" component={ProductsGroupPage}/>
         <PanelRoutes/>
-
-        <Route component={NotFoundPage}/>
+        <Route component={NotFoundPage} render={()=><redirect to="/404"/>}/>
+        <Route exact path="/404" component={NotFoundPage}/>
     </Switch>
 )

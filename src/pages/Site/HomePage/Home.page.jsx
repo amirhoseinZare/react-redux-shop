@@ -1,12 +1,11 @@
 import { Header } from "../../../layouts/index"
 import { Fragment } from "react"
 import { Grid, makeStyles } from "@material-ui/core"
-import {ProductCard} from "../../../components/index"
 import {useEffect, useState} from "react"
 import product from "../../../api/products.api"
 import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
 import { withRouter } from "react-router-dom"
-import {Spinner} from "../../../components/index"
+import {Spinner, SearchInput, ProductCard} from "../../../components/index"
 import groupApi from "../../../api/groups.api"
 import {e2p} from "../../../utils/LanGuaggeNumberConvertor.utils"
 import {numberWithCommas} from "../../../utils/numberWithCommas.utils"
@@ -52,10 +51,11 @@ function HomePagePage(props){
     }, [])
 
     const pageContent = (<Grid container className={classes.productsContainer}>
+        <SearchInput/>
         {
             productsState.products.map(product=>{
                 const {name:groupName, id:groupId} = product.group
-                const groupLink = `/product/group/${groupId}/${groupName}`
+                const groupLink = `/product/group/${groupId}/${groupName.trim().replaceAll(' ', '-')}`
                 return (
                     <Fragment key={product.group.id}>
                         <Grid style={{display: 'flex', justifyContent: 'flex-end'}} item xs={12}>
