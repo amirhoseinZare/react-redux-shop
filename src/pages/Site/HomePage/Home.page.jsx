@@ -65,15 +65,10 @@ function HomePagePage(props){
                             </h2>
                         </Grid>
                             {product.products.map(prod=>{
-<<<<<<< HEAD:src/pages/site/home-page/Home.page.js
-                                const {name,  image, id, price} = prod
-                                return (
-                                    <ProductCard key={prod.id} name={name} price={price} image={image} url={`/product/${id}`}/>
-=======
+
                                 const {name, image, id, price} = prod
                                 return (
                                     <ProductCard key={prod.id} name={name} price={e2p(numberWithCommas(price))} image={image} url={`/product/${id}`}/>
->>>>>>> develop:src/pages/Site/HomePage/Home.page.jsx
                                 )
                             })}
                     </Fragment>

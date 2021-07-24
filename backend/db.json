@@ -56,7 +56,6 @@
       "id": 21
     },
     {
-<<<<<<< HEAD
       "name": "گوشی ۴",
       "group": "موبایل",
       "headgroup": "الکترونیک",
@@ -66,7 +65,8 @@
       "image": "/files/09fefcf96c0d9861693d782c24ae7fe1",
       "createdAt": 1626546562060,
       "id": 24
-=======
+    },
+    {      
       "name": "موبایل a7",
       "group": "موبایل",
       "headgroup": "الکترونیک",
@@ -87,7 +87,6 @@
       "image": "/files/d039ac10c95b4e6733ba57d35e4e4367",
       "createdAt": 1627127292606,
       "id": 26
->>>>>>> develop
     }
   ],
   "groups": [
