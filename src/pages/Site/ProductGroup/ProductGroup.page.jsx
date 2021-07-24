@@ -3,7 +3,7 @@ import {useEffect, useState} from "react"
 import {Grid , makeStyles, Typography} from "@material-ui/core"
 import {withRouter} from "react-router-dom"
 import {ProductsGroupAside, ProductCard} from "../../../components/index"
-import {Spinner} from "../../../components/index"
+import {WithSpinner} from "../../../components/index"
 import groupApi from "../../../api/groups.api"
 import productApi from "../../../api/products.api"
 import {e2p} from "../../../utils/LanGuaggeNumberConvertor.utils"
@@ -84,15 +84,11 @@ function ProductsGroupPageComponent(props){
             </Grid>
         </div>
     )
-
-    const loadingUi = (<div style={{display: 'flex', justifyContent: 'center', paddingTop:'50px'}} >
-                            <Spinner spinnerColor='var(--russian-violet)'/>
-                        </div>)
     
     return (
         <div>
             <Header/>
-            { loading.show ? loadingUi : pageContent }
+            <WithSpinner isLoading={loading.show} content={pageContent} />
         </div>
     )
 }

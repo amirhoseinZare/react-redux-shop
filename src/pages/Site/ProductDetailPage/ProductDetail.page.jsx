@@ -10,7 +10,7 @@ import {connect} from "react-redux"
 import {addToCart} from "../../../redux/actions/user.action"
 import { ToastContainer, toast } from 'react-toastify';
 import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
-import {Spinner} from "../../../components/index"
+import {WithSpinner} from "../../../components/index"
 import groupApi from "../../../api/groups.api"
 import { cartSelector } from "../../../redux/selects/user.select"
 
@@ -184,14 +184,10 @@ function ProductDetailPageComponent(props){
             </main>
     )
 
-    const loadingUi = ((<div style={{display: 'flex', justifyContent: 'center', paddingTop:'50px'}} >
-                            <Spinner spinnerColor='var(--russian-violet)'/>
-                    </div>))
-
     return (
         <div>
             <Header/>
-            { loading.show ? loadingUi : pageContent }
+            <WithSpinner isLoading={loading.show} content={pageContent} />
             <ToastContainer rtl={true}/>
         </div>
     )

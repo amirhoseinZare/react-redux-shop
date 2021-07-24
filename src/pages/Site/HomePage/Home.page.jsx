@@ -5,7 +5,7 @@ import {useEffect, useState} from "react"
 import product from "../../../api/products.api"
 import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
 import { withRouter } from "react-router-dom"
-import { WithSpinner, Spinner, SearchInput, ProductCard} from "../../../components/index"
+import { WithSpinner, SearchInput, ProductCard} from "../../../components/index"
 import groupApi from "../../../api/groups.api"
 import {e2p} from "../../../utils/LanGuaggeNumberConvertor.utils"
 import {numberWithCommas} from "../../../utils/numberWithCommas.utils"
