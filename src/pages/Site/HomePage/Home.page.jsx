@@ -6,7 +6,7 @@ import {useEffect, useState} from "react"
 import product from "../../../api/products.api"
 import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
 import { withRouter } from "react-router-dom"
-import {Spinner} from "../../../components/index"
+import {Spinner, SearchInput} from "../../../components/index"
 import groupApi from "../../../api/groups.api"
 import {e2p} from "../../../utils/LanGuaggeNumberConvertor.utils"
 import {numberWithCommas} from "../../../utils/numberWithCommas.utils"
@@ -58,6 +58,7 @@ function HomePagePage(props){
                 const groupLink = `/product/group/${groupId}/${groupName}`
                 return (
                     <Fragment key={product.group.id}>
+                        <SearchInput/>
                         <Grid style={{display: 'flex', justifyContent: 'flex-end'}} item xs={12}>
                             <h2 className={classes.groupTitle} dir="rtl" onClick={()=>{props.history.push(groupLink)}}>
                                 <a href={groupLink} className={classes.anchorGroupTitle} onClick={event=>event.stopPropagation()}>{product.group.name}</a>

@@ -19,7 +19,6 @@ class Service {
         instance.interceptors.response.use(res => {
             const {status} = res;
             if(status>=400){
-                console.log('hello')
                 window.location.pathname = '/404'
             }
             return res
