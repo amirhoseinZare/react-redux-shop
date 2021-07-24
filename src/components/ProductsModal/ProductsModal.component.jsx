@@ -106,23 +106,27 @@ export default function ProductModal(props) {
         setProductState({product:{...productState.product, [name]:event.target.value}})
     }
 
-    useEffect(async ()=>{
-        const groups = await groupApi.gets()
-        await setGroupsState(groups.data)
-        await props.setModalOpenHandler({modalHandler:handleOpen})
+    useEffect( ()=>{
+        const getGroups = async () => {
+            const groups = await groupApi.gets()
+            await setGroupsState(groups.data)
+            await props.setModalOpenHandler({modalHandler:handleOpen})    
+        }
+        getGroups()
     },[])
 
-    useEffect(async()=>{
-        if(props.mode==='edit'){
-            console.log('bale')
-            const {id, name, group, headgroup, image, description} = props.product
-            await setProductState({product:{id, name, group, headgroup, image, description}})
+    useEffect(()=>{
+        const changeMode = async ()=>{
+            if(props.mode==='edit'){
+                const {id, name, group, headgroup, image, description} = props.product
+                await setProductState({product:{id, name, group, headgroup, image, description}})
+            }
+            if(props.mode==='add')
+                await setProductState({product:{
+                    id:'', name:'', group:'', headgroup:'', image:''
+                }}) 
         }
-        if(props.mode==='add'){
-            await setProductState({product:{
-                id:'', name:'', group:'', headgroup:'', image:''
-            }})
-        }
+        changeMode()
     }
     ,[props.mode])
 
@@ -131,11 +135,9 @@ export default function ProductModal(props) {
     const submitButtonHandler = async(event, product) => {
         event.preventDefault()
         const {mode} = props
-        console.log(mode)
         const {name , description, group, id, price} = product
         const headgroup = groupsState.find(g => g.name === group).headgroup
         let operationSuccess = false
-        console.log(inputEl.current.files[0])
         if(mode==='edit'){
             const formdata = new FormData();
             if(inputEl.current.files[0])
@@ -148,9 +150,7 @@ export default function ProductModal(props) {
             operationSuccess = true
         }
         else if (mode==='add'){
-            console.log('in add')
             const formdata = new FormData();
-            console.log(inputEl)
             formdata.append("image", inputEl.current.files[0]);
             formdata.append("name", name);
             formdata.append("group", group);
@@ -166,10 +166,6 @@ export default function ProductModal(props) {
         }
         handleClose()
     }
-
-    useEffect( async ()=>{
-        console.log(inputEl)
-    }, [inputEl])
 
     const {id, name, description, group, price, quantity} = productState.product
     const body = (
@@ -191,7 +187,7 @@ export default function ProductModal(props) {
                     <span className={classes.productInoutLabel}>:تصویر کالا</span>
                     <label className={modules.input_file_label}>
                         <span className={modules.upload_button}>Browse</span>
-                        <input onChange={()=>console.log(inputEl)} ref={inputEl} id='input' type="file" className={modules.input_file} accept='image/*'  onChange={(event)=>inputChangeHandler(event, '')}/>
+                        <input ref={inputEl} id='input' type="file" className={modules.input_file} accept='image/*'  onChange={(event)=>inputChangeHandler(event, '')}/>
                         <span className={modules.file_name} >file</span>
                     </label>
                 </div>

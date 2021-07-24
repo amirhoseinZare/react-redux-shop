@@ -7,7 +7,6 @@ function ProductInput(props){
     const [productState, setProductsState] = useState({value:props.value, mode:'default'})
 
     const inputValueHandler = event => {
-        console.log('hello')
         setProductsState({...productState, value:event.target.value})
     }
 
@@ -15,7 +14,7 @@ function ProductInput(props){
         setProductsState({...productState, mode:'edit'})
     }
 
-    useEffect( async()=>{
+    useEffect( ()=>{
         const {value, mode} = productState
         const foundProdIndex = editModeProducts.findIndex((prod)=>prod.id === productId )
         let editModeProductsValue = []
@@ -29,23 +28,24 @@ function ProductInput(props){
                 editModeProductsValue[foundProdIndex][field] = +value
             }
         }
-        await setEditModeProducts([...editModeProductsValue])
-        console.log(editModeProducts)
+        setEditModeProducts([...editModeProductsValue])
     },[productState] )
 
 
-    useEffect( async ()=>{
-        if(props.editmode.edit==='done'){
-            await setProductsState({...productState, mode:'default'})
+    useEffect( ()=>{
+        const productStateSetter = async ()=>{
+            if(props.editmode.edit==='done')
+                setProductsState({...productState, mode:'default'})    
         }
-        console.log(props.editmode, props.editmode==='done')
+        productStateSetter()
     }, [props.editmode])
 
     useEffect(async() =>{ 
-        if(props.escapeState){
-            await setProductsState({value:props.value, mode:'default'})
-            // await props.setEscapeState({press:false})
+        const productStateSetter = async ()=>{
+            if(props.escapeState)
+                setProductsState({value:props.value, mode:'default'})
         }
+        productStateSetter()
     }, [props.escapeState])
 
     return (

@@ -113,24 +113,21 @@ function ProductDetailPageComponent(props){
     const [ cartcount, setCartCount] = useState({ quantity:1 })
     const [loading, setLoading] = useState({ show: true })
     
-    useEffect( async () =>{
-        const response = await productApi.get(props.match.params.productId)
-        const product = response.data
-        const groupResponse = await groupApi.gets({params:{name:product.group}})
-        console.log(groupResponse.data)
-        product.groupId = groupResponse.data.id
-        await setProductsState(product)
-        setLoading({show:false})
+    useEffect( () =>{
+        const getProductsByGroup = async ()=>{
+            const response = await productApi.get(props.match.params.productId)
+            const product = response.data
+            const groupResponse = await groupApi.gets({params:{name:product.group}})
+            product.groupId = groupResponse.data.id
+            await setProductsState(product)
+            setLoading({show:false})    
+        }
+        getProductsByGroup()
     }, [])
-
-    useEffect(()=>{
-        console.log(props.userCart)
-    }, [props.userCart])
 
     const addToCartButtonClickHandler = async (event,product)=>{
         const response = await productApi.get(product.id)
         const productInCart = props.userCart.find(prod=>prod.id===product.id)
-        console.log(cartcount.quantity, response.data.quantity)
         if(response.data.quantity>0)
             if( (!productInCart) ||  cartcount.quantity<=response.data.quantity ){
                 props.addToCart(product, +cartcount.quantity)

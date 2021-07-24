@@ -49,11 +49,14 @@ function PaymentFailedPage(){
 
     const urlParams = new URLSearchParams(window.location.search);
     useEffect(async ()=>{
-        try {
-            await orderApi.delete(urlParams.get('order'))
-        } catch (error) {
-            console.log(error)            
+        const deleteOrder = async ()=>{
+            try {
+                await orderApi.delete(urlParams.get('order'))
+            } catch (error) {
+                console.log(error)            
+            }    
         }
+        deleteOrder()
     }, [])
 
     return (

@@ -109,11 +109,9 @@ function PanelOrdersPage (){
 
     useEffect(()=>{
         const { name, familyName, address, phone, cost } = orderState.item;
-        console.log(name, familyName, address, phone, cost)
     }, [orderState])
 
     const deliveryButtonHandler = async (e , orderId) => {
-        console.log(orderId)
         await orderApi.patch(orderId,{ deliveryDoneTime: + new Date().getTime(), delivered:true })
         window.location.reload()
     }

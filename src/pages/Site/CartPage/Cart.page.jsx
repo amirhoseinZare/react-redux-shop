@@ -78,11 +78,9 @@ function CartPageComponent (props){
     const finalizeCart = async (event)=>{
         event.preventDefault()
         let success = true
-        console.log(props.userCart.map(prod=>productApi.get(prod.id)))
         await Promise.all(props.userCart.map(prod=>productApi.get(prod.id))).then((responses)=>{
             responses.forEach((response,index)=>{
                 const product = response.data
-                console.log(product,props.userCart[index], product.quantity<props.userCart[index].count)
                 if(product.quantity<props.userCart[index].count){
                     success = false
                 }

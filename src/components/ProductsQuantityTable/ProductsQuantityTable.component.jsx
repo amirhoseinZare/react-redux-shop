@@ -41,40 +41,36 @@ export default function QuantityTable(props) {
         setPageState({...pageState,page:newPage})
     };
 
-    useEffect( async ()=>{
-        console.log(editModeProducts)
-        await props.setEditingProductsState([...editModeProducts])
+    useEffect( ()=>{
+        props.setEditingProductsState([...editModeProducts])
     }, [editModeProducts])
 
-    useEffect( async ()=>{
-        try {
-            const response = await productApi.gets( {params:{_page:1, _limit:5}})
-            const products = response.data
-            await setProductsState(products)
-
-            const productsCount = response.headers['x-total-count']
-            const pagesCount = Math.ceil( productsCount / pageState.perpage )
-            console.log(productsCount, response.headers)
-            setPagesCount(pagesCount)
-
-        } catch (error) {
-            console.log(error)
+    useEffect( ()=>{
+        const getProduct = async () =>{
+            try {
+                const response = await productApi.gets( {params:{_page:1, _limit:5}})
+                const products = response.data
+                await setProductsState(products)
+    
+                const productsCount = response.headers['x-total-count']
+                const pagesCount = Math.ceil( productsCount / pageState.perpage )
+                setPagesCount(pagesCount)
+    
+            } catch (error) {
+            }    
         }
+        getProduct()
     }, [])
 
-        
-    useEffect( async ()=>{
+    const getProductsPerPage = async () =>{
         const { page } = pageState
         const response = await productApi.gets( {params:{_page:page, _limit:5}})
-        setProductsState(response.data)
-    }, [pageState])
+        setProductsState(response.data)    
+    }
 
-    useEffect( async ()=>{
-        const { page } = pageState
-        const response = await productApi.gets( {params:{_page:page, _limit:5}})
-        console.log(response)
-        setProductsState(response.data)
-    }, [props.editmode])
+    useEffect( ()=>{
+        getProductsPerPage()
+    }, [pageState, props.editmode])
 
     document.addEventListener('keydown', (event) => {
         if(event.code==='Escape' && !escapeState.press){

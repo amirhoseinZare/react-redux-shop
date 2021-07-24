@@ -40,7 +40,7 @@ function PanelProductsList (){
         <div>
             <PanelHeader/>
             <Grid item lg={8} md={10} sm ={10} xs={10} className={classes.container}  onClick={openModalButtonHandler}>
-                <Button variant="contained" color="primary" onClick={()=>console.log('hi')}>افزودن کالا</Button>
+                <Button variant="contained" color="primary" >افزودن کالا</Button>
                 <Typography variant="h4" component="p">مدیریت کالا ها</Typography>
             </Grid>
             <ProductsTable 

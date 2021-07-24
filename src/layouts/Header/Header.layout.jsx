@@ -1,4 +1,4 @@
-import { useState,useEffect } from 'react';
+import { useState } from 'react';
 import { makeStyles, AppBar, Toolbar, IconButton, Typography ,MenuItem, Menu } from '@material-ui/core';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import { ReactComponent as ShopLogo } from "../../assets/icons/shop-logo.svg"

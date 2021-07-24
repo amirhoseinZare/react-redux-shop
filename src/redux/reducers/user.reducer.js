@@ -9,9 +9,7 @@ const useReducer = (state=INITIAL_STATE, action) => {
         case UserActionTypes.ADD_TO_CART:{
             const {product:productToAdd,count:producToAddCount } = action.payload
             const products = state.cart
-            console.log(state.cart)
             const productIndex = products.findIndex(prod => prod.id===productToAdd.id)
-            console.log(productToAdd.price, producToAddCount, action.payload)
             if(productIndex===-1){
                 return { ...state, cart:[...state.cart, {...productToAdd, count:producToAddCount, allPrice:+productToAdd.price*producToAddCount}]};
             }
@@ -22,9 +20,7 @@ const useReducer = (state=INITIAL_STATE, action) => {
         case UserActionTypes.REMOVE_FROM_CART:{
             const productToRemove = action.payload
             const products = state.cart
-            console.log(productToRemove, products)
             const productIndex = products.findIndex(prod => prod.id===productToRemove.id)
-            console.log(productIndex)
             if(productIndex!==-1){
                 products.splice(productIndex,1)
                 return { ...state, cart:[...products] };

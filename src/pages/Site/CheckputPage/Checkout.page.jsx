@@ -48,7 +48,6 @@ function CheckoutPageComponent(props){
         setState({...state, [name]:value })
     }
 
-    console.log(props.userCart.reduce((acc, cv)=> acc + +cv.allPrice, 0))
     const productsInfo = props.userCart.map(prod=> ({id:prod.id, name:prod.name, price:prod.price, count:prod.count, allPrice:prod.allPrice}) )
     const submitHandler = async (event)=>{
         event.preventDefault()

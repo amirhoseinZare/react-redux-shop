@@ -46,20 +46,22 @@ function PaymentSuccess(props){
 
     const classes = useStyles();
     const urlParams = new URLSearchParams(window.location.search);
-    console.log(urlParams.get('order'))
 
-    useEffect(async ()=>{
-        try {
-            const response = await orderApi.patch(urlParams.get('order'), { pay:true })    
-            const {products} = response.data
-            products.forEach(async product => {
-                const response = await productApi.get(product.id)
-                await productApi.patch(product.id, { quantity: +response.data.quantity - +product.count })    
-            })
-            props.emptyUserCart()
-        } catch (error) {
-            console.log(error)            
+    useEffect( ()=>{
+        const getSuccessOrder = async () =>{
+            try {
+                const response = await orderApi.patch(urlParams.get('order'), { pay:true })    
+                const {products} = response.data
+                products.forEach(async product => {
+                    const response = await productApi.get(product.id)
+                    await productApi.patch(product.id, { quantity: +response.data.quantity - +product.count })    
+                })
+                props.emptyUserCart()
+            } catch (error) {
+                console.log(error)            
+            }    
         }
+        getSuccessOrder()
     }, [])
 
     return (

@@ -44,34 +44,43 @@ export default function ProductsTable(props) {
         await setPageState({...pageState,page:newPage})
     };
 
-    useEffect( async ()=>{
-        try {
-            const { page, perpage } = pageState
-            const response = await productApi.gets({params:{_page:page, _limit:5}})
-
-            await setProductsState(response.data)
-
-            const productsCount = response.headers['x-total-count']
-            const pagesCount = Math.ceil( productsCount / perpage )
-            setPagesCount(pagesCount)
-            
-        } catch (error) {
-            console.log(error)            
+    useEffect( ()=>{
+        const getProductsPerPage = async ()=>{
+            try {
+                const { page, perpage } = pageState
+                const response = await productApi.gets({params:{_page:page, _limit:5}})
+    
+                await setProductsState(response.data)
+    
+                const productsCount = response.headers['x-total-count']
+                const pagesCount = Math.ceil( productsCount / perpage )
+                setPagesCount(pagesCount)
+                
+            } catch (error) {
+                console.log(error)            
+            }
         }
+        getProductsPerPage()
     }, [])
 
-    useEffect( async ()=>{
-        const { page } = pageState
-        const response = await productApi.gets({params:{_page:page, _limit:5}})
-        setProductsState(response.data)
+    useEffect( ()=>{
+        const getProductsPerPage = async ()=>{
+            const { page } = pageState
+            const response = await productApi.gets({params:{_page:page, _limit:5}})
+            setProductsState(response.data)    
+            getProductsPerPage()
+        }
     }, [pageState])
 
-    useEffect( async ()=>{
-       if(props.mode === 'default'){
-        const { page } = pageState
-        const response = await productApi.gets({params:{_page:page, _limit:5}})
-        setProductsState(response.data)
-       }
+    useEffect( ()=>{
+        const getProductsPerPage = async ()=>{
+            if(props.mode === 'default'){
+                const { page } = pageState
+                const response = await productApi.gets({params:{_page:page, _limit:5}})
+                setProductsState(response.data)
+               }        
+        }
+        getProductsPerPage()
     }, [props.mode])
 
     const {openModalEditButtonHandler,openModalDeleteButtonHandler} = props

@@ -36,29 +36,34 @@ function ProductsGroupPageComponent(props){
     const [productsState, setProductsState] = useState({ products: [] })
     const [loading, setLoading] = useState({ show: true })
 
-    useEffect(async ()=>{
-        const allgroups = []
-        const response = await groupApi.gets()
-        const groups = response.data
-        groups.forEach(async (group , index)=>{
-            const response = await productApi.gets({params: {group:group.name}})
-            allgroups.push({
-                group:group.name,
-                groupId:group.id,
-                products:response.data.map(prod=> ({name:prod.name, id:prod.id})),
+    useEffect( ()=>{
+        const getGroupsAndProducts = async () => {
+            const allgroups = []
+            const response = await groupApi.gets()
+            const groups = response.data
+            groups.forEach(async (group , index)=>{
+                const response = await productApi.gets({params: {group:group.name}})
+                allgroups.push({
+                    group:group.name,
+                    groupId:group.id,
+                    products:response.data.map(prod=> ({name:prod.name, id:prod.id})),
+                })
+                if(index ===groups.length-1){
+                    await setGroupsState({groups:allgroups})
+                }
             })
-            if(index ===groups.length-1){
-                console.log(allgroups)
-                await setGroupsState({groups:allgroups})
-            }
-        })
+        }
+        getGroupsAndProducts()
     }, [])
 
     useEffect(async ()=>{
-        const response = await productApi.gets({params: {group:props.match.params.groupName}})
-        const products = response.data
-        await setProductsState({ products:products })
-        setLoading({show:false})
+        const getProductByGroupName = async () =>{
+            const response = await productApi.gets({params: {group:props.match.params.groupName}})
+            const products = response.data
+            await setProductsState({ products:products })
+            setLoading({show:false})    
+        }
+        getProductByGroupName()
     }, [])
 
     const pageContent = (

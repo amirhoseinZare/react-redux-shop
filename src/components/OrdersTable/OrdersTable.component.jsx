@@ -46,31 +46,32 @@ export default function OrdersTable(props) {
     };
 
     useEffect( async ()=>{
-        try {
-            const { page, perpage } = pageState
-            const response = await orderApi.gets({params:{_page:page, _limit:5}})
-
-            await setOrdersState(response.data)
-
-            const productsCount = response.headers['x-total-count']
-            const pagesCount = Math.ceil( productsCount / perpage )
-            setPagesCount(pagesCount)
-            
-        } catch (error) {
-            console.log(error)            
-        }
-    }, [])
-
-    useEffect( async ()=>{
-        const {doneFilter:done} = props.filterProducts
-        console.log(done==='false')
-    }, [props.filterProducts])
+        const getData = async () =>{
+            try {
+                const { page, perpage } = pageState
+                const response = await orderApi.gets({params:{_page:page, _limit:5}})
     
-    useEffect( async ()=>{
+                await setOrdersState(response.data)
+    
+                const productsCount = response.headers['x-total-count']
+                const pagesCount = Math.ceil( productsCount / perpage )
+                setPagesCount(pagesCount)
+                
+            } catch (error) {
+                console.log(error)            
+            }    
+        }
+        getData()
+    }, [])
+    
+    useEffect( ()=>{
         const { page } = pageState
         const {doneFilter:done} = props.filterProducts
-        const response = await orderApi.gets({params:{_page:page, _limit:5, delivered:done}})
-        setOrdersState(response.data)
+        const getData = async ()=>{
+            const response = await orderApi.gets({params:{_page:page, _limit:5, delivered:done}})
+            setOrdersState(response.data)    
+        }
+        getData()
     }, [pageState, props.filterProducts])
     return (
     <Grid item lg={8} md={10} sm ={10} xs={10} className={classes.container}>
@@ -87,7 +88,6 @@ export default function OrdersTable(props) {
                 <TableBody>
                     {ordersState.map((row, index) => {
                         const { id, name, familyName, cost, createdAt } = row
-                        console.log(cost.replace, typeof cost)
                         return (
                             <TableRow className={index%2===0? classes.tableRow1 : classes.tableRow2} key={id}>
                                 <TableCell align="right" component="th" scope="row">

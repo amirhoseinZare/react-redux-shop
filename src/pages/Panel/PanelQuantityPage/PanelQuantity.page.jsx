@@ -2,7 +2,7 @@ import {PanelHeader} from "../../../layouts/index"
 import {QuantityTable} from "../../../components/index"
 import {Typography, Button, Grid} from "@material-ui/core"
 import { makeStyles } from '@material-ui/core/styles';
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import productApi from "../../../api/products.api";
 
 const useStyles = makeStyles({
@@ -22,13 +22,8 @@ function PanelQuantityPage (){
     const [ editingProductsState ,setEditingProductsState ] = useState([]);
     const [editmode, setEditMode ] = useState({edit:'end'});
 
-    useEffect(async () =>{
-        console.log(editingProductsState)
-    }, [editingProductsState])
-
     const saveButtonClickHandler = async (event) => {
         setEditMode({edit:'start'})
-        console.log(editingProductsState)
         editingProductsState.forEach(async({id, quantity, price}, index)=>{
             const obj = {}
             if(quantity>=0){
@@ -36,7 +31,6 @@ function PanelQuantityPage (){
             }
             if(price)
                 obj.price = price
-            console.log(id, obj)
             if(index===editingProductsState.length-1){
                 await productApi.patch(id, {...obj})
                 await setEditMode({edit:'done'})

@@ -1,4 +1,3 @@
-import {useEffect} from 'react'
 import {makeStyles} from '@material-ui/core'
 import {withRouter} from "react-router-dom"
 
@@ -35,10 +34,6 @@ const useStyles = makeStyles((theme) => ({
 
 function ProductsGroupAsideComponent(props){
     const classes = useStyles();
-
-    useEffect( async ()=>{
-        console.log(props.groups)
-    }, [props.groups])
 
     return (
         <section className={classes.container}>
