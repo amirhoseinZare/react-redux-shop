@@ -6,6 +6,8 @@ import {ProductsGroupAside, ProductCard} from "../../../components/index"
 import {Spinner} from "../../../components/index"
 import groupApi from "../../../model/groups.model"
 import productApi from "../../../model/products.model"
+import {e2p} from "../../../utils/LanGuaggeNumberConvertor.utils"
+import {numberWithCommas} from "../../../utils/numberWithCommas.utils"
 
 const useStyles = makeStyles((theme) => ({
     asideContainer:{
@@ -65,8 +67,8 @@ function ProductsGroupPageComponent(props){
                 <Typography variant="h4" component="h1" className={classes.productGroupTitle}>{props.match.params.groupName}</Typography>
                 <div className={classes.productsContainer}>
                 {productsState.products.map((prod, index)=>{
-                    const {name, description, image, id} = prod
-                    return (<ProductCard lg={6} md={6} sm ={12} xs={12} url={`/product/${id}`} name={name} description={description} image={image}></ProductCard>)
+                    const {name, image, id, price} = prod
+                    return (<ProductCard lg={4} md={6} sm ={12} xs={12} url={`/product/${id}`} name={name} price={e2p(numberWithCommas(price))} image={image}></ProductCard>)
                 })}
                 </div>
             </Grid>

@@ -8,6 +8,8 @@ import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
 import { withRouter } from "react-router-dom"
 import {Spinner} from "../../../components/index"
 import groupApi from "../../../model/groups.model"
+import {e2p} from "../../../utils/LanGuaggeNumberConvertor.utils"
+import {numberWithCommas} from "../../../utils/numberWithCommas.utils"
 
 const useStyles = makeStyles((theme) => ({
     groupTitle:{
@@ -63,9 +65,9 @@ function HomePagePage(props){
                             </h2>
                         </Grid>
                             {product.products.map(prod=>{
-                                const {name, description, image, id} = prod
+                                const {name, image, id, price} = prod
                                 return (
-                                    <ProductCard key={prod.id} name={name} description={description} image={image} url={`/product/${id}`}/>
+                                    <ProductCard key={prod.id} name={name} price={e2p(numberWithCommas(price))} image={image} url={`/product/${id}`}/>
                                 )
                             })}
                     </Fragment>
