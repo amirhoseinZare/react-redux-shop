@@ -1,4 +1,6 @@
 import axios from 'axios'
+import {useHistory} from "react-router-dom"
+
 const instance = axios.create();
 
 class Service {
@@ -14,7 +16,14 @@ class Service {
             return Promise.reject(error);
         });
         
-        instance.interceptors.response.use(res => res, (error)=> {
+        instance.interceptors.response.use(res => {
+            const {status} = res;
+            if(status>=400){
+                console.log('hello')
+                window.location.pathname = '/404'
+            }
+            return res
+        }, (error)=> {
             return Promise.reject(error);
         });
         
