@@ -60,7 +60,7 @@ function ProductsGroupPageComponent(props){
 
     useEffect(async ()=>{
         const getProductByGroupName = async () =>{
-            const response = await productApi.gets({params: {group:props.match.params.groupName}})
+            const response = await productApi.gets({params: {group:props.match.params.groupName.replaceAll('-', ' ')}})
             const products = response.data
             await setProductsState({ products:products })
             setLoading({show:false})    
@@ -71,7 +71,7 @@ function ProductsGroupPageComponent(props){
     const pageContent = (
         <div style={{display:'flex', }}>
             <Grid item lg={10} md={9} sm ={8} xs={8} className={classes.mainContent}>
-                <Typography variant="h4" component="h1" className={classes.productGroupTitle}>{props.match.params.groupName}</Typography>
+                <Typography variant="h4" component="h1" className={classes.productGroupTitle}>{props.match.params.groupName.replaceAll('-', ' ')}</Typography>
                 <div className={classes.productsContainer}>
                 {productsState.products.map((prod, index)=>{
                     const {name, image, id, price} = prod

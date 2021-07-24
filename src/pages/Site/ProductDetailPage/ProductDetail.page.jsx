@@ -118,8 +118,10 @@ function ProductDetailPageComponent(props){
             const response = await productApi.get(props.match.params.productId)
             const product = response.data
             const groupResponse = await groupApi.gets({params:{name:product.group}})
-            product.groupId = groupResponse.data.id
+            product.groupId = groupResponse.data[0].id
+            product.group = groupResponse.data[0].name
             await setProductsState(product)
+            console.log(productsState)
             setLoading({show:false})    
         }
         getProductsByGroup()
@@ -150,7 +152,7 @@ function ProductDetailPageComponent(props){
         setCartCount({ quantity: event.target.value})
     }
 
-    const {name, description, image, group, headgroup, price, id, groupId} = productsState
+    const {name, description, image, group='', headgroup, price, id, groupId=''} = productsState
 
     const pageContent = (
             <main>
@@ -165,7 +167,7 @@ function ProductDetailPageComponent(props){
                                 <Typography variant="h6" component="p" className={classes.productSubCategoryTitle}>{headgroup}</Typography>
                                 <Typography variant="h6" component="p" className={classes.productCategoryTitle}>
                                     <ArrowLeftIcon style={{color:'var(--lavender-floral)'}}/>
-                                    <Link to={`/product/group/${groupId}/${group}`} className={classes.productCategoryTitleLink}>{group}</Link>
+                                    <Link to={`/product/group/${groupId}/${group.trim().replaceAll(' ', '-')}`} className={classes.productCategoryTitleLink}>{group}</Link>
                                 </Typography>
                             </div>
                             <Typography variant="h5" component="p" className={classes.productPrice}>{e2p(numberWithCommas(''+price))} تومان</Typography>

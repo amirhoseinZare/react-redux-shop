@@ -41,7 +41,7 @@ function ProductsGroupAsideComponent(props){
                 props.groups.map(group=>{
                     const {groupId:id, products, group:name} = group
                     return <article className={classes.groupCategory} key={id}>
-                        <h4 className={classes.groupTitle}><a className={classes.groupCategoryLink} href={`/product/group/${id}/${name}`}>{name}</a></h4>
+                        <h4 className={classes.groupTitle}><a className={classes.groupCategoryLink} href={`/product/group/${id}/${name.trim().replaceAll(' ', '-')}`}>{name}</a></h4>
                         {products.map(prod=>{
                             const {name, id:prodId} = prod
                             return (<p className={classes.subGroupTitle} key={prodId}>
