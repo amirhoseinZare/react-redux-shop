@@ -12,7 +12,6 @@ import {numberWithCommas} from "../../../utils/numberWithCommas.utils"
 const useStyles = makeStyles((theme) => ({
     asideContainer:{
         height:'100vh',
-        borderLeft: '1px solid var(--lavender-floral)',
         boxSizing: 'border-box'
     },
     productGroupTitle:{
@@ -26,6 +25,9 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: 'row',
         flexWrap:'wrap',
         justifyContent:'flex-end',
+    },
+    mainContent:{
+        borderRight: '1px solid var(--lavender-floral)',
     }
 }));
  
@@ -68,7 +70,7 @@ function ProductsGroupPageComponent(props){
 
     const pageContent = (
         <div style={{display:'flex', }}>
-            <Grid item lg={10} md={9} sm ={8} xs={8}>
+            <Grid item lg={10} md={9} sm ={8} xs={8} className={classes.mainContent}>
                 <Typography variant="h4" component="h1" className={classes.productGroupTitle}>{props.match.params.groupName}</Typography>
                 <div className={classes.productsContainer}>
                 {productsState.products.map((prod, index)=>{
