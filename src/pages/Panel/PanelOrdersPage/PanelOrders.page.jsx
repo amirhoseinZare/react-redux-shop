@@ -146,7 +146,7 @@ function PanelOrdersPage (){
 
                 <div className={classes.modalBodyItem}>
                     <Typography dir="rtl" variant="p" component="p" className={classes.modalDescriptionTitle} >زمان سفارش:</Typography>
-                    <Typography dir="rtl" className={classes.modalDescriptionTypo}>{deliveryRequestTime}</Typography>
+                    <Typography dir="rtl" className={classes.modalDescriptionTypo}>{new Date(deliveryRequestTime).toLocaleString('fa-ir')}</Typography>
                 </div>
 
                 <div className={classes.modalBodyItem}>

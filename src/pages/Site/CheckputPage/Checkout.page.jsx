@@ -5,6 +5,7 @@ import {useState} from "react"
 import {connect} from "react-redux"
 import orderApi from "../../../api/orders.api"
 import { cartSelector } from "../../../redux/selects/user.select"
+import { DatePicker } from "jalali-react-datepicker";
 
 const useStyles = makeStyles((theme) => ({
     container:{
@@ -46,6 +47,10 @@ function CheckoutPageComponent(props){
 
     const channgInputHandler  = ({target:{value}}, name)=>{
         setState({...state, [name]:value })
+    }
+
+    const setDeliveryTime = ({value:{_d}}) => {
+        setState({...state, deliveryTime:new Date(_d) })
     }
 
     const productsInfo = props.userCart.map(prod=> ({id:prod.id, name:prod.name, price:prod.price, count:prod.count, allPrice:prod.allPrice}) )
@@ -123,7 +128,7 @@ function CheckoutPageComponent(props){
                             <div>
                                 <label for="time" >:زمان تحویل</label>
                             </div>
-                            <TextField onChange={e=>channgInputHandler(e, 'deliveryTime')} value={deliveryTime} className={classes.textField} id="time" variant="outlined" />
+                            <DatePicker onClickSubmitButton={setDeliveryTime}/>
                         </div>
                     </Grid>
 
