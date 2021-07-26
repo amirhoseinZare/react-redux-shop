@@ -12,6 +12,7 @@
     "axios": "^0.21.1",
     "draftjs-to-html": "^0.9.1",
     "install": "^0.13.0",
+    "jalali-react-datepicker": "^1.2.1",
     "joi": "^17.4.0",
     "lodash.debounce": "^4.0.8",
     "node-sass": "^6.0.0",

@@ -1,13 +1,12 @@
 import { PanelLoginPage, PanelOrdersPage, PanelProductsList, PanelQuantityPage, NotFoundPage, redirect } from "../pages/index"
-import { Route } from "react-router-dom"
+import { Route, Switch } from "react-router-dom"
 
 const url = "/panel"
 export const PanelRoutes = ()=>(
-        <>
-            <Route exact path={`${url}/login`} component={PanelLoginPage} />
-            <Route exact path={`${url}/orders`} component={PanelOrdersPage} />
-            <Route exact path={`${url}/products`} component={PanelProductsList} />
-            <Route exact path={`${url}/quantity`} component={PanelQuantityPage} />
-            <Route component={NotFoundPage} render={()=><redirect to="/404"/>}/>
-        </>
+    <Switch>
+        <Route exact path="/panel/login" component={PanelLoginPage} />
+        <Route exact path="/panel/orders" component={PanelOrdersPage} />
+        <Route exact path="/panel/products" component={PanelProductsList} />
+        <Route exact path="/panel/quantity" component={PanelQuantityPage} />
+    </Switch>
 )
