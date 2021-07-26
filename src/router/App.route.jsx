@@ -1,10 +1,11 @@
 import { Switch, Route } from "react-router-dom"
-import {PanelRoutes} from "./Panel.route.jsx"
-import { CartPage, CheckoutPage, HomePage, PaymentFailedPage, PaymentSuccessPage, ProductDetailPage, ProductsGroupPage,NotFoundPage, PanelLoginPage, PanelOrdersPage, PanelProductsList, PanelQuantityPage, } from "../pages/index"
+// import {PanelRoutes} from "./Panel.route.jsx"
+import { PanelMainPage, CartPage, CheckoutPage, HomePage, PaymentFailedPage, PaymentSuccessPage, ProductDetailPage, ProductsGroupPage,NotFoundPage, PanelLoginPage, PanelOrdersPage, PanelProductsList, PanelQuantityPage, } from "../pages/index"
 
 export const AppRouter = () =>(
     <>
         <Switch>
+            <Route exact path="/panel" component={PanelMainPage} />
             <Route exact path="/panel/login" component={PanelLoginPage} />
             <Route exact path="/panel/orders" component={PanelOrdersPage} />
             <Route exact path="/panel/products" component={PanelProductsList} />

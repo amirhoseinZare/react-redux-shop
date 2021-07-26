@@ -12,6 +12,7 @@ export {PanelLoginPage} from './Panel/PanelLoginPage/PanelLogin.page.jsx'
 export {PanelOrdersPage} from './Panel/PanelOrdersPage/PanelOrders.page.jsx'
 export {PanelProductsList} from './Panel/PanelProductsListPage/PanelProductsList.page.jsx'
 export {PanelQuantityPage} from './Panel/PanelQuantityPage/PanelQuantity.page.jsx'
+export {PanelMainPage} from './Panel/PanelMainPage/PanelMain.page.jsx'
 
 // 404
 export {NotFoundPage} from './NotFoundPage/NotFound.page.jsx'
