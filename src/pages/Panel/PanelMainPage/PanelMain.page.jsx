@@ -7,16 +7,8 @@ import OrderApi from "../../../api/orders.api"
 import {getFirstDayOfWeek, getBeginningOfDayByMiliSeconds, getEndingOfDayByMiliSeconds} from "../../../utils/date.utils"
 
 const data = {
-    labels: ['1','2','3','4'],
-    datasets: [
-      {
-        label: 'تعداد فروش',
-        data: [],
-        fill: false,
-        backgroundColor: 'rgb(52,63,86)',
-        borderColor: 'rgb(52,63,86, 0.2)',
-      },
-    ],
+    labels: [],
+    datasets: [],
 };
 
 const options = {
@@ -31,7 +23,7 @@ const options = {
     },
 };
 
-export const PanelMainPage = (props)=>{
+export const PanelMainPage = ()=>{
     const [state , setState] = useState({ chart:data })
 
     const setOrdersState = async (days)=>{
@@ -41,7 +33,7 @@ export const PanelMainPage = (props)=>{
             labels:days.map(day => new Date(day).toLocaleDateString('fa-IR')),
             datasets:[
                 {
-                    label: 'تعداد فروش',
+                    label: 'مجموع فروش روزانه در این هفته',
                     data: saleResponses.map(res => res.data.length > 0 ? res.data.reduce((acc, cv)=>acc + cv.cost, 0) : 0),
                     fill: false,
                     backgroundColor: 'rgb(52,63,86)',
