@@ -4,9 +4,10 @@ import { Route, Switch } from "react-router-dom"
 const url = "/panel"
 export const PanelRoutes = ()=>(
     <Switch>
-        <Route exact path="/panel/login" component={PanelLoginPage} />
-        <Route exact path="/panel/orders" component={PanelOrdersPage} />
-        <Route exact path="/panel/products" component={PanelProductsList} />
-        <Route exact path="/panel/quantity" component={PanelQuantityPage} />
+        <Route exact path={`${url}/login`} component={PanelLoginPage} />
+        <Route exact path={`${url}/orders`} component={PanelOrdersPage} />
+        <Route exact path={`${url}/products`} component={PanelProductsList} />
+        <Route exact path={`${url}/quantity`} component={PanelQuantityPage} />
+        <Route component={NotFoundPage}/>
     </Switch>
 )
